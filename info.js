@@ -21,7 +21,7 @@ let info = {
   links: {
     linkedin: "https://www.linkedin.com/in/saleem-ayoub-20bb581b8/",
     github: "https://github.com/saleem189",
-    resume: "https://drive.google.com/file/d/10RXs8Nggf_mPJG8AhjxRY7EcKz-0VOdt/view?usp=drive_link"
+    resume: "https://drive.google.com/file/d/1E2biB35YLufpKAmWFPYwusMun8-ZtV98/view?usp=sharing"
   },
   education: [
     {
