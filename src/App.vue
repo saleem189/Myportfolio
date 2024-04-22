@@ -25,7 +25,7 @@ onMounted(() => {
   ["about", "contact", "skills", "portfolio"].forEach((l) => {
     if (window.location.href.includes(l)) {
       let elementPosition = document.getElementById(l).offsetTop;
-      window.scrollTo({ top: elementPosition - 35, behavior: "smooth" });
+      // window.scrollTo({ top: elementPosition - 35, behavior: "smooth" });
     }
   });
 });

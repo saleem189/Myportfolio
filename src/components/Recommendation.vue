@@ -52,9 +52,9 @@
 
 <script setup>
 import info from "../../info";
-const { recommendations } = info;
-import { ref } from 'vue';
-const nightMode = ref(false);
+let { recommendations } = info;
+import { ref , defineProps } from 'vue';
+let nightMode = defineProps(['nightMode']);
 </script>
 
 <style scoped>

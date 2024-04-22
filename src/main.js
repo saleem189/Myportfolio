@@ -28,8 +28,8 @@ const routes = [
     { path: '/'}
 ];
 const router = createRouter({
-    history: createWebHistory(),
-    // history: createMemoryHistory(),
+    // history: createWebHistory(),
+    history: createMemoryHistory(),
     routes,
 });
 
