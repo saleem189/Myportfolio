@@ -78,7 +78,7 @@ let info = {
       name: "MERN Stack Training",
       place: "Teresol, Pakistan",
       date: "Feb, 2023 - Apr, 2023",
-      position: "Computer Vision Engineer",
+      position: "MERN Stack Web Developer",
       description:
         "Completed Teresol Pvt Ltd's intensive 300-hour TechLift Program, specializing in the MERN stack. Acquired comprehensive skills in MongoDB, Express.js, React, and Node.js for full-stack web development. Developed expertise in building robust and scalable web applications through hands-on projects and real-world applications. Equipped with the knowledge and practical experience to excel as a skilled full-stack developer in today's dynamic industry.",
       skills: ["ReactJs", "MongoDB", "ExpressJS", "NodeJS", "Tailwind CSS", "FIGMA"]
@@ -87,7 +87,7 @@ let info = {
       name: "Eziline Software House",
       place: "Rawalpindi, Pakistan",
       date: "Apr, 2021 - Aug, 2021",
-      position: "MERN Stack Web Developer",
+      position: "Laravel Intern",
       description:
         "My professional journey took its initial steps with a Software Engineer internship at Eziline Software House. This opportunity allowed me to delve into the realm of full-stack development, where I gained practical experience in utilizing technologies such as Bootstrap for responsive UI, templating for dynamic content, and JavaScript for enhancing user interactions. During this period, I was introduced to the powerful capabilities of the Laravel framework, igniting a passion for creating efficient and robust applications. This internship served as a crucial foundation for my ongoing career growth.",
       skills: ["Laravel", "PHP", "Bootstrap", "JavaScript", "VueJS", "Jquery", "MySQL"]
