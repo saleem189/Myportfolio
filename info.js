@@ -78,7 +78,7 @@ let info = {
       name: "MERN Stack Training",
       place: "Teresol, Pakistan",
       date: "Feb, 2023 - Apr, 2023",
-      position: "MERN Stack Web Developer",
+      position: "MERN Stack Trainee",
       description:
         "Completed Teresol Pvt Ltd's intensive 300-hour TechLift Program, specializing in the MERN stack. Acquired comprehensive skills in MongoDB, Express.js, React, and Node.js for full-stack web development. Developed expertise in building robust and scalable web applications through hands-on projects and real-world applications. Equipped with the knowledge and practical experience to excel as a skilled full-stack developer in today's dynamic industry.",
       skills: ["ReactJs", "MongoDB", "ExpressJS", "NodeJS", "Tailwind CSS", "FIGMA"]
