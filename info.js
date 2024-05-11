@@ -41,7 +41,7 @@ let info = {
       ]
     },
     {
-      name: "The Inslamia University of Bahawalpur",
+      name: "The Islamia University of Bahawalpur",
       place: "Pakistan",
       date: "2016 - 2018",
       degree: "Bsc in Computer Science",
