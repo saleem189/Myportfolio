@@ -29,7 +29,7 @@
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <form
-            action="https://formspree.io/f/xyzwwjlw"
+            :action="formspreeUrl"
             method="POST"
             @submit="handleSubmit"
             class="contact-form"
@@ -136,7 +136,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, computed } from 'vue'
 import Snackbar from "@/components/helpers/Snackbar.vue";
 
 let email = ref("");
@@ -149,6 +149,8 @@ let isSubmitting = ref(false);
 let { nightMode } = defineProps({
   nightMode: Boolean,
 });
+
+const formspreeUrl = computed(() => import.meta.env.VITE_FORMSPREE_FORM_URL);
 
 let closeSnackbar = (val) => {
   if (!val) {

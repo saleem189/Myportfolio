@@ -1,8 +1,8 @@
 let config = {
   emailjs: {
-    serviceID: "service_x0dodas",
-    templateID: "template_i25ojmo",
-    userID: "qnhX_7VCLBjF2T4Ri"
+    serviceID: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    templateID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    userID: import.meta.env.VITE_EMAILJS_USER_ID
   }
 };
 
