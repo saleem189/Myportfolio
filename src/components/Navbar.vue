@@ -50,6 +50,15 @@
                 >Skills</a
               >
             </li>
+            <li class="nav-item mx-2" v-if="info.config.show_recommendations">
+              <a
+                class="nav-link"
+                href="/recommendations"
+                @click.prevent="$emit('scroll', 'recommendations')"
+                :class="{ 'text-light': nightMode }"
+                >Recommendations</a
+              >
+            </li>
             <li class="nav-item mx-2 ">
               <a
                 class="nav-link"
@@ -65,7 +74,7 @@
                 href="/contact"
                 @click.prevent="$emit('scroll', 'contact')"
                 :class="{ 'text-light': nightMode }"
-                >contact</a
+                >Contact</a
               >
             </li>
             <li class="nav-item ml-2">

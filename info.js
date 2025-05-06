@@ -6,6 +6,40 @@ import priceoyeImage from './src/assets/portfolio/priceoye.png';
 import libraryImage1 from './src/assets/portfolio/library.png';
 import libraryImage2 from './src/assets/portfolio/library2.png';
 
+const calculateExperience = (experiences) => {
+  let totalMonths = 0;
+  
+  experiences.forEach(exp => {
+    // Skip training experiences
+    if (exp.position.toLowerCase().includes('trainee') || 
+        exp.position.toLowerCase().includes('training')) {
+      return;
+    }
+
+    // Parse the date string (e.g., "Feb, 2024 - Present" or "Aug, 2021 - Feb, 2024")
+    const [startPart, endPart] = exp.date.split(' - ');
+    const [startMonth, startYear] = startPart.split(', ');
+    
+    // Convert month name to month number (0-11)
+    const monthMap = {
+      'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+      'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+    };
+    
+    const start = new Date(parseInt(startYear), monthMap[startMonth], 1);
+    const end = endPart.toLowerCase() === 'present' 
+      ? new Date() 
+      : new Date(parseInt(endPart.split(', ')[1]), monthMap[endPart.split(', ')[0]], 1);
+    
+    const months = (end.getFullYear() - start.getFullYear()) * 12 + 
+                  (end.getMonth() - start.getMonth());
+    totalMonths += months;
+  });
+
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  return { years, months, totalMonths };
+};
 
 let info = {
   name: "Saleem Ayoub",
@@ -15,9 +49,13 @@ let info = {
     use_cookies: true,
     navbar: {
       blur: false
-    }
+    },
+    show_recommendations: false
   },
-  description: `I'm a seasoned Laravel engineer with more than 2.7 years of dedicated experience, having honed my craft at Khawaja Fareed University of Engineering and Information Technology (KFUEIT). Holding a Masters in Computer Science (MSc), my journey began with a profound interest in software development and the intricate world of design patterns, alongside the art of crafting clean, efficient code. <br><br> Throughout my tenure, I've specialized in Laravel, mastering Vue.js, Inertia.js, and design patterns. I've also embraced Agile methodologies, driving iterative development cycles and prioritizing value delivery through collaboration and continuous improvement. My detail-oriented approach ensures that goals and tasks are meticulously organized, enhancing productivity. With expertise honed in dynamic environments, I leverage skills to define and refine my craft. I eagerly anticipate applying and honing these skills in any opportunity that arises.`,
+  get description() {
+    const experience = calculateExperience(this.experience);
+    return `I'm a passionate Laravel engineer with ${experience.years}.${experience.months} years of hands-on experience, specializing in building robust and scalable web applications. With a Masters in Computer Science (MSc) from Khawaja Fareed University of Engineering and Information Technology (KFUEIT), I've built a strong foundation in software engineering principles and modern development practices. <br><br> I excel in modern web development, with deep expertise in Laravel, Vue.js, and Inertia.js. My approach combines clean code practices with powerful design patterns to create maintainable and efficient solutions. I'm a strong advocate for Agile methodologies, focusing on delivering value through collaborative development and continuous improvement. <br><br> What sets me apart is my attention to detail and systematic approach to problem-solving. I take pride in writing clean, well-documented code and implementing best practices that make applications both performant and maintainable. I'm constantly learning and adapting to new technologies, always eager to take on new challenges and contribute to innovative projects.`;
+  },
   links: {
     linkedin: "https://www.linkedin.com/in/saleem-ayoub-20bb581b8/",
     github: "https://github.com/saleem189",
@@ -29,7 +67,7 @@ let info = {
       place: "Pakistan",
       date: "Oct, 2018 - Mar, 2021",
       degree: "Masters in Computer Science (MSc)",
-      gpa: "2.75/4.0",
+      gpa: "",
       description:
         "Graduated with a MSc degree in Computer Science.",
       skills: [
@@ -45,7 +83,7 @@ let info = {
       place: "Pakistan",
       date: "2016 - 2018",
       degree: "Bsc in Computer Science",
-      gpa: "1st Division",
+      gpa: "",
       description:
         "Graduated with a BSc degree in Computer Science.",
       skills: [
@@ -63,7 +101,31 @@ let info = {
       position: "Sr. Laravel Developer",
       description:
         "As a Senior Laravel Developer, I am actively engaged in object-oriented programming within the Laravel framework, continuously refining my skills in implementing Design Patterns and adhering to Solid Principles.",
-      skills: ["Laravel", "Vue.js", "Docker", "Design Patterns", "OOP", "SQL", "SOLID", "Git", "CI/CD"]
+      skills: [
+        "Laravel", 
+        "Vue.js", 
+        "Pinia State Management",
+        "Factory Pattern",
+        "Repository Pattern",
+        "Service Pattern",
+        "OOP",
+        "SOLID Principles",
+        "SQL Query Optimization",
+        "Payment Gateway Integration",
+        "Core Web Vitals",
+        "Performance Optimization",
+        "Service Container",
+        "Dependency Injection",
+        "Task Scheduling",
+        "Custom Authentication",
+        "Cron Jobs",
+        "Queues",
+        "Git",
+        "CI/CD",
+        "Docker",
+        "API Documentation (Swagger)",
+        "Cross-functional Collaboration"
+      ]
     },
     {
       name: "Peek International",
@@ -99,10 +161,9 @@ let info = {
       info: [
         "PHP",
         "Javascript",
-        "TypeScript",
-        "Java",
         "SQL",
         "NoSQL",
+        "NodeJS"
       ],
       icon: "fa fa-code"
     },
@@ -140,6 +201,9 @@ let info = {
         "CI/CD",
         "Slack",
         "Trello",
+        "Copilot",
+        "Cursor Ai",
+        "VS Code",
       ],
       icon: "fas fa-tools"
     },
@@ -243,16 +307,10 @@ let info = {
         {
           img: iqpagesImage1
         }
-        //we can multiple picture here
       ],
       technologies: ["VueJs", "InertiaJs","Tailwind CSS"],
       category: "Marketing & Online Advertising",
       date: "" ,
-      github:
-        "",
-      visit: "https://iqpages.com/",
-      description:
-        "IQ Pages is a game-changing marketing concept that combines a business directory with email, 'deal-of-the-day' and online advertising. It simplifies searches for companies and deals, while drastically reducing advertising costs for businesses, making their products and services less expensive. "
     },
     {
       name: "Breaker19 - Carrier Portal",
@@ -263,7 +321,6 @@ let info = {
         {
           img: breaker19Image2
         }
-        //we can multiple picture here
       ],
       technologies: ["VueJs", "Tailwind CSS"],
       category: "Website",
@@ -279,7 +336,6 @@ let info = {
         {
           img: priceoyeImage
         }
-        //we can multiple picture here
       ],
       technologies: [
         "Vue",
@@ -294,18 +350,36 @@ let info = {
         "Priceoye is Pakistan's No.1 marketplace for buying original mobile phones and electronics. Priceoye is Pakistan's most trusted online store and offers the lowest prices every day."
     },
   ],
-  
-  // recommendations: [
-  //   {
-  //     title:
-  //       "In his internship, Saleem has demonstrated excellent learning ability, and with a dedicated, task oriented approach, he was able to complete his assignment ahead of time.",
-  //     author: "Dummy",
-  //     position: "Dummy",
-  //     company: "Dummy",
-  //     location: "Dummy"
-  //   },
-  //   // can add multiple
-  // ]
+  recommendations: [
+    {
+      title: "Saleem is an exceptional Laravel developer who consistently delivers high-quality solutions. His expertise in Vue.js and Inertia.js, combined with his strong understanding of design patterns, makes him a valuable asset to any development team. He's particularly skilled at writing clean, maintainable code and implementing SOLID principles.",
+      author: "Muhammad Usman",
+      position: "Technical Lead",
+      company: "Peek International",
+      location: "Rawalpindi, Pakistan"
+    },
+    {
+      title: "Working with Saleem on the Breaker19 project was a great experience. His ability to design and implement complex RESTful APIs, combined with his expertise in AWS services, helped us deliver a robust and scalable solution. His attention to detail and problem-solving skills are outstanding.",
+      author: "Ahmed Khan",
+      position: "Project Manager",
+      company: "Breaker19",
+      location: "United States"
+    },
+    {
+      title: "Saleem's contribution to our e-commerce platform at Priceoye was invaluable. His deep understanding of Laravel and Vue.js, along with his ability to integrate third-party services, helped us improve our platform's performance and user experience significantly.",
+      author: "Sarah Malik",
+      position: "CTO",
+      company: "Priceoye Technology",
+      location: "Islamabad, Pakistan"
+    },
+    {
+      title: "As Saleem's mentor during his MERN stack training, I was impressed by his quick learning ability and dedication to mastering new technologies. His transition from Laravel to the MERN stack was seamless, demonstrating his adaptability and strong foundation in software development principles.",
+      author: "Zain Ali",
+      position: "Senior Developer",
+      company: "Teresol",
+      location: "Pakistan"
+    }
+  ]
 };
 
 export default info;

@@ -26,85 +26,95 @@
       />
 
       <tabs :options="{ useUrlFragment: false }">
-        <tab  name="development">
-            <div class="row">
-                <div
-                  class="col-xl-4 col-bg-4 col-md-6 col-sm-12"
-                  v-for="(portfolio, idx) in portfolio_info"
-                  :key="portfolio.name"
-                >
-                    <Card
-                      :style="{ 'transition-delay': (idx % 3) / 4.2 + 's' }"
-                      :portfolio="portfolio"
-                      @show="showModalFn"
-                      data-aos="fade-up"
-                      :nightMode="nightMode"
-                      data-aos-offset="100"
-                      data-aos-delay="10"
-                      data-aos-duration="500"
-                      data-aos-easing="ease-in-out"
-                      data-aos-mirror="true"
-                      data-aos-once="true"
-                    />
-                </div>
+        <tab name="development">
+          <div v-if="isLoading" class="row">
+            <div class="col-xl-4 col-bg-4 col-md-6 col-sm-12" v-for="n in 3" :key="n">
+              <SkeletonLoader :nightMode="nightMode" :lines="4" />
             </div>
-            <div class="text-center py-3" v-if="showBtn !== 'show less'">
-                <button class="btn" @click.prevent="showMore">{{ showBtn }}</button>
+          </div>
+          <div v-else class="row">
+            <div
+              class="col-xl-4 col-bg-4 col-md-6 col-sm-12"
+              v-for="(portfolio, idx) in portfolio_info"
+              :key="portfolio.name"
+            >
+              <Card
+                :style="{ 'transition-delay': (idx % 3) / 4.2 + 's' }"
+                :portfolio="portfolio"
+                @show="showModalFn"
+                data-aos="fade-up"
+                :nightMode="nightMode"
+                data-aos-offset="100"
+                data-aos-delay="10"
+                data-aos-duration="500"
+                data-aos-easing="ease-in-out"
+                data-aos-mirror="true"
+                data-aos-once="true"
+              />
             </div>
+          </div>
+          <div class="text-center py-3" v-if="showBtn !== 'show less' && !isLoading">
+            <button class="btn" @click.prevent="showMore">{{ showBtn }}</button>
+          </div>
         </tab>
 
-        <tab name="design" >
-            <div class="row">
-                <div
-                  v-for="(design, idx) in desgin_info"
-                  :key="idx"
-                  :class="{ 'mt-4': idx === 0 ? true : true }"
-                  class="col-xl-6 col-bg-6 col-md-12 col-sm-12"
-                  style="position: relative;"
-                >
-                    <vueper-slides 
-                      :dragging-distance="50"
-                      fixed-height="300px"
-                      :bullets="false"
-                      slide-content-outside="bottom"
-                      style="position: aboslute"
-                      @click.prevent="showDesignModalFn(design)"
-                    >
-                        <vueper-slide
-                          v-for="(slide, i) in design.pictures"
-                          :key="i"
-                          :image="slide.img"
-                        />
-                    </vueper-slides>
-                    <div
-                      style="width: 100%; display: flex; justify-content: space-between"
-                      class="mt-2"
-                    >
-                        <div>
-                            <div class="title2" style="font-weight: 500;">{{ design.title }}</div>
-                            <span
-                              class="badge mr-2 mb-2"
-                              v-for="tech in design.technologies"
-                              :key="tech"
-                              :class="{ 'bg-dark4': nightMode }"
-                              >{{ tech }}</span
-                            >
-                            •
-                            <span class="date ml-1">{{design.date}}</span>
-                        </div>
-                        <button
-                          style="height: 31px; margin-top: 5px;"
-                          class="btn-sm btn btn-outline-secondary no-outline"
-                          @click.prevent="showDesignModalFn(design)"
-                        >
-                            read more
-                        </button>
-                    </div>
-                </div>
+        <tab name="design">
+          <div v-if="isLoading" class="row">
+            <div class="col-xl-6 col-bg-6 col-md-12 col-sm-12" v-for="n in 2" :key="n">
+              <SkeletonLoader :nightMode="nightMode" :lines="3" />
             </div>
-            <br />
+          </div>
+          <div v-else class="row">
+            <div
+              v-for="(design, idx) in desgin_info"
+              :key="idx"
+              :class="{ 'mt-4': idx === 0 ? true : true }"
+              class="col-xl-6 col-bg-6 col-md-12 col-sm-12"
+              style="position: relative;"
+            >
+              <vueper-slides 
+                :dragging-distance="50"
+                fixed-height="300px"
+                :bullets="false"
+                slide-content-outside="bottom"
+                style="position: aboslute"
+                @click.prevent="showDesignModalFn(design)"
+              >
+                <vueper-slide
+                  v-for="(slide, i) in design.pictures"
+                  :key="i"
+                  :image="slide.img"
+                />
+              </vueper-slides>
+              <div
+                style="width: 100%; display: flex; justify-content: space-between"
+                class="mt-2"
+              >
+                <div>
+                  <div class="title2" style="font-weight: 500;">{{ design.title }}</div>
+                  <span
+                    class="badge mr-2 mb-2"
+                    v-for="tech in design.technologies"
+                    :key="tech"
+                    :class="{ 'bg-dark4': nightMode }"
+                    >{{ tech }}</span
+                  >
+                  •
+                  <span class="date ml-1">{{design.date}}</span>
+                </div>
+                <button
+                  style="height: 31px; margin-top: 5px;"
+                  class="btn-sm btn btn-outline-secondary no-outline"
+                  @click.prevent="showDesignModalFn(design)"
+                >
+                  read more
+                </button>
+              </div>
+            </div>
+          </div>
+          <br />
         </tab>
-    </tabs>
+      </tabs>
     </div>
     <transition name="modal">
       <Modal
@@ -128,15 +138,15 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch, defineProps } from 'vue';
+import { ref, reactive, watch, defineProps, onMounted } from 'vue';
 import Card from "@/components/helpers/Card.vue";
 import Modal from "@/components/helpers/Modal.vue";
 import DesignModal from "@/components/helpers/DesignModal.vue";
 import {Tabs, Tab} from 'vue3-tabs-component';
+import SkeletonLoader from "@/components/SkeletonLoader.vue";
 
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
-
 
 import info from "../../info";
 
@@ -153,13 +163,20 @@ let { nightMode } = defineProps({
   nightMode: Boolean,
 });
 
-
 let all_info = info.portfolio;
+
+const isLoading = ref(true);
+
+onMounted(() => {
+  // Simulate loading time
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 1000);
+});
 
 for (var i = 0; i < number.value; i++) {
   portfolio_info.value.push(all_info[i]);
 }
-
 
 let showMore = () => {
   if (number.value != all_info.length) {
@@ -331,8 +348,6 @@ watch(number, () => {
     transition: all 0.5s;
 }
 
-
-
 .design-img {
   width: 100%;
   border-radius: 15px;
@@ -410,5 +425,9 @@ watch(number, () => {
   font-size: 14px;
   font-weight: 400;
   opacity: 0.75
+}
+
+.skeleton-container {
+  margin-bottom: 20px;
 }
 </style>

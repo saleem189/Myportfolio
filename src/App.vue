@@ -9,10 +9,13 @@ import Portfolio from "@/components/Portfolio.vue";
 import Recommendation from "@/components/Recommendation.vue";
 import Contact from "@/components/Contact.vue";
 import Footer from "@/components/Footer.vue";
+import ViewCounter from "@/components/ViewCounter.vue";
+import BackToTop from "@/components/BackToTop.vue";
+import SEOHead from "@/components/SEOHead.vue";
 import { useCookies } from "vue3-cookies";
 import info from "../info";
-const { cookies } = useCookies();
 
+const { cookies } = useCookies();
 const router = useRouter()
 const route = useRoute()
 
@@ -22,12 +25,20 @@ if (info.config.use_cookies) {
 }
 
 onMounted(() => {
-  ["about", "contact", "skills", "portfolio"].forEach((l) => {
-    if (window.location.href.includes(l)) {
-      let elementPosition = document.getElementById(l).offsetTop;
-      // window.scrollTo({ top: elementPosition - 35, behavior: "smooth" });
+  // Handle initial route
+  const path = route.path;
+  if (path !== '/') {
+    const section = path.substring(1); // Remove leading slash
+    const element = document.getElementById(section);
+    if (element) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: element.offsetTop - 35,
+          behavior: 'smooth'
+        });
+      }, 100);
     }
-  });
+  }
 });
 
 const switchMode = (mode) => {
@@ -38,31 +49,59 @@ const switchMode = (mode) => {
 };
 
 const scrollTo = (ele) => {
-  if (ele == "home") {
-    router.push(`/`);
-    window.scrollTo({ top: -80, behavior: "smooth" });
+  if (ele === "home") {
+    router.push('/');
+    window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
-    var elementPosition = document.getElementById(ele).offsetTop;
-    window.scrollTo({ top: elementPosition - 35, behavior: "smooth" });
-    if (route.path !== `/${ele}`)
-      router.push(`/${ele}`);
+    router.push(`/${ele}`);
+    const element = document.getElementById(ele);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 35,
+        behavior: "smooth"
+      });
+    }
   }
 };
-
 </script>
 
 <template>
-    <div :class="{ 'text-dark': !nightMode, 'text-light': nightMode }">
-      <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
-      <div class="parent">
+  <div :class="{ 'text-dark': !nightMode, 'text-light': nightMode }" class="app-container">
+    <SEOHead />
+    <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
+    <main class="main-content">
+      <section class="section home-section">
         <Home :nightMode="nightMode" />
-        <About id="about" :nightMode="nightMode" />
-        <Skills id="skills" :nightMode="nightMode" />
-        <Portfolio id="portfolio" :nightMode="nightMode" />
-        <Contact id="contact" :nightMode="nightMode" />
-        <Footer :nightMode="nightMode" />
-      </div>
-    </div>
+      </section>
+      
+      <section id="about" class="section about-section">
+        <About :nightMode="nightMode" />
+      </section>
+      
+      <section id="skills" class="section skills-section">
+        <Skills :nightMode="nightMode" />
+      </section>
+
+      <section v-if="info.config.show_recommendations" id="recommendations" class="section recommendations-section">
+        <Recommendation :nightMode="nightMode" />
+      </section>
+      
+      <section id="portfolio" class="section portfolio-section">
+        <Portfolio :nightMode="nightMode" />
+      </section>
+      
+      <section id="contact" class="section contact-section">
+        <Contact :nightMode="nightMode" />
+      </section>
+    </main>
+
+    <aside class="floating-elements">
+      <ViewCounter class="view-counter-container" :nightMode="nightMode" />
+      <BackToTop :nightMode="nightMode" />
+    </aside>
+
+    <Footer :nightMode="nightMode" />
+  </div>
 </template>
 
 <style>
@@ -70,7 +109,7 @@ const scrollTo = (ele) => {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: var(--text-dark);
   width: 100%;
 }
 
@@ -87,19 +126,19 @@ const scrollTo = (ele) => {
 }
 
 .pgray {
-  color: #535a5e;
+  color: var(--medium-grey);
 }
 
 .pblue {
-  color: #669db3ff;
+  color: var(--light-blue);
 }
 
 .bg-dark2 {
-  background-color: #262c30 !important;
+  background-color: var(--bg-dark2) !important;
 }
 
 .text-light {
-  color: #d3d2d2 !important;
+  color: var(--text-light) !important;
 }
 
 .p-st {
@@ -113,21 +152,21 @@ const scrollTo = (ele) => {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--very-light-grey);
   border-radius: 9px;
-  border: 2px solid white; /* Use your background color instead of White */
+  border: 2px solid var(--off-white);
   background-clip: content-box;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--light-grey);
   border-radius: 9px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--medium-grey);
 }
 
 .tooltip {
@@ -136,11 +175,10 @@ const scrollTo = (ele) => {
 }
 
 .tooltip .tooltip-inner {
-  background: rgb(212, 149, 97);
-  color: white;
+  background: var(--error-color);
+  color: var(--pure-white);
   border-radius: 8px;
   font-size: 10px;
-  /* padding: 5px 10px 4px; */
 }
 
 .tooltip .tooltip-arrow {
@@ -149,7 +187,7 @@ const scrollTo = (ele) => {
   border-style: solid;
   position: absolute;
   margin: 5px;
-  border-color: rgb(212, 149, 97);
+  border-color: var(--error-color);
   z-index: 1;
 }
 
@@ -235,5 +273,28 @@ const scrollTo = (ele) => {
   visibility: visible;
   opacity: 1;
   transition: opacity 0.5s;
+}
+
+.view-counter-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.text-light .view-counter-container {
+  background: rgba(31, 41, 55, 0.9);
+}
+
+.recommendations-section {
+  background-color: var(--very-light-grey);
+}
+
+.text-light .recommendations-section {
+  background-color: var(--bg-dark2);
 }
 </style>

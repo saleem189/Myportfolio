@@ -1,0 +1,37 @@
+:root {
+  /* Primary Colors */
+  --deep-blue: #1E3A8A;
+  --light-blue: #3B82F6;
+  --soft-blue: #93C5FD;
+  
+  /* Grey Scale */
+  --dark-grey: #1F2937;
+  --medium-grey: #4B5563;
+  --light-grey: #9CA3AF;
+  --very-light-grey: #F3F4F6;
+  
+  /* Black and White */
+  --pure-black: #000000;
+  --off-white: #F9FAFB;
+  --pure-white: #FFFFFF;
+  
+  /* Legacy Colors (for backward compatibility) */
+  --primary-color: var(--deep-blue);
+  --primary-light: var(--soft-blue);
+  --text-dark: var(--dark-grey);
+  --text-light: var(--off-white);
+  --bg-light: var(--off-white);
+  --bg-dark: var(--dark-grey);
+  --bg-dark2: var(--medium-grey);
+  --success-color: #1aa260;
+  --error-color: #D49561;
+}
+
+/* Dark Mode Colors */
+[data-theme="dark"] {
+  --bg-primary: var(--dark-grey);
+  --bg-secondary: var(--medium-grey);
+  --text-primary: var(--off-white);
+  --text-secondary: var(--light-grey);
+  --border-color: var(--medium-grey);
+} 
