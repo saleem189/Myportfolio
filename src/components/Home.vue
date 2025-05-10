@@ -9,7 +9,7 @@
       data-aos-once="true"
       data-aos-duration="1000"
     >
-      <div class="row align-items-center">
+      <div class="row align-items-center mt-5">
         <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12 text-center">
           <img :src="picture" />
         </div>
