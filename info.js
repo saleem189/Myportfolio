@@ -124,7 +124,8 @@ let info = {
         "CI/CD",
         "Docker",
         "API Documentation (Swagger)",
-        "Cross-functional Collaboration"
+        "Cross-functional Collaboration",
+        "Elasticsearch",
       ]
     },
     {
