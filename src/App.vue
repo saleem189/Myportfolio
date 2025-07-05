@@ -50,10 +50,10 @@ const switchMode = (mode) => {
 
 const scrollTo = (ele) => {
   if (ele === "home") {
-    router.push('/Myportfolio/');
+    router.push('/');
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
-    router.push(`/Myportfolio/${ele}`);
+    router.push(`/${ele}`);
     const element = document.getElementById(ele);
     if (element) {
       window.scrollTo({
