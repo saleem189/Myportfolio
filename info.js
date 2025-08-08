@@ -5,6 +5,7 @@ import breaker19Image2 from './src/assets/portfolio/breaker19-carrierportal.png'
 import priceoyeImage from './src/assets/portfolio/priceoye.png';
 import libraryImage1 from './src/assets/portfolio/library.png';
 import libraryImage2 from './src/assets/portfolio/library2.png';
+import sheenpayImage1 from './src/assets/portfolio/sheenpay.png';
 
 const calculateExperience = (experiences) => {
   let totalMonths = 0;
@@ -221,6 +222,47 @@ let info = {
   ],
   portfolio: [
     {
+      name: "SheenPay",
+      pictures: [
+        {
+          img: sheenpayImage1 // Placeholder - you can replace with actual SheenPay image
+        }
+        //we can multiple picture here
+      ],
+      technologies: ["PHP", "Laravel","MySQL", "RESTful APIs", "Payment Gateway Integration", "Design Patterns", "SOLID Principles", "OOP", "Factory Pattern", "Repository Pattern", "Service Pattern", "Dependency Injection", "Task Scheduling", "Queues", "API Documentation (Swagger)"],
+      category: "FinTech & Payment Solutions",
+      date: "" ,
+      github:
+        "",
+      visit: "https://sheenpay.pk/",
+      description:
+        "SheenPay is a Shariah-compliant BNPL (Buy Now Pay Later) platform that enables customers to shop now and pay in 4 easy installments. As a Full Stack Developer, I worked on both frontend and backend development, implementing payment gateway integrations, user authentication, installment management, and mobile app development. The platform provides a seamless shopping experience with halal installment options, making it easier for customers to purchase their favorite products while maintaining Islamic financial principles."
+    },
+    {
+      name: "PriceOye",
+      pictures: [
+        {
+          img: priceoyeImage
+        }
+        //we can multiple picture here
+      ],
+      technologies: [
+        "Laravel",
+        "PHP",
+        "MySQL",
+        "Vue",
+        "Jquery",
+        "Blade",
+        "3PL API's Intergration",
+      ],
+      category: "E-Commerce",
+      github: "",
+      date: "",
+      visit: "https://priceoye.pk/",
+      description:
+        "Priceoye is Pakistan's No.1 marketplace for buying original mobile phones and electronics. Priceoye is Pakistan's most trusted online store and offers the lowest prices every day."
+    },
+    {
       name: "IQ Pages",
       pictures: [
         {
@@ -256,30 +298,7 @@ let info = {
       description:
         "I was involved in building the Breaked19 Carrier Portal, essentially like an Uber for Oilfield Hotshot & Trucking. My role primarily focused on developing RESTful APIs and backend functionalities. Additionally, I was responsible for crafting the carrier portal website using Vue.js."
     },
-    {
-      name: "PriceOye",
-      pictures: [
-        {
-          img: priceoyeImage
-        }
-        //we can multiple picture here
-      ],
-      technologies: [
-        "Laravel",
-        "PHP",
-        "MySQL",
-        "Vue",
-        "Jquery",
-        "Blade",
-        "3PL API's Intergration",
-      ],
-      category: "E-Commerce",
-      github: "",
-      date: "",
-      visit: "https://priceoye.pk/",
-      description:
-        "Priceoye is Pakistan's No.1 marketplace for buying original mobile phones and electronics. Priceoye is Pakistan's most trusted online store and offers the lowest prices every day."
-    },
+   
     {
       name: "Data Tranfer Object",
       pictures: [
