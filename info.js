@@ -101,7 +101,7 @@ let info = {
       date: "Feb, 2024 - Present",
       position: "Sr. Laravel Developer",
       description:
-        "As a Senior Laravel Developer, I am actively engaged in object-oriented programming within the Laravel framework, continuously refining my skills in implementing Design Patterns and adhering to Solid Principles.",
+        "As a Senior Laravel Developer, Built a Field Approval System for model/field changes. Led Delivery Charges Module with Factory Pattern and OOP for scalability. Redesigned Cart Page in Vue.js with Pinia, improving UX and performance. Integrated secure payment gateways, optimized SQL queries, and enhanced Core Web Vitals. Refactored legacy code using OOP, applied Repository & Service Patterns, and leveraged Laravel’s Service Container. Implemented scheduling, authentication, cron jobs, and queues for scalable apps.",
       skills: [
         "Laravel", 
         "Vue.js", 
@@ -126,7 +126,7 @@ let info = {
         "Docker",
         "API Documentation (Swagger)",
         "Cross-functional Collaboration",
-        "Elasticsearch",
+        "Elasticsearch"
       ]
     },
     {
@@ -229,7 +229,7 @@ let info = {
         }
         //we can multiple picture here
       ],
-      technologies: ["PHP", "Laravel","MySQL", "RESTful APIs", "Payment Gateway Integration", "Design Patterns", "SOLID Principles", "OOP", "Factory Pattern", "Repository Pattern", "Service Pattern", "Dependency Injection", "Task Scheduling", "Queues", "API Documentation (Swagger)"],
+      technologies: ["PHP", "Laravel","MySQL", "RESTful APIs", "Payment Gateway Integration", "Design Patterns", "SOLID Principles", "OOP", "Factory Pattern", "Repository Pattern", "Service Pattern", "Dependency Injection", "Task Scheduling", "Queues", "API Documentation (Swagger)", "Application Design", "Applicaion Architecture"],
       category: "FinTech & Payment Solutions",
       date: "" ,
       github:
@@ -321,6 +321,20 @@ let info = {
     // can add more Projects here
   ],
   portfolio_design: [
+    {
+      name: "SheenPay",
+      pictures: [
+        {
+          img: sheenpayImage1
+        }
+      ],
+      technologies: ["Responsive Design", "Custom Scss", "Blade Templates"],
+      category: "FinTech & Payment Solutions",
+      date: "" ,
+      visit: "https://sheenpay.pk/",
+      description:
+        "Designed and developed the user interface for SheenPay, a Shariah-compliant BNPL platform. Created intuitive mobile-first designs for the installment management system, payment flows, and user dashboard. Implemented responsive design principles ensuring seamless experience across all devices."
+    },
     {
       name: "IQ Pages",
       pictures: [
