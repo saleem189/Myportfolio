@@ -64,7 +64,7 @@ let info = {
   },
   education: [
     {
-      name: "Khawaja Fareed Unveristy of Engineering and Information Technology",
+      name: "Khawaja Fareed Unveristy of Engineering and Information Technology (KFUEIT)",
       place: "Pakistan",
       date: "Oct, 2018 - Mar, 2021",
       degree: "Masters in Computer Science (MSc)",
