@@ -62,6 +62,12 @@ let info = {
     github: "https://github.com/saleem189",
     resume: "https://drive.google.com/file/d/1tWPmtZeEQsEclNiraaVezOCnE8SyxlOZ/view"
   },
+  contact: {
+    email: "saleemayoub1@gmail.com",
+    phone: "+923001234567",
+    location: "Pakistan",
+    availability: "Open to opportunities",
+  },
   education: [
     {
       name: "Khawaja Fareed Unveristy of Engineering and Information Technology (KFUEIT)",
