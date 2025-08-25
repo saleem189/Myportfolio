@@ -26,6 +26,28 @@
         width="50%"
         :class="{ pgray: !nightMode, 'bg-secondary': nightMode }"
       />
+      <!-- Contact Information Display -->
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-8 col-lg-6">
+          <div class="contact-info-inline text-center" data-aos="fade-up" data-aos-once="true" data-aos-duration="1000">
+            <div class="contact-info-row">
+              <div class="contact-info-item">
+                <i class="fas fa-envelope"></i>
+                <span>{{ contactInfo.email }}</span>
+              </div>
+              <div class="contact-info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{ contactInfo.location }}</span>
+              </div>
+              <div class="contact-info-item">
+                <i class="fas fa-briefcase"></i>
+                <span class="availability-badge">{{ contactInfo.availability }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <form
@@ -138,6 +160,7 @@
 <script setup>
 import { ref, defineProps, computed } from 'vue'
 import Snackbar from "@/components/helpers/Snackbar.vue";
+import info from "../../info";
 
 let email = ref("");
 let name = ref("");
@@ -151,6 +174,8 @@ let { nightMode } = defineProps({
 });
 
 const formspreeUrl = computed(() => import.meta.env.VITE_FORMSPREE_FORM_URL);
+
+const contactInfo = computed(() => info.contact);
 
 let closeSnackbar = (val) => {
   if (!val) {
@@ -309,6 +334,68 @@ let handleSubmit = async (event) => {
   
   .submit-btn {
     width: 100%;
+  }
+}
+
+/* Contact Information Styles */
+.contact-info-inline {
+  margin-bottom: 1rem;
+}
+
+.contact-info-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.contact-info-item i {
+  color: #669db3ff;
+  font-size: 1rem;
+}
+
+.availability-badge {
+  background: #1aa260;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+/* Dark mode adjustments */
+.bg-dark2 .contact-info-item {
+  color: #ccc;
+}
+
+.bg-dark2 .availability-badge {
+  background: #1aa260;
+}
+
+/* Ensure single line on all screen sizes */
+@media screen and (max-width: 768px) {
+  .contact-info-row {
+    gap: 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .contact-info-item {
+    font-size: 0.8rem;
+  }
+  
+  .availability-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
   }
 }
 </style>

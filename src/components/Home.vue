@@ -52,6 +52,8 @@
               <i class="fa fa-file"></i>
             </button>
           </div>
+          
+
         </div>
       </div>
     </div>
@@ -69,6 +71,7 @@ let linkedin = ref(info.links.linkedin);
 let github = ref(info.links.github);
 let angellist = ref(info.links.angellist);
 let resume = ref(info.links.resume);
+
 
 let { nightMode } = defineProps({
   nightMode: Boolean,
@@ -97,6 +100,8 @@ let open = (link) => {
   font-size: 28px;
   font-weight: 500;
 }
+
+
 
 img {
   max-width: 300px;
