@@ -35,4 +35,4 @@ coverage
 .env.*.local
 
 # Info.js for my personal information
-info.js
+.info.js

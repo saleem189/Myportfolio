@@ -70,7 +70,7 @@ const scrollTo = (ele) => {
     <SEOHead />
     <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
     <main class="main-content">
-      <section class="section home-section">
+      <section id="home" class="section home-section">
         <Home :nightMode="nightMode" />
       </section>
       
