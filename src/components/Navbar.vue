@@ -38,7 +38,7 @@
                 href="/about"
                 @click.prevent="$emit('scroll', 'about')"
                 :class="{ 'text-light': nightMode }"
-                >About</a
+                >Professional Summary</a
               >
             </li>
             <li class="nav-item mx-2">
@@ -47,7 +47,7 @@
                 href="/skills"
                 @click.prevent="$emit('scroll', 'skills')"
                 :class="{ 'text-light': nightMode }"
-                >Skills</a
+                >Technical Skills</a
               >
             </li>
             <li class="nav-item mx-2" v-if="info.config.show_recommendations">
@@ -65,7 +65,7 @@
                 href="/portfolio"
                 @click.prevent="$emit('scroll', 'portfolio')"
                 :class="{ 'text-light': nightMode }"
-                >Portfolio</a
+                >Featured Projects</a
               >
             </li>
             <li class="nav-item mx-2">

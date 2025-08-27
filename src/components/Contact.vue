@@ -19,7 +19,7 @@
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
         >Get in Touch</h1>
         <p class="subtitle" :class="{ pgray: !nightMode, 'text-light': nightMode }">
-          Have a question or want to work together? Feel free to reach out!
+          Have a question or want to work together? I'm open to remote opportunities worldwide and would love to hear from you!
         </p>
       </div>
       <hr

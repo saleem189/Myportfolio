@@ -55,10 +55,10 @@ let info = {
   },
   get description() {
     const experience = calculateExperience(this.experience);
-    return `I'm a passionate Laravel engineer with ${experience.years}.${experience.months} years of hands-on experience, specializing in building robust and scalable web applications. With a Masters in Computer Science (MSc) from Khawaja Fareed University of Engineering and Information Technology (KFUEIT), I've built a strong foundation in software engineering principles and modern development practices. <br><br> I excel in modern web development, with deep expertise in Laravel, Vue.js, and Inertia.js. My approach combines clean code practices with powerful design patterns to create maintainable and efficient solutions. I'm a strong advocate for Agile methodologies, focusing on delivering value through collaborative development and continuous improvement. <br><br> What sets me apart is my attention to detail and systematic approach to problem-solving. I take pride in writing clean, well-documented code and implementing best practices that make applications both performant and maintainable. I'm constantly learning and adapting to new technologies, always eager to take on new challenges and contribute to innovative projects.`;
+    return `I'm a Senior Laravel Engineer with ${experience.years}.${experience.months}+ years of experience building scalable SaaS platforms and FinTech solutions. I specialize in architecting robust web applications using Laravel, Vue.js, and modern cloud technologies, with a proven track record of delivering high-impact solutions for international markets.<br><br> My expertise spans full-stack development, system architecture, and performance optimization. I've successfully led development teams, implemented enterprise-level design patterns, and delivered solutions that handle millions of transactions. I'm passionate about clean code architecture, scalable system design, and mentoring junior developers.<br><br> Currently open to remote opportunities worldwide, I bring a unique blend of technical expertise and business acumen to help companies build robust, scalable applications that drive business growth.`;
   },
   links: {
-    linkedin: "https://www.linkedin.com/in/saleem-ayoub-20bb581b8/",
+    linkedin: "https://www.linkedin.com/in/muhammad-saleem-ayoub-20bb581b8/",
     github: "https://github.com/saleem189",
     resume: "https://drive.google.com/file/d/1tWPmtZeEQsEclNiraaVezOCnE8SyxlOZ/view"
   },
@@ -71,7 +71,7 @@ let info = {
   education: [
     {
       name: "Khawaja Fareed Unveristy of Engineering and Information Technology (KFUEIT)",
-      place: "Pakistan",
+      place: "Rahim Yar Khan, Punjab, Pakistan",
       date: "Oct, 2018 - Mar, 2021",
       degree: "Masters in Computer Science (MSc)",
       gpa: "",
@@ -87,7 +87,7 @@ let info = {
     },
     {
       name: "The Islamia University of Bahawalpur",
-      place: "Pakistan",
+      place: "Bahawalpur, Punjab, Pakistan",
       date: "2016 - 2018",
       degree: "Bsc in Computer Science",
       gpa: "",
@@ -103,8 +103,8 @@ let info = {
   experience: [
     {
       name: "Priceoye Technology",
-      place: "Islamabad, Pakistan",
-      date: "Feb, 2024 - Present",
+      place: "Islamabad, Federal Capital Territory, Pakistan",
+      date: "Feb, 2024 - Aug, 2025",
       position: "Sr. Laravel Developer",
       description:
         "As a Senior Laravel Developer, Built a Field Approval System for model/field changes. Led Delivery Charges Module with Factory Pattern and OOP for scalability. Redesigned Cart Page in Vue.js with Pinia, improving UX and performance. Integrated secure payment gateways, optimized SQL queries, and enhanced Core Web Vitals. Refactored legacy code using OOP, applied Repository & Service Patterns, and leveraged Laravel’s Service Container. Implemented scheduling, authentication, cron jobs, and queues for scalable apps.",
@@ -137,7 +137,7 @@ let info = {
     },
     {
       name: "Peek International",
-      place: "Rawalpindi, Pakistan",
+      place: "Rawalpindi, Punjab, Pakistan",
       date: "Aug, 2021 - Feb, 2024",
       position: "Full Stack Laravel Developer",
       description:
@@ -146,7 +146,7 @@ let info = {
     },
     {
       name: "MERN Stack Training",
-      place: "Teresol, Pakistan",
+      place: "Islamabad, Federal Capital Territory, Pakistan",
       date: "Feb, 2023 - Apr, 2023",
       position: "MERN Stack Trainee",
       description:
@@ -155,7 +155,7 @@ let info = {
     },
     {
       name: "Eziline Software House",
-      place: "Rawalpindi, Pakistan",
+      place: "Rawalpindi, Punjab, Pakistan",
       date: "Apr, 2021 - Aug, 2021",
       position: "Laravel Intern",
       description:

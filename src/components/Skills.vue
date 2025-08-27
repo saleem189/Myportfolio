@@ -10,7 +10,7 @@
         <span
           class="title text-center"
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
-          >Skills.</span
+          >Technical Skills & Expertise.</span
         >
       </div>
       <hr

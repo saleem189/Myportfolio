@@ -17,7 +17,7 @@
           <span
             class="home-title"
             :class="{ pgray: !nightMode, 'text-light': nightMode }"
-            >Greetings! <Wave /></span
+            >Hi, I'm Saleem</span
           >
           <div>
             <p v-html="description"></p>

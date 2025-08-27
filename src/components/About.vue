@@ -17,7 +17,7 @@
         <span
           class="title text-center"
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
-        >About Me.</span>
+        >Professional Summary.</span>
       </div>
       <hr
         width="50%"
@@ -50,7 +50,7 @@ let education = ref({
 });
 
 let experience = ref({
-  title: "experiences",
+  title: "Professional Experience",
   data: info.experience,
 });
 </script>

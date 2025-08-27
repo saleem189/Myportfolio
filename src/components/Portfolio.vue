@@ -17,7 +17,7 @@
         <span
           class="title text-center"
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
-          >Portfolio.</span
+          >Featured Projects.</span
         >
       </div>
       <hr
