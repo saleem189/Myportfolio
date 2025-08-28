@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Navbar from "@/components/Navbar.vue";
 import Home from "@/components/Home.vue";
@@ -41,22 +41,6 @@ onMounted(() => {
   }
 });
 
-// Watch for route changes to handle navigation clicks
-watch(() => route.path, (newPath) => {
-  if (newPath !== '/') {
-    const section = newPath.substring(1);
-    const element = document.getElementById(section);
-    if (element) {
-      setTimeout(() => {
-        window.scrollTo({
-          top: element.offsetTop - 35,
-          behavior: 'smooth'
-        });
-      }, 100);
-    }
-  }
-});
-
 const switchMode = (mode) => {
   if (info.config.use_cookies) {
     cookies.set("nightMode", mode);
@@ -70,7 +54,13 @@ const scrollTo = (ele) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
     router.push(`/${ele}`);
-    // The scroll will be handled by the route watcher when the route changes
+    const element = document.getElementById(ele);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 35,
+        behavior: "smooth"
+      });
+    }
   }
 };
 </script>
@@ -80,7 +70,7 @@ const scrollTo = (ele) => {
     <SEOHead />
     <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
     <main class="main-content">
-      <section id="home" class="section home-section">
+      <section class="section home-section">
         <Home :nightMode="nightMode" />
       </section>
       
