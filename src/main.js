@@ -1,4 +1,4 @@
-import { createApp, h } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import VueCookie from 'vue3-cookies';
 import { createWebHistory, createRouter } from 'vue-router'
@@ -10,26 +10,33 @@ import VueScrollTo from 'vue-scrollto'
 // Import color variables
 import './assets/styles/colors.css'
 
-// import About from '@/components/About.vue';
-// import Skills from '@/components/Skills.vue';
-// import Portfolio from '@/components/Portfolio.vue';
-// import Contact from '@/components/Contact.vue;
-
+// Single route for SPA
 const routes = [
-    { path: '/'}
+    { path: '/', name: 'Home', component: App }
 ];
 
 const router = createRouter({
     history: createWebHistory('/Myportfolio/'),
     routes,
+    scrollBehavior(to, from, savedPosition) {
+        // If there's a hash, scroll to the element
+        if (to.hash) {
+            return { el: to.hash, behavior: 'smooth' };
+        }
+        // Saved scroll position (back/forward navigation)
+        if (savedPosition) {
+            return savedPosition;
+        }
+        // Default to top
+        return { top: 0 };
+    }
 });
 
 const app = createApp(App);
 app.use(VueCookie);
-app.use(router)
-app.use(VTooltip)
-app.use(VueScrollTo)
-app.mount('#app')
-AOS.init()
+app.use(router);
+app.use(VTooltip);
+app.use(VueScrollTo);
+app.mount('#app');
 
-
+AOS.init();

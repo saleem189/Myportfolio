@@ -25,11 +25,8 @@ if (info.config.use_cookies) {
 }
 
 onMounted(() => {
-  // Handle initial route
-  const path = route.path;
-  if (path !== '/') {
-    const section = path.substring(1); // Remove leading slash
-    const element = document.getElementById(section);
+  if (route.hash) {
+    const element = document.querySelector(route.hash);
     if (element) {
       setTimeout(() => {
         window.scrollTo({
@@ -50,19 +47,21 @@ const switchMode = (mode) => {
 
 const scrollTo = (ele) => {
   if (ele === "home") {
-    router.push('/');
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    router.push({ path: '/', hash: '' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
-    router.push(`/${ele}`);
+    router.push({ path: '/', hash: `#${ele}` });
     const element = document.getElementById(ele);
     if (element) {
       window.scrollTo({
         top: element.offsetTop - 35,
-        behavior: "smooth"
+        behavior: 'smooth'
       });
     }
   }
 };
+
+
 </script>
 
 <template>
