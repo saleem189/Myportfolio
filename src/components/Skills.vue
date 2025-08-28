@@ -47,12 +47,24 @@
 
 <script setup>
 import info from "../../info";
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, onMounted } from 'vue';
 
 
 let { skills } = info;
 let { nightMode } = defineProps({
   nightMode: Boolean,
+});
+
+// Track skills section view
+onMounted(() => {
+  if (window.gtag) {
+    window.gtag('event', 'section_view', {
+      section_name: 'skills',
+      section_title: 'Skills Section',
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 </script>
 

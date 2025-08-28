@@ -61,7 +61,7 @@
 
 <script setup>
 import info from "../../info";
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, onMounted } from 'vue';
 
 const props = defineProps({
   nightMode: {
@@ -71,6 +71,18 @@ const props = defineProps({
 });
 
 const recommendations = info.recommendations;
+
+// Track recommendations section view
+onMounted(() => {
+  if (window.gtag) {
+    window.gtag('event', 'section_view', {
+      section_name: 'recommendations',
+      section_title: 'Recommendations Section',
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
 </script>
 
 <style scoped>

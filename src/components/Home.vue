@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, onMounted } from 'vue'
 import info from "../../info";
 import Wave from "@/components/helpers/Wave.vue";
 
@@ -77,7 +77,28 @@ let { nightMode } = defineProps({
   nightMode: Boolean,
 });
 
+// Track home section view
+onMounted(() => {
+  if (window.gtag) {
+    window.gtag('event', 'section_view', {
+      section_name: 'home',
+      section_title: 'Home Section',
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 let open = (link) => {
+  // Track social link clicks
+  if (window.gtag) {
+    window.gtag('event', 'social_link_click', {
+      link_type: link,
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
+  
   switch (link) {
     case "linkedin":
       window.open(linkedin.value, "_blank");

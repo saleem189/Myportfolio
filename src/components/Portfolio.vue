@@ -172,6 +172,16 @@ onMounted(() => {
   setTimeout(() => {
     isLoading.value = false;
   }, 1000);
+  
+  // Track portfolio section view
+  if (window.gtag) {
+    window.gtag('event', 'section_view', {
+      section_name: 'portfolio',
+      section_title: 'Portfolio Section',
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 for (var i = 0; i < number.value; i++) {
@@ -206,11 +216,31 @@ let showMore = () => {
 let showModalFn = (portfolio) => {
   modal_info = portfolio;
   showModal.value = true;
+  
+  // Track portfolio project click
+  if (window.gtag) {
+    window.gtag('event', 'portfolio_project_click', {
+      project_name: portfolio.name,
+      project_category: 'development',
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
 };
 
 let showDesignModalFn = (design_portfolio) => {
   design_modal_info = design_portfolio;
   showDesignModal.value = true;
+  
+  // Track design project click
+  if (window.gtag) {
+    window.gtag('event', 'portfolio_project_click', {
+      project_name: design_portfolio.title,
+      project_category: 'design',
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
 };
 
 let closeModal = () => {

@@ -77,6 +77,7 @@
                   'text-light': nightMode,
                 }"
                 style="transition-delay: 0.2s"
+                @focus="trackFieldInteraction('name')"
                 required
               />
             </div>
@@ -101,6 +102,7 @@
                   'text-light': nightMode,
                 }"
                 style="transition-delay: 0.4s"
+                @focus="trackFieldInteraction('email')"
                 required
               />
             </div>
@@ -125,6 +127,7 @@
                   'text-light': nightMode,
                 }"
                 style="transition-delay: 0.6s"
+                @focus="trackFieldInteraction('message')"
                 required
               ></textarea>
             </div>
@@ -158,7 +161,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, computed } from 'vue'
+import { ref, defineProps, computed, onMounted } from 'vue'
 import Snackbar from "@/components/helpers/Snackbar.vue";
 import info from "../../info";
 
@@ -177,6 +180,29 @@ const formspreeUrl = computed(() => import.meta.env.VITE_FORMSPREE_FORM_URL);
 
 const contactInfo = computed(() => info.contact);
 
+// Track form field interactions
+const trackFieldInteraction = (fieldName) => {
+  if (window.gtag) {
+    window.gtag('event', 'form_field_interaction', {
+      form_name: 'contact_form',
+      field_name: fieldName,
+      page_location: window.location.href
+    });
+  }
+};
+
+// Track contact page view
+onMounted(() => {
+  if (window.gtag) {
+    window.gtag('event', 'section_view', {
+      section_name: 'contact',
+      section_title: 'Contact Section',
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 let closeSnackbar = (val) => {
   if (!val) {
     setTimeout(() => {
@@ -188,10 +214,28 @@ let closeSnackbar = (val) => {
 let handleSubmit = async (event) => {
   event.preventDefault();
   
+  // Track form interaction
+  if (window.gtag) {
+    window.gtag('event', 'form_start', {
+      form_name: 'contact_form',
+      page_location: window.location.href
+    });
+  }
+  
   if (!email.value || !name.value || !text.value) {
     showSnackbar.value = true;
     snackbarMessage.value = "Please fill in all the fields";
     snackbarColor.value = "rgb(212, 149, 97)";
+    
+    // Track form validation error
+    if (window.gtag) {
+      window.gtag('event', 'form_error', {
+        form_name: 'contact_form',
+        error_type: 'validation_error',
+        page_location: window.location.href
+      });
+    }
+    
     setTimeout(() => {
       showSnackbar.value = false;
     }, 3000);
@@ -215,6 +259,15 @@ let handleSubmit = async (event) => {
       snackbarMessage.value = "Thanks! Message received.";
       snackbarColor.value = "#1aa260";
       
+      // Track successful form submission
+      if (window.gtag) {
+        window.gtag('event', 'form_submit', {
+          form_name: 'contact_form',
+          page_location: window.location.href,
+          value: 1
+        });
+      }
+      
       // Reset form
       email.value = "";
       text.value = "";
@@ -226,6 +279,15 @@ let handleSubmit = async (event) => {
     showSnackbar.value = true;
     snackbarMessage.value = "Oops! Something went wrong.";
     snackbarColor.value = "rgb(212, 149, 97)";
+    
+    // Track form submission error
+    if (window.gtag) {
+      window.gtag('event', 'form_error', {
+        form_name: 'contact_form',
+        error_type: 'submission_error',
+        page_location: window.location.href
+      });
+    }
   } finally {
     isSubmitting.value = false;
   }

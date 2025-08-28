@@ -37,7 +37,7 @@
 
 <script setup>
 import Timeline from "./helpers/Timeline.vue";
-import { defineProps, ref } from 'vue'
+import { defineProps, ref, onMounted } from 'vue'
 import info from "../../info";
 
 let { nightMode } = defineProps({
@@ -52,6 +52,18 @@ let education = ref({
 let experience = ref({
   title: "Professional Experience",
   data: info.experience,
+});
+
+// Track about section view
+onMounted(() => {
+  if (window.gtag) {
+    window.gtag('event', 'section_view', {
+      section_name: 'about',
+      section_title: 'About Section',
+      page_location: window.location.href,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 </script>
 

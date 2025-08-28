@@ -16,7 +16,13 @@ import './assets/styles/colors.css'
 // import Contact from '@/components/Contact.vue;
 
 const routes = [
-    { path: '/'}
+    { path: '/', name: 'home' },
+    { path: '/about', name: 'about' },
+    { path: '/skills', name: 'skills' },
+    { path: '/portfolio', name: 'portfolio' },
+    { path: '/contact', name: 'contact' },
+    { path: '/recommendations', name: 'recommendations' },
+    { path: '/:pathMatch(.*)*', redirect: '/' }
 ];
 
 const router = createRouter({
