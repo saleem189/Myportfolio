@@ -55,7 +55,7 @@ let info = {
   },
   get description() {
     const experience = calculateExperience(this.experience);
-    return `I'm a Senior Laravel Engineer with ${experience.years}.${experience.months}+ years of experience building scalable SaaS platforms and FinTech solutions. I specialize in architecting robust web applications using Laravel, Vue.js, and modern cloud technologies, with a proven track record of delivering high-impact solutions for international markets.<br><br> My expertise spans full-stack development, system architecture, and performance optimization. I've successfully led development teams, implemented enterprise-level design patterns, and delivered solutions that handle millions of transactions. I'm passionate about clean code architecture, scalable system design, and mentoring junior developers.<br><br> Currently open to remote opportunities worldwide, I bring a unique blend of technical expertise and business acumen to help companies build robust, scalable applications that drive business growth.`;
+    return `I'm a Senior Laravel Engineer with ${experience.years}.${experience.months}+ years of experience building scalable SaaS platforms and FinTech solutions and E-commerce platforms. I specialize in architecting robust web applications using Laravel, Vue.js, and modern cloud technologies, with a proven track record of delivering high-impact solutions for international markets.<br><br> My expertise spans full-stack development, system architecture, and performance optimization. I've successfully led development teams, implemented enterprise-level design patterns, and delivered solutions that handle millions of transactions. I'm passionate about clean code architecture, scalable system design, and mentoring junior developers.<br><br> Currently open to remote opportunities worldwide, I bring a unique blend of technical expertise and business acumen to help companies build robust, scalable applications that drive business growth.`;
   },
   links: {
     linkedin: "https://www.linkedin.com/in/muhammad-saleem-ayoub-20bb581b8/",
@@ -75,8 +75,7 @@ let info = {
       date: "Oct, 2018 - Mar, 2021",
       degree: "Masters in Computer Science (MSc)",
       gpa: "",
-      description:
-        "Graduated with a MSc degree in Computer Science.",
+      description: "Graduated with a MSc in Computer Science, focusing on software architecture, algorithms, and AI.",
       skills: [
         "Artificial Intelligence",
         "Software Engineering",
@@ -91,8 +90,7 @@ let info = {
       date: "2016 - 2018",
       degree: "Bsc in Computer Science",
       gpa: "",
-      description:
-        "Graduated with a BSc degree in Computer Science.",
+      description: "Graduated with a BSc in Computer Science, emphasizing programming, data structures, and statistics.",
       skills: [
         "Data Structures",
         "Statistics",
@@ -107,7 +105,7 @@ let info = {
       date: "Feb, 2024 - Aug, 2025",
       position: "Sr. Laravel Developer",
       description:
-        "As a Senior Laravel Developer, Built a Field Approval System for model/field changes. Led Delivery Charges Module with Factory Pattern and OOP for scalability. Redesigned Cart Page in Vue.js with Pinia, improving UX and performance. Integrated secure payment gateways, optimized SQL queries, and enhanced Core Web Vitals. Refactored legacy code using OOP, applied Repository & Service Patterns, and leveraged Laravel’s Service Container. Implemented scheduling, authentication, cron jobs, and queues for scalable apps.",
+        "As a Senior Laravel Developer, I designed and implemented a Field Approval System for model/field changes. Led the Delivery Charges Module using Factory Pattern and OOP principles for scalability. Redesigned the Cart Page in Vue.js with Pinia, improving UX and performance. Integrated secure payment gateways and optimized SQL queries to enhance transaction efficiency and Core Web Vitals. Refactored legacy code using OOP, applied Repository and Service Patterns, and leveraged Laravel Service Container for maintainable, scalable applications. Implemented task scheduling, authentication, cron jobs, and queues for high-performance SaaS and E-commerce platforms.",
       skills: [
         "Laravel", 
         "Vue.js", 
@@ -242,7 +240,7 @@ let info = {
         "",
       visit: "https://sheenpay.pk/",
       description:
-        "SheenPay is a Shariah-compliant BNPL (Buy Now Pay Later) platform that enables customers to shop now and pay in 4 easy installments. As a Full Stack Developer, I worked on both frontend and backend development, implementing payment gateway integrations, user authentication, installment management, and mobile app development. The platform provides a seamless shopping experience with halal installment options, making it easier for customers to purchase their favorite products while maintaining Islamic financial principles."
+        "Developed the SheenPay BNPL platform frontend using Blade templates and key modules. Engineered a dynamic, Google Forms–style stepform system fully configurable from the admin panel, allowing non-technical teams to create multi-step workflows without code changes. Built a complete Email Module with a live HTML preview and editor for dynamic email templates, fully managed from the admin panel. Contributed to application architecture and design, utilized Laravel Service Container for service classes and common classes, integrated RESTful APIs, managed backend tasks including cron jobs and queues, and integrated Firebase for mobile-based notifications to enhance real-time user engagement."
     },
     {
       name: "PriceOye",
@@ -266,7 +264,7 @@ let info = {
       date: "",
       visit: "https://priceoye.pk/",
       description:
-        "Priceoye is Pakistan's No.1 marketplace for buying original mobile phones and electronics. Priceoye is Pakistan's most trusted online store and offers the lowest prices every day."
+        "As a Full Stack Laravel Developer on PriceOye, I developed and optimized Pakistan's leading e-commerce platform for mobile phones and electronics. Built frontend features using both Blade templates and Vue.js, enhancing UX across product listings, checkout workflows, and dynamic components. Integrated secure payment gateways and 3PL APIs for seamless order fulfillment, and optimized SQL queries for efficient transaction handling. Refactored legacy code with OOP principles and applied Repository & Service Patterns, leveraging Laravel Service Container for maintainable, scalable applications. Implemented RESTful APIs, cron jobs, and queues to automate processes and improve platform performance. Contributed to application architecture and design, ensuring a robust, high-performance E-commerce platform."
     },
     {
       name: "IQ Pages",
