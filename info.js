@@ -6,6 +6,10 @@ import priceoyeImage from './src/assets/portfolio/priceoye.png';
 import libraryImage1 from './src/assets/portfolio/library.png';
 import libraryImage2 from './src/assets/portfolio/library2.png';
 import sheenpayImage1 from './src/assets/portfolio/sheenpay.png';
+import transproImage1 from './src/assets/portfolio/transpro-crm.png';
+import transproImage2 from './src/assets/portfolio/admin-subdomain.png';
+import transproImage3 from './src/assets/portfolio/tenant-subdomain.png';
+import transproImage4 from './src/assets/portfolio/redis-monitor.png';
 
 const calculateExperience = (experiences) => {
   let totalMonths = 0;
@@ -226,6 +230,30 @@ let info = {
   ],
   portfolio: [
     {
+      name: "TransPro Alliance CRM",
+      pictures: [
+        {
+          img: transproImage1
+        },
+        {
+          img: transproImage2
+        },
+        {
+          img: transproImage3
+        },
+        {
+          img: transproImage4
+        }
+        //we can multiple picture here
+      ],
+      technologies: ["PHP", "Laravel", "MySQL", "Redis", "Multi-Tenant Architecture", "Tenant-Aware Middleware", "Database-per-Tenant Architecture", "Database Sharding", "CQRS (Command Query Responsibility Segregation)", "Domain Driven Design (DDD)", "Spatie Multi-tenancy", "Subdomain Routing", "React.js", "Inertia.js", "RESTful APIs", "Design Patterns", "SOLID Principles", "OOP", "Factory Pattern", "Repository Pattern", "Service Pattern", "Dependency Injection", "Task Scheduling", "Queues", "API Documentation (Swagger)", "Application Design", "Application Architecture", "Blade Templates", "Authentication", "Authorization", "Database Optimization", "Performance Optimization", "DevOps", "Server Configuration", "Deployment Pipelines", "Production Monitoring", "Maintenance", "CI/CD"],
+      category: "Multi-tenant CRM & Business Management",
+      date: "",
+      github: "",
+      visit: "https://crm.transproalliance.com/",
+      description: "Led the complete development lifecycle of a comprehensive multi-tenant CRM system for TransPro Alliance, from initial architecture design to production deployment and ongoing maintenance. Implemented advanced multi-tenant architecture using Spatie Multi-tenancy package with database-per-tenant isolation and database sharding for optimal performance and security. Built the frontend using React.js with Inertia.js for seamless server-side rendering and client-side interactivity. Applied CQRS (Command Query Responsibility Segregation) and Domain Driven Design (DDD) patterns for clean architecture and maintainable codebase. Implemented tenant-aware middleware and subdomain routing to ensure proper tenant isolation and seamless user experience. Developed advanced CRM features including customer management, lead tracking, sales pipeline, reporting dashboards, and automated workflows. Integrated Redis for high-performance cache management and queue processing to handle background tasks and improve application responsiveness. Handled complete DevOps responsibilities including server configuration, deployment pipelines, monitoring, and performance optimization. Utilized Laravel's service container and dependency injection for scalable application architecture. Applied SOLID principles, Repository and Service patterns for maintainable code architecture. Optimized database queries and implemented Redis-based caching strategies for enhanced performance across multiple tenant environments. Managed production environment, implemented monitoring solutions, and provided ongoing maintenance and feature enhancements."
+    },
+    {
       name: "SheenPay",
       pictures: [
         {
@@ -325,6 +353,28 @@ let info = {
     // can add more Projects here
   ],
   portfolio_design: [
+    {
+      name: "TransPro Alliance CRM",
+      pictures: [
+        {
+          img: transproImage1
+        },
+        {
+          img: transproImage2
+        },
+        {
+          img: transproImage3
+        },
+        {
+          img: transproImage4
+        }
+      ],
+      technologies: ["React.js", "Inertia.js", "Laravel", "Blade Templates", "Responsive Design", "Multi-tenant UI", "Dashboard Design", "Custom CSS", "Bootstrap", "Subdomain Routing", "Tenant-Aware Frontend"],
+      category: "Multi-tenant CRM & Business Management",
+      date: "",
+      visit: "https://crm.transproalliance.com/",
+      description: "Designed and developed the user interface for TransPro Alliance CRM using React.js with Inertia.js for seamless server-side rendering and client-side interactivity. Created intuitive dashboards for customer management, sales pipeline visualization, and reporting analytics with tenant-aware frontend components. Implemented responsive design principles ensuring seamless experience across all devices and tenant configurations. Built dynamic forms and workflows that adapt to different tenant requirements while maintaining consistent branding and user experience. Utilized subdomain routing for proper tenant isolation and seamless navigation between different tenant environments."
+    },
     {
       name: "SheenPay",
       pictures: [
