@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-[80vh] flex flex-col justify-center pl-12 md:pl-24 pr-6 relative">
+  <div class="min-h-[80vh] flex flex-col justify-center pl-4 sm:pl-6 md:pl-12 lg:pl-24 pr-4 sm:pr-6 relative">
     <div class="max-w-3xl">
       <div :class="[
         'inline-block border px-3 py-1 rounded-full text-sm font-bold mb-4 transform -rotate-2 transition-colors',

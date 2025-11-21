@@ -88,7 +88,7 @@ const scrollTo = (ele) => {
 </script>
 
 <template>
-  <div class="notebook-paper min-h-screen overflow-x-hidden">
+  <div class="notebook-paper min-h-screen overflow-x-hidden w-full max-w-full">
     <SEOHead />
     <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
     <main class="max-w-6xl mx-auto">
@@ -136,7 +136,8 @@ const scrollTo = (ele) => {
 
 @media screen and (max-width: 580px) {
   #app {
-    width: fit-content;
+    width: 100%;
+    max-width: 100%;
   }
 }
 

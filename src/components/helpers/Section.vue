@@ -1,5 +1,5 @@
 <template>
-  <section :id="id" :class="['py-12', 'relative', 'z-10', 'pl-12', 'md:pl-24', 'pr-4', className]">
+  <section :id="id" :class="['py-8', 'sm:py-12', 'relative', 'z-10', 'pl-4', 'sm:pl-6', 'md:pl-12', 'lg:pl-24', 'pr-4', 'sm:pr-6', className]">
     <div v-if="title" class="mb-8 inline-block relative">
       <h2 :class="[
         'text-4xl font-bold relative z-10 transition-colors',
