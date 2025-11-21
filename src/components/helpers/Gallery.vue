@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow: auto;">
+  <div style="overflow: visible; position: relative;">
     <div class="prow">
       <div
         class="pcolumn"
@@ -19,7 +19,7 @@
           class="g-img"
         />
         <div class="mt-1">
-          <p style="font-weight: 500">{{ i.title }}</p>
+          <p :class="['font-weight-500 transition-colors', nightMode ? 'text-gray-200' : 'text-gray-800']" style="font-weight: 500">{{ i.title }}</p>
         </div>
       </div>
     </div>
@@ -34,12 +34,16 @@
 <script setup>
 import { ref } from 'vue';
 
-let { images, design } = defineProps({
+let { images, design, nightMode } = defineProps({
   images: {
     type: Array,
   },
   design: {
     type: Boolean,
+  },
+  nightMode: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -113,7 +117,7 @@ let showImg = (idx) => {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 10000; /* Sit on top of project modal */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;

@@ -8,12 +8,7 @@
     }"
   >
     <div class="container">
-      <div
-        class="text-center"
-        data-aos="fade"
-        data-aos-once="true"
-        data-aos-duration="1000"
-      >
+      <div class="text-center">
         <span
           class="title text-center"
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
@@ -31,22 +26,10 @@
           :key="recommendation.author"
         >
           <div class="recommendation-card" :class="{ 'dark-card': nightMode }">
-            <div
-              class="title2"
-              data-aos="fade-up"
-              data-aos-once="true"
-              data-aos-easing="ease-in-out"
-              data-aos-mirror="true"
-            >
+            <div class="title2">
               <span>"{{ recommendation.title }}"</span>
             </div>
-            <div
-              class="title3"
-              data-aos="fade-up"
-              data-aos-once="true"
-              data-aos-easing="ease-in-out"
-              data-aos-mirror="true"
-            >
+            <div class="title3">
               <span>
                 – {{ recommendation.author }}, {{ recommendation.position }}, {{ recommendation.company }},
                 {{ recommendation.location }}</span
@@ -61,7 +44,7 @@
 
 <script setup>
 import info from "../../info";
-import { ref, defineProps, onMounted } from 'vue';
+import { defineProps, onMounted } from 'vue';
 
 const props = defineProps({
   nightMode: {

@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables for Theming - Updated dynamically by App.vue */
+:root {
+  --bg-color: #fdfbf7;
+  --text-color: #2d3748;
+  --line-color: #e1e1e1;
+  --border-color: #2d3748;
+  --margin-color: #fca5a5;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Patrick Hand', cursive;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Notebook Paper Pattern */
+.notebook-paper {
+  background-color: var(--bg-color);
+  background-image: 
+    linear-gradient(var(--line-color) 1px, transparent 1px);
+  background-size: 100% 2rem;
+  position: relative;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
+}
+
+/* The Red Margin Line */
+.notebook-paper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2rem;
+  width: 2px;
+  background-color: var(--margin-color);
+  z-index: 0;
+  opacity: 0.7;
+  transition: background-color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .notebook-paper::before {
+    left: 4rem;
+  }
+}
+
+.sketchy-border {
+  border: 2px solid var(--border-color);
+  border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+  box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.2);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark-shadow {
+  box-shadow: 3px 3px 0px 0px rgba(255,255,255,0.1);
+}
+
+.tape {
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  backdrop-filter: blur(2px);
+  border-left: 1px dashed rgba(255,255,255,0.2);
+  border-right: 1px dashed rgba(255,255,255,0.2);
+  transform: rotate(-2deg);
+}
+
+.tape-dark {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  backdrop-filter: blur(2px);
+  border-left: 1px dashed rgba(255,255,255,0.2);
+  border-right: 1px dashed rgba(255,255,255,0.2);
+  transform: rotate(-2deg);
+}
+
+.highlighter {
+  background: linear-gradient(120deg, rgba(255,255,0,0) 0%, rgba(255,255,0,0.4) 10%, rgba(255,255,0,0) 100%);
+  background-position: 0 80%;
+  background-repeat: no-repeat;
+  background-size: 100% 0.5em;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: #2563eb;
+}
+
+.nav-link-dark:hover {
+  text-decoration-color: #63b3ed;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll to top button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

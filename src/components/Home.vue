@@ -1,79 +1,82 @@
 <template>
- <div
-    :class="{ 'bg-white': !nightMode, 'bg-dark': nightMode }"
-    class="pt-5 p-st"
-  >
-    <div
-      class="container"
-      data-aos="fade"
-      data-aos-once="true"
-      data-aos-duration="1000"
-    >
-      <div class="row align-items-center mt-5">
-        <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12 text-center">
-          <img :src="picture" />
-        </div>
-        <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12 pt-5">
-          <span
-            class="home-title"
-            :class="{ pgray: !nightMode, 'text-light': nightMode }"
-            >Hi, I'm Saleem</span
-          >
-          <div>
-            <p v-html="description"></p>
-          </div>
-          <div class="text-center pb-4">
-            <button
-              class="btn btn-outline-secondary mx-2 "
-              @click="open('linkedin')"
-              v-tooltip.bottom="'LinkedIn'"
-            >
-              <i class="fab fa-linkedin"></i>
-            </button>
-            <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('github')"
-              v-tooltip.bottom="'GitHub'"
-            >
-              <i class="fab fa-github"></i>
-            </button>
-            <!-- <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('angellist')"
-              v-tooltip.bottom="'AngelList'"
-            >
-              <i class="fab fa-angellist"></i>
-            </button> -->
-            <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('resume')"
-              v-tooltip.bottom="'Resume'"
-            >
-              <i class="fa fa-file"></i>
-            </button>
-          </div>
-          
-
-        </div>
+  <div class="min-h-[80vh] flex flex-col justify-center pl-12 md:pl-24 pr-6 relative">
+    <div class="max-w-3xl">
+      <div :class="[
+        'inline-block border px-3 py-1 rounded-full text-sm font-bold mb-4 transform -rotate-2 transition-colors',
+        nightMode ? 'bg-blue-900 border-blue-700 text-blue-300' : 'bg-blue-100 border-blue-300 text-blue-800'
+      ]">
+        Hello World! 👋
       </div>
+      
+      <h1 :class="[
+        'text-6xl md:text-8xl font-bold mb-6 leading-tight transition-colors',
+        nightMode ? 'text-gray-100' : 'text-gray-800'
+      ]">
+        I Build <span class="relative inline-block">
+          Scalable
+          <svg :class="[
+            'absolute w-full h-3 -bottom-1 left-0',
+            nightMode ? 'text-blue-400' : 'text-blue-500'
+          ]" viewBox="0 0 100 10" preserveAspectRatio="none">
+             <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="3" fill="none" />
+          </svg>
+        </span> <br/>
+        Web Systems.
+      </h1>
+      
+      <p :class="[
+        'text-2xl mb-8 leading-loose max-w-2xl p-4 rounded border shadow-sm transform rotate-1 transition-colors',
+        nightMode ? 'bg-slate-800/50 border-slate-700 text-gray-300' : 'bg-white/50 border-gray-200 text-gray-600'
+      ]">
+        I'm <span :class="['font-bold', nightMode ? 'text-white' : 'text-black']">{{ info.name }}</span>. 
+        A <span :class="nightMode ? 'text-gray-300' : 'text-gray-600'">{{ info.role }}</span> with <span :class="['font-bold', nightMode ? 'text-white' : 'text-blue-700']">{{ info.totalExperience.years }}+ years</span> of experience who loves turning messy problems into clean, 
+        <span :class="[
+          'px-1 mx-1',
+          nightMode ? 'bg-yellow-900 text-yellow-100' : 'bg-yellow-200 text-gray-900'
+        ]">optimized code.</span>
+        Specializing in <span :class="['font-semibold', nightMode ? 'text-gray-300' : 'text-gray-600']">Laravel, Vue.js, React</span> and modern cloud technologies. Currently based in <span :class="nightMode ? 'text-gray-300' : 'text-gray-600'">{{ info.contact.location }}</span>.
+      </p>
+
+      <div class="flex gap-4 flex-wrap">
+        <a href="#contact" :class="[
+          'sketchy-border text-white px-8 py-3 text-xl transition-colors',
+          nightMode 
+            ? 'bg-blue-700 hover:bg-blue-600 shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]' 
+            : 'bg-blue-600 hover:bg-blue-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+        ]">
+          Hire Me
+        </a>
+        <a :href="info.links.github" target="_blank" rel="noopener noreferrer" :class="[
+          'sketchy-border px-8 py-3 text-xl flex items-center gap-2 transition-colors',
+          nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white text-black hover:bg-gray-50'
+        ]">
+          <Github :size="20" /> Github
+        </a>
+        <a :href="info.links.linkedin" target="_blank" rel="noopener noreferrer" :class="[
+          'sketchy-border px-8 py-3 text-xl flex items-center gap-2 transition-colors',
+          nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white text-black hover:bg-gray-50'
+        ]">
+          <Linkedin :size="20" /> LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <!-- Decorative Doodles -->
+    <div :class="[
+      'absolute right-10 top-1/3 hidden lg:block opacity-20 rotate-12 transition-colors',
+      nightMode ? 'text-slate-600' : 'text-gray-400'
+    ]">
+      <Cpu :size="200" :stroke-width="1" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, defineProps, onMounted } from 'vue'
+import { Github, Linkedin, Cpu } from 'lucide-vue-next';
 import info from "../../info";
-import Wave from "@/components/helpers/Wave.vue";
 
-let picture = ref(info.flat_picture);
-let description = ref(info.description);
-let linkedin = ref(info.links.linkedin);
-let github = ref(info.links.github);
-let angellist = ref(info.links.angellist);
-let resume = ref(info.links.resume);
-
-
-let { nightMode } = defineProps({
+const props = defineProps({
   nightMode: Boolean,
 });
 
@@ -88,89 +91,8 @@ onMounted(() => {
     });
   }
 });
-
-let open = (link) => {
-  // Track social link clicks
-  if (window.gtag) {
-    window.gtag('event', 'social_link_click', {
-      link_type: link,
-      page_location: window.location.href,
-      timestamp: new Date().toISOString()
-    });
-  }
-  
-  switch (link) {
-    case "linkedin":
-      window.open(linkedin.value, "_blank");
-      break;
-    case "github":
-      window.open(github.value, "_blank");
-      break;
-    case "angellist":
-      window.open(angellist.value, "_blank");
-      break;
-    case "resume":
-      window.open(resume.value, "_blank");
-      break;
-  }
-};
 </script>
 
 <style scoped>
-.home-title {
-  font-size: 28px;
-  font-weight: 500;
-}
-
-
-
-img {
-  max-width: 300px;
-  margin-top: 60px;
-  transform: rotateY(180deg);
-}
-
-@media only screen and (max-width: 580px) {
-  img {
-    object-fit: cover;
-    border-radius: 50%;
-    height: 200px;
-    width: 200px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 2px solid rgb(205, 205, 205);
-  }
-}
-
-.fa {
-  font-size: 15px;
-}
-
-.btn {
-  border-color: #669db3ff;
-  color: #669db3ff;
-}
-
-.btn:hover {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-}
-
-.btn:focus {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-}
-
-.btn:focus {
-  outline: none !important;
-}
-
-p {
-  text-align: justify;
-  font-weight: 400;
-}
-
-/* LEAVES */
+/* Styles are handled by Tailwind classes */
 </style>

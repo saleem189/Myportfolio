@@ -61,6 +61,9 @@ let info = {
     const experience = calculateExperience(this.experience);
     return `I'm a Senior Laravel Engineer with ${experience.years}.${experience.months}+ years of experience building scalable SaaS platforms and FinTech solutions and E-commerce platforms. I specialize in architecting robust web applications using Laravel, Vue.js, and modern cloud technologies, with a proven track record of delivering high-impact solutions for international markets.<br><br> My expertise spans full-stack development, system architecture, and performance optimization. I've successfully led development teams, implemented enterprise-level design patterns, and delivered solutions that handle millions of transactions. I'm passionate about clean code architecture, scalable system design, and mentoring junior developers.<br><br> Currently open to remote opportunities worldwide, I bring a unique blend of technical expertise and business acumen to help companies build robust, scalable applications that drive business growth.`;
   },
+  get totalExperience() {
+    return calculateExperience(this.experience);
+  },
   links: {
     linkedin: "https://www.linkedin.com/in/muhammad-saleem-ayoub-20bb581b8/",
     github: "https://github.com/saleem189",
@@ -104,12 +107,26 @@ let info = {
   ],
   experience: [
     {
+      id: 1,
       name: "Priceoye Technology",
-      place: "Islamabad, Federal Capital Territory, Pakistan",
-      date: "Feb, 2024 - Aug, 2025",
+      company: "Priceoye Technology",
+      role: "Sr. Laravel Developer",
       position: "Sr. Laravel Developer",
+      place: "Islamabad, Federal Capital Territory, Pakistan",
+      location: "Islamabad",
+      period: "Feb, 2024 - Aug, 2025",
+      date: "Feb, 2024 - Aug, 2025",
       description:
         "As a Senior Laravel Developer, I designed and implemented a Field Approval System for model/field changes. Led the Delivery Charges Module using Factory Pattern and OOP principles for scalability. Redesigned the Cart Page in Vue.js with Pinia, improving UX and performance. Integrated secure payment gateways and optimized SQL queries to enhance transaction efficiency and Core Web Vitals. Refactored legacy code using OOP, applied Repository and Service Patterns, and leveraged Laravel Service Container for maintainable, scalable applications. Implemented task scheduling, authentication, cron jobs, and queues for high-performance SaaS and E-commerce platforms.",
+      achievements: [
+        "Designed and implemented Field Approval System for model/field changes",
+        "Led Delivery Charges Module using Factory Pattern and OOP principles",
+        "Redesigned Cart Page in Vue.js with Pinia, improving UX and performance",
+        "Optimized SQL queries to enhance transaction efficiency and Core Web Vitals",
+        "Refactored legacy code using OOP, Repository and Service Patterns",
+        "Integrated secure payment gateways",
+        "Implemented task scheduling, authentication, cron jobs, and queues"
+      ],
       skills: [
         "Laravel", 
         "Vue.js", 
@@ -138,30 +155,64 @@ let info = {
       ]
     },
     {
+      id: 2,
       name: "Peek International",
-      place: "Rawalpindi, Punjab, Pakistan",
-      date: "Aug, 2021 - Feb, 2024",
+      company: "Peek International",
+      role: "Full Stack Laravel Developer",
       position: "Full Stack Laravel Developer",
+      place: "Rawalpindi, Punjab, Pakistan",
+      location: "Rawalpindi",
+      period: "Aug, 2021 - Feb, 2024",
+      date: "Aug, 2021 - Feb, 2024",
       description:
         "As a full-stack Laravel developer, I worked extensively on crafting robust web applications from backend to frontend. I have experience with Vue.js and Inertia.js, enabling seamless integration of dynamic user interfaces. I utilized AWS services for deployment and development, successfully managing servers for optimal performance and scalability across various projects. With a comprehensive skill set and a proven track record in problem-solving, I consistently delivered high-quality solutions that surpassed expectations",
+      achievements: [
+        "Designed RESTful APIs (Swagger documented)",
+        "Real-time notifications via Laravel Websockets",
+        "Automated deployment with Artisan commands",
+        "Built SPAs with Laravel + Inertia.js",
+        "Utilized AWS services for deployment and development",
+        "Managed servers for optimal performance and scalability"
+      ],
       skills: ["cPanel", "OOP", "VueJS","ReactJs", "Nodejs", "ExpressJs" ,"NGINX", "Apache", "PHP", "Laravel", "SQL", "PostgreSQL","Supervisor", "Git", "CI/CD", "Docker", "Design Patterns", "HTML", "Bootstrap", "Tailwind CSS", "Laravel Forge", "Linux", "Server Configurations", "AWS", "Javascript", "CSS", "Jquery", "InertiaJs", "RESTful APIs", "API Documentation (Swagger)", "Cron jobs", "Queues", "Notifications", "Push Notifications", "AWS S3", "AWS DynamoDB", "AWS SES"]
     },
     {
+      id: 3,
       name: "MERN Stack Training",
-      place: "Islamabad, Federal Capital Territory, Pakistan",
-      date: "Feb, 2023 - Apr, 2023",
+      company: "Teresol Pvt Ltd",
+      role: "MERN Stack Trainee",
       position: "MERN Stack Trainee",
+      place: "Islamabad, Federal Capital Territory, Pakistan",
+      location: "Islamabad",
+      period: "Feb, 2023 - Apr, 2023",
+      date: "Feb, 2023 - Apr, 2023",
       description:
         "Completed Teresol Pvt Ltd's intensive 300-hour TechLift Program, specializing in the MERN stack. Acquired comprehensive skills in MongoDB, Express.js, React, and Node.js for full-stack web development. Developed expertise in building robust and scalable web applications through hands-on projects and real-world applications. Equipped with the knowledge and practical experience to excel as a skilled full-stack developer in today's dynamic industry.",
+      achievements: [
+        "Completed 300-hour intensive TechLift Program",
+        "Acquired comprehensive MERN stack skills",
+        "Developed expertise through hands-on projects"
+      ],
       skills: ["ReactJs", "MongoDB", "ExpressJS", "NodeJS", "Tailwind CSS", "FIGMA"]
     },
     {
+      id: 4,
       name: "Eziline Software House",
-      place: "Rawalpindi, Punjab, Pakistan",
-      date: "Apr, 2021 - Aug, 2021",
+      company: "Eziline Software House",
+      role: "Laravel Intern",
       position: "Laravel Intern",
+      place: "Rawalpindi, Punjab, Pakistan",
+      location: "Rawalpindi",
+      period: "Apr, 2021 - Aug, 2021",
+      date: "Apr, 2021 - Aug, 2021",
       description:
         "My professional journey took its initial steps with a Software Engineer internship at Eziline Software House. This opportunity allowed me to delve into the realm of full-stack development, where I gained practical experience in utilizing technologies such as Bootstrap for responsive UI, templating for dynamic content, and JavaScript for enhancing user interactions. During this period, I was introduced to the powerful capabilities of the Laravel framework, igniting a passion for creating efficient and robust applications. This internship served as a crucial foundation for my ongoing career growth.",
+      achievements: [
+        "Gained practical experience in full-stack development",
+        "Introduced to Laravel framework",
+        "Learned Bootstrap for responsive UI",
+        "Developed foundational skills in web development"
+      ],
       skills: ["Laravel", "PHP", "Bootstrap", "JavaScript", "VueJS", "Jquery", "MySQL"]
     },
   ],
@@ -230,7 +281,9 @@ let info = {
   ],
   portfolio: [
     {
+      id: 1,
       name: "TransPro Alliance CRM",
+      title: "TransPro Alliance CRM",
       pictures: [
         {
           img: transproImage1
@@ -254,24 +307,28 @@ let info = {
       description: "Led the complete development lifecycle of a comprehensive multi-tenant CRM system for TransPro Alliance, from initial architecture design to production deployment and ongoing maintenance. Implemented advanced multi-tenant architecture using Spatie Multi-tenancy package with database-per-tenant isolation and database sharding for optimal performance and security. Built the frontend using React.js with Inertia.js for seamless server-side rendering and client-side interactivity. Applied CQRS (Command Query Responsibility Segregation) and Domain Driven Design (DDD) patterns for clean architecture and maintainable codebase. Implemented tenant-aware middleware and subdomain routing to ensure proper tenant isolation and seamless user experience. Developed advanced CRM features including customer management, lead tracking, sales pipeline, reporting dashboards, and automated workflows. Integrated Redis for high-performance cache management and queue processing to handle background tasks and improve application responsiveness. Handled complete DevOps responsibilities including server configuration, deployment pipelines, monitoring, and performance optimization. Utilized Laravel's service container and dependency injection for scalable application architecture. Applied SOLID principles, Repository and Service patterns for maintainable code architecture. Optimized database queries and implemented Redis-based caching strategies for enhanced performance across multiple tenant environments. Managed production environment, implemented monitoring solutions, and provided ongoing maintenance and feature enhancements."
     },
     {
+      id: 2,
       name: "SheenPay",
+      title: "SheenPay",
       pictures: [
         {
           img: sheenpayImage1 // Placeholder - you can replace with actual SheenPay image
         }
         //we can multiple picture here
       ],
-      technologies: ["PHP", "Laravel","MySQL", "RESTful APIs", "Payment Gateway Integration", "Design Patterns", "SOLID Principles", "OOP", "Factory Pattern", "Repository Pattern", "Service Pattern", "Dependency Injection", "Task Scheduling", "Queues", "API Documentation (Swagger)", "Application Design", "Applicaion Architecture"],
+      technologies: ["PHP", "Laravel","MySQL", "RESTful APIs", "Payment Gateway Integration", "Design Patterns", "SOLID Principles", "OOP", "Factory Pattern", "Repository Pattern", "Service Pattern", "Dependency Injection", "Task Scheduling", "Queues", "API Documentation (Swagger)", "Application Design", "Application Architecture"],
       category: "FinTech & Payment Solutions",
+      categories: ["FinTech & Payment Solutions", "Website & API's"],
       date: "" ,
-      github:
-        "",
+      github: "",
       visit: "https://sheenpay.pk/",
       description:
         "Developed the SheenPay BNPL platform frontend using Blade templates and key modules. Engineered a dynamic, Google Forms–style stepform system fully configurable from the admin panel, allowing non-technical teams to create multi-step workflows without code changes. Built a complete Email Module with a live HTML preview and editor for dynamic email templates, fully managed from the admin panel. Contributed to application architecture and design, utilized Laravel Service Container for service classes and common classes, integrated RESTful APIs, managed backend tasks including cron jobs and queues, and integrated Firebase for mobile-based notifications to enhance real-time user engagement."
     },
     {
+      id: 3,
       name: "PriceOye",
+      title: "PriceOye",
       pictures: [
         {
           img: priceoyeImage
@@ -295,7 +352,9 @@ let info = {
         "As a Full Stack Laravel Developer on PriceOye, I developed and optimized Pakistan's leading e-commerce platform for mobile phones and electronics. Built frontend features using both Blade templates and Vue.js, enhancing UX across product listings, checkout workflows, and dynamic components. Integrated secure payment gateways and 3PL APIs for seamless order fulfillment, and optimized SQL queries for efficient transaction handling. Refactored legacy code with OOP principles and applied Repository & Service Patterns, leveraging Laravel Service Container for maintainable, scalable applications. Implemented RESTful APIs, cron jobs, and queues to automate processes and improve platform performance. Contributed to application architecture and design, ensuring a robust, high-performance E-commerce platform."
     },
     {
+      id: 4,
       name: "IQ Pages",
+      title: "IQ Pages",
       pictures: [
         {
           img: iqpagesImage1
@@ -305,14 +364,15 @@ let info = {
       technologies: ["PHP", "Laravel", "VueJs", "InertiaJs", "MySQL", "Laravel Forge", "PayPal"],
       category: "Marketing & Online Advertising",
       date: "" ,
-      github:
-        "",
+      github: "",
       visit: "https://iqpages.com/",
       description:
         "IQ Pages is a game-changing marketing concept that combines a business directory with email, 'deal-of-the-day' and online advertising. It simplifies searches for companies and deals, while drastically reducing advertising costs for businesses, making their products and services less expensive. "
     },
     {
+      id: 5,
       name: "Breaker19 - Carrier Portal",
+      title: "Breaker19",
       pictures: [
         {
           img: breaker19Image1
@@ -332,7 +392,9 @@ let info = {
     },
    
     {
-      name: "Data Tranfer Object",
+      id: 6,
+      name: "Data Transfer Object",
+      title: "DTO Package",
       pictures: [
         {
           img: libraryImage1
@@ -343,9 +405,9 @@ let info = {
         //we can multiple picture here
       ],
       technologies: ["PHP", "Laravel", "SOLID Principles", "OOP", "Factory Pattern"],
-      category: "Packege",
+      category: "Package",
       date: "",
-      github: "",
+      github: "https://github.com/saleem189/data-transfer-object",
       visit: "https://github.com/saleem189/data-transfer-object",
       description:
         "This package facilitates handling Data Transfer Objects. It allows easy access to individual properties and conversion to JSON or Arrays."

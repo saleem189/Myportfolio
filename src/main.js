@@ -2,13 +2,13 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import VueCookie from 'vue3-cookies';
 import { createWebHistory, createRouter } from 'vue-router'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
 import VTooltip from 'v-tooltip'
 import VueScrollTo from 'vue-scrollto'
 
 // Import color variables
 import './assets/styles/colors.css'
+// Import Tailwind and notebook paper styles
+import './assets/styles/main.css'
 
 // Single route for SPA
 const routes = [
@@ -38,5 +38,3 @@ app.use(router);
 app.use(VTooltip);
 app.use(VueScrollTo);
 app.mount('#app');
-
-AOS.init();

@@ -1,146 +1,160 @@
 <template>
-  <div>
-    <nav
-      class="navbar navbar-expand-lg navbar-light fixed-top p-st"
-      :class="{
-        'bg-light': !nightMode,
-        'navbar-blur': navbarConfig.blur,
-        'bg-dark2': nightMode,
-      }"
+  <nav :class="[
+    'sticky top-0 z-50 border-b-2 px-6 py-4 flex justify-between items-center shadow-sm transition-colors',
+    props.nightMode ? 'bg-[#1a202c] border-slate-600' : 'bg-[#fdfbf7] border-gray-800'
+  ]">
+      <div class="text-2xl font-bold flex items-center gap-2">
+      <PenTool :size="24" :class="props.nightMode ? 'text-blue-400' : 'text-blue-700'" />
+      <span :class="props.nightMode ? 'text-gray-100' : 'text-gray-800'">
+        {{ info.logo_name }}<span :class="props.nightMode ? 'text-blue-300' : 'text-blue-600'">.notes</span>
+      </span>
+    </div>
+    
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex gap-6 text-xl">
+      <a 
+        v-for="item in navItems" 
+        :key="item"
+        :href="`#${item.toLowerCase()}`"
+        @click.prevent="handleSmoothScroll($event, item.toLowerCase())"
+        :class="[
+          'nav-link transition-colors',
+          props.nightMode ? 'text-gray-300 hover:text-blue-300 nav-link-dark' : 'text-gray-700 hover:text-blue-700'
+        ]"
+      >
+        {{ item }}
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button 
+      :class="[
+        'md:hidden sketchy-border px-3 py-1 text-lg transition-colors',
+        props.nightMode ? 'bg-slate-800 hover:bg-slate-700 text-white' : 'bg-white hover:bg-gray-50 text-gray-800'
+      ]"
+      @click="toggleMenu"
+      aria-label="Toggle menu"
     >
-      <div class="container">
-        <a
-          class="navbar-brand"
-          href="/"
-          @click.prevent="$emit('scroll', 'home')"
+      <X v-if="isMenuOpen" :size="20" />
+      <Menu v-else :size="20" />
+    </button>
+
+    <!-- Desktop Actions -->
+    <div class="hidden md:flex items-center gap-4">
+      <!-- Night Mode Toggle -->
+      <button
+        @click="toggleNightMode"
+        :class="[
+          'sketchy-border px-3 py-1 transition-all',
+          props.nightMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700 border-yellow-400' : 'bg-white text-gray-800 hover:bg-gray-50 border-gray-800'
+        ]"
+        aria-label="Toggle Theme"
+      >
+        <Sun v-if="props.nightMode" :size="20" />
+        <Moon v-else :size="20" />
+      </button>
+      <!-- Resume Button -->
+      <a 
+        :href="info.links.resume" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        :class="[
+          'sketchy-border px-4 py-1 text-lg font-bold flex items-center gap-2 transition-colors',
+          props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white hover:bg-gray-50 text-black'
+        ]"
+      >
+        Resume <Download :size="18" />
+      </a>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div v-if="isMenuOpen" :class="[
+      'absolute top-full left-0 right-0 border-b-2 shadow-lg md:hidden transition-colors',
+      props.nightMode ? 'bg-[#1a202c] border-slate-600' : 'bg-[#fdfbf7] border-gray-800'
+    ]">
+      <div class="flex flex-col p-4 gap-4">
+        <a 
+          v-for="item in navItems"
+          :key="item"
+          :href="`#${item.toLowerCase()}`"
+          @click.prevent="handleSmoothScroll($event, item.toLowerCase())"
+          :class="[
+            'text-xl py-2 nav-link transition-colors',
+            props.nightMode ? 'text-gray-300 hover:text-blue-300 nav-link-dark' : 'text-gray-700 hover:text-blue-700'
+          ]"
         >
-          <Logo :nightMode="nightMode" />
+          {{ item }}
         </a>
         <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          @click="toggleNightMode"
+          :class="[
+            'sketchy-border px-4 py-2 text-lg font-bold flex items-center justify-center gap-2 transition-colors',
+            props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white hover:bg-gray-50 text-black'
+          ]"
         >
-          <span style="color: gray; font-size: 23px;"
-            ><i class="fas fa-bars"></i
-          ></span>
+          <Sun v-if="props.nightMode" :size="20" />
+          <Moon v-else :size="20" />
+          {{ props.nightMode ? 'Light Mode' : 'Dark Mode' }}
         </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item mx-2">
-              <a
-                class="nav-link"
-                href="#about"
-                @click.prevent="$emit('scroll', 'about')"
-                :class="{ 'text-light': nightMode }"
-                >Professional Summary</a
-              >
-            </li>
-            <li class="nav-item mx-2">
-              <a
-                class="nav-link"
-                href="#skills"
-                @click.prevent="$emit('scroll', 'skills')"
-                :class="{ 'text-light': nightMode }"
-                >Technical Skills</a
-              >
-            </li>
-            <li class="nav-item mx-2" v-if="info.config.show_recommendations">
-              <a
-                class="nav-link"
-                href="#recommendations"
-                @click.prevent="$emit('scroll', 'recommendations')"
-                :class="{ 'text-light': nightMode }"
-                >Recommendations</a
-              >
-            </li>
-            <li class="nav-item mx-2 ">
-              <a
-                class="nav-link"
-                href="#portfolio"
-                @click.prevent="$emit('scroll', 'portfolio')"
-                :class="{ 'text-light': nightMode }"
-                >Featured Projects</a
-              >
-            </li>
-            <li class="nav-item mx-2">
-              <a
-                class="nav-link"
-                href="#contact"
-                @click.prevent="$emit('scroll', 'contact')"
-                :class="{ 'text-light': nightMode }"
-                >Contact</a
-              >
-            </li>
-            <li class="nav-item ml-2">
-              <a
-                class="nav-link"
-                href="#"
-                @click.prevent="switchMode"
-                :class="{ 'text-light': nightMode }"
-                ><i
-                  :class="{
-                    'fas fa-moon': nightMode,
-                    'far fa-moon': !nightMode,
-                  }"
-                  v-tooltip.bottom="nightMode ? 'Light Mode' : 'Night Mode'"
-                ></i
-              ></a>
-            </li>
-          </ul>
-        </div>
+        <a 
+          :href="info.links.resume" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          :class="[
+            'sketchy-border px-4 py-2 text-lg font-bold flex items-center justify-center gap-2 transition-colors',
+            props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white hover:bg-gray-50 text-black'
+          ]"
+        >
+          Resume <Download :size="18" />
+        </a>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </template>
 
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue';
-import Logo from "@/components/helpers/Logo.vue";
+import { PenTool, Moon, Sun, Download, Menu, X } from 'lucide-vue-next';
 import info from "../../info";
 
-let {nightMode} = defineProps({
+const props = defineProps({
   nightMode: Boolean
 });
 
-let emit = defineEmits(['scroll', 'nightMode']);
+const emit = defineEmits(['scroll', 'nightMode']);
 
-let navbarConfig = info.config.navbar;
-let localNightMode = ref(false);
+const navItems = ['Skills', 'Experience', 'Portfolio', 'Education', 'Contact'];
+const isMenuOpen = ref(false);
 
-let switchMode = () => {
-  localNightMode.value = !localNightMode.value;
-  emit("nightMode", localNightMode.value);
+const toggleNightMode = () => {
+  emit('nightMode', !props.nightMode);
+  isMenuOpen.value = false;
+};
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+
+const handleSmoothScroll = (e, targetId) => {
+  e.preventDefault();
+  // Map "Portfolio" to "portfolio" section ID
+  const sectionId = targetId === 'portfolio' ? 'portfolio' : targetId;
+  const element = document.getElementById(sectionId);
+  if (element) {
+    const navHeight = 80; // Approximate navbar height
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - navHeight;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+    isMenuOpen.value = false;
+    emit('scroll', sectionId);
+  }
 };
 </script>
 
 <style scoped>
-.nav-link {
-  font-weight: 500;
-}
-
-button {
-  border: none;
-  outline: none;
-}
-
-button:hover {
-  border: none;
-  outline: none;
-}
-
-nav {
-  border-bottom: 1px solid rgba(160, 159, 159, 0.336);
-  position: fixed !important;
-}
-
-.navbar-blur {
-  background-color: #ffffff7e;
-  backdrop-filter: blur(12px);
-}
+/* Navbar styles are handled by Tailwind classes and global styles */
 </style>

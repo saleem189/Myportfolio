@@ -6,9 +6,9 @@ import Home from "@/components/Home.vue";
 import About from "@/components/About.vue";
 import Skills from "@/components/Skills.vue";
 import Portfolio from "@/components/Portfolio.vue";
+import Education from "@/components/Education.vue";
 import Recommendation from "@/components/Recommendation.vue";
 import Contact from "@/components/Contact.vue";
-import Footer from "@/components/Footer.vue";
 import ViewCounter from "@/components/ViewCounter.vue";
 import BackToTop from "@/components/BackToTop.vue";
 import SEOHead from "@/components/SEOHead.vue";
@@ -36,6 +36,8 @@ onMounted(() => {
       }, 100);
     }
   }
+  // Apply night mode class to body
+  updateBodyClass();
 });
 
 const switchMode = (mode) => {
@@ -43,6 +45,27 @@ const switchMode = (mode) => {
     cookies.set("nightMode", mode);
   }
   nightMode.value = mode;
+  updateBodyClass();
+};
+
+const updateBodyClass = () => {
+  const root = document.documentElement;
+  
+  if (nightMode.value) {
+    // Dark mode colors (slate theme like React example)
+    root.style.setProperty('--bg-color', '#1a202c');
+    root.style.setProperty('--text-color', '#e2e8f0');
+    root.style.setProperty('--line-color', '#2d3748');
+    root.style.setProperty('--border-color', '#a0aec0');
+    root.style.setProperty('--margin-color', '#ef4444');
+  } else {
+    // Light mode colors
+    root.style.setProperty('--bg-color', '#fdfbf7');
+    root.style.setProperty('--text-color', '#2d3748');
+    root.style.setProperty('--line-color', '#e1e1e1');
+    root.style.setProperty('--border-color', '#2d3748');
+    root.style.setProperty('--margin-color', '#fca5a5');
+  }
 };
 
 const scrollTo = (ele) => {
@@ -65,29 +88,30 @@ const scrollTo = (ele) => {
 </script>
 
 <template>
-  <div :class="{ 'text-dark': !nightMode, 'text-light': nightMode }" class="app-container">
+  <div class="notebook-paper min-h-screen overflow-x-hidden">
     <SEOHead />
     <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
-    <main class="main-content">
+    <main class="max-w-6xl mx-auto">
       <section class="section home-section">
         <Home :nightMode="nightMode" />
-      </section>
-      
-      <section id="about" class="section about-section">
-        <About :nightMode="nightMode" />
       </section>
       
       <section id="skills" class="section skills-section">
         <Skills :nightMode="nightMode" />
       </section>
 
-      <section v-if="info.config.show_recommendations" id="recommendations" class="section recommendations-section">
-        <Recommendation :nightMode="nightMode" />
+      <section id="experience" class="section experience-section">
+        <About :nightMode="nightMode" />
       </section>
       
       <section id="portfolio" class="section portfolio-section">
         <Portfolio :nightMode="nightMode" />
       </section>
+
+      <section id="education" class="section education-section">
+        <Education :nightMode="nightMode" />
+      </section>
+
       
       <section id="contact" class="section contact-section">
         <Contact :nightMode="nightMode" />
@@ -98,17 +122,15 @@ const scrollTo = (ele) => {
       <ViewCounter class="view-counter-container" :nightMode="nightMode" />
       <BackToTop :nightMode="nightMode" />
     </aside>
-
-    <Footer :nightMode="nightMode" />
   </div>
 </template>
 
 <style>
 #app {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Patrick Hand', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--text-dark);
+  color: var(--text-color);
   width: 100%;
 }
 
@@ -155,17 +177,32 @@ const scrollTo = (ele) => {
   border-radius: 9px;
   border: 2px solid var(--off-white);
   background-clip: content-box;
+  transition: background-color 0.3s ease;
+}
+
+body.night-mode ::-webkit-scrollbar-track {
+  background: #1a202c; /* slate-800 */
+  border-color: #1a202c;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--light-grey);
   border-radius: 9px;
+  transition: background-color 0.3s ease;
+}
+
+body.night-mode ::-webkit-scrollbar-thumb {
+  background: #4a5568; /* slate-600 */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--medium-grey);
+}
+
+body.night-mode ::-webkit-scrollbar-thumb:hover {
+  background: #718096; /* slate-500 */
 }
 
 .tooltip {
@@ -279,21 +316,9 @@ const scrollTo = (ele) => {
   bottom: 20px;
   left: 20px;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px 12px;
-  border-radius: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.text-light .view-counter-container {
-  background: rgba(31, 41, 55, 0.9);
 }
 
 .recommendations-section {
   background-color: var(--very-light-grey);
-}
-
-.text-light .recommendations-section {
-  background-color: var(--bg-dark2);
 }
 </style>

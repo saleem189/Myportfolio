@@ -1,169 +1,196 @@
 <template>
-  <div
-    class="py-4 p-st contact-section"
-    :class="{
-      'bg-light': !nightMode,
-      'bg-dark2': nightMode,
-      'text-light': nightMode,
-    }"
-  >
-    <div class="container">
-      <div
-        class="text-center mb-4"
-        data-aos="fade"
-        data-aos-once="true"
-        data-aos-duration="1000"
-      >
-        <h1
-          class="title text-center"
-          :class="{ pgray: !nightMode, 'text-light': nightMode }"
-        >Get in Touch</h1>
-        <p class="subtitle" :class="{ pgray: !nightMode, 'text-light': nightMode }">
-          Have a question or want to work together? I'm open to remote opportunities worldwide and would love to hear from you!
-        </p>
-      </div>
-      <hr
-        width="50%"
-        :class="{ pgray: !nightMode, 'bg-secondary': nightMode }"
-      />
-      <!-- Contact Information Display -->
-      <div class="row justify-content-center mb-4">
-        <div class="col-md-8 col-lg-6">
-          <div class="contact-info-inline text-center" data-aos="fade-up" data-aos-once="true" data-aos-duration="1000">
-            <div class="contact-info-row">
-              <div class="contact-info-item">
-                <i class="fas fa-envelope"></i>
-                <span>{{ contactInfo.email }}</span>
-              </div>
-              <div class="contact-info-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>{{ contactInfo.location }}</span>
-              </div>
-              <div class="contact-info-item">
-                <i class="fas fa-briefcase"></i>
-                <span class="availability-badge">{{ contactInfo.availability }}</span>
-              </div>
-            </div>
-          </div>
+  <Section id="contact" title="Reach Out" :nightMode="nightMode">
+    <div :class="[
+      'p-8 sketchy-border max-w-2xl mx-auto transform rotate-1 transition-colors',
+      nightMode ? 'bg-slate-800 text-gray-200' : 'bg-white text-gray-800'
+    ]">
+      <div class="flex flex-col items-center text-center">
+        <div :class="[
+          'w-16 h-16 rounded-full flex items-center justify-center border-2 border-dashed mb-4 transition-colors',
+          nightMode ? 'bg-slate-700 border-slate-500' : 'bg-gray-100 border-gray-400'
+        ]">
+          <Mail :size="32" :class="nightMode ? 'text-slate-400' : 'text-gray-500'" />
         </div>
-      </div>
+        <h3 :class="['text-2xl font-bold mb-2 transition-colors', nightMode ? 'text-gray-200' : 'text-gray-800']">Keep in Touch!</h3>
+        <p :class="['text-xl mb-4 transition-colors', nightMode ? 'text-gray-300' : 'text-gray-700']">
+          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+        </p>
+        <p :class="[
+          'text-lg mb-8 px-4 py-2 rounded border inline-block transition-colors',
+          nightMode ? 'bg-blue-900/30 border-blue-700 text-blue-300' : 'bg-blue-100 border-blue-300 text-blue-800'
+        ]">
+          ✈️ Available for remote opportunities
+        </p>
 
-      <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+        <!-- Contact Form (shown when showForm is true) -->
+        <div v-if="showForm" class="w-full mb-4">
           <form
             :action="formspreeUrl"
             method="POST"
             @submit="handleSubmit"
-            class="contact-form"
+            class="w-full space-y-4 text-left"
             data-formspree-redirect="false"
           >
-            <div
-              class="form-group mb-4"
-              data-aos="fade-up"
-              data-aos-once="true"
-              data-aos-duration="1000"
-            >
-              <label for="name" class="form-label" :class="{ 'text-light': nightMode }">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                v-model="name"
-                placeholder="Your name"
-                class="pinput"
-                :class="{
-                  pgray: !nightMode,
-                  'pgray-dark': nightMode,
-                  'text-light': nightMode,
-                }"
-                style="transition-delay: 0.2s"
-                @focus="trackFieldInteraction('name')"
-                required
-              />
-            </div>
+          <div>
+            <label for="name" :class="['block mb-2 font-bold text-lg', nightMode ? 'text-gray-200' : 'text-gray-800']">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              v-model="name"
+              placeholder="Please enter your name here"
+              :class="[
+                'w-full px-4 py-3 sketchy-border transition-colors',
+                nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
+              ]"
+              @focus="trackFieldInteraction('name')"
+              required
+            />
+          </div>
 
-            <div
-              class="form-group mb-4"
-              data-aos="fade-up"
-              data-aos-once="true"
-              data-aos-duration="1000"
-            >
-              <label for="email" class="form-label" :class="{ 'text-light': nightMode }">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                v-model="email"
-                placeholder="your.email@example.com"
-                class="pinput"
-                :class="{
-                  pgray: !nightMode,
-                  'pgray-dark': nightMode,
-                  'text-light': nightMode,
-                }"
-                style="transition-delay: 0.4s"
-                @focus="trackFieldInteraction('email')"
-                required
-              />
-            </div>
+          <div>
+            <label for="email" :class="['block mb-2 font-bold text-lg', nightMode ? 'text-gray-200' : 'text-gray-800']">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              v-model="email"
+              placeholder="Please write your email here"
+              :class="[
+                'w-full px-4 py-3 sketchy-border transition-colors',
+                nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
+              ]"
+              @focus="trackFieldInteraction('email')"
+              required
+            />
+          </div>
 
-            <div
-              class="form-group mb-4"
-              data-aos="fade-up"
-              data-aos-once="true"
-              data-aos-duration="1000"
-            >
-              <label for="message" class="form-label" :class="{ 'text-light': nightMode }">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                v-model="text"
-                placeholder="Your message here..."
-                class="pinput"
-                rows="4"
-                :class="{
-                  pgray: !nightMode,
-                  'pgray-dark': nightMode,
-                  'text-light': nightMode,
-                }"
-                style="transition-delay: 0.6s"
-                @focus="trackFieldInteraction('message')"
-                required
-              ></textarea>
-            </div>
+          <div>
+            <label for="message" :class="['block mb-2 font-bold text-lg', nightMode ? 'text-gray-200' : 'text-gray-800']">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              v-model="text"
+              placeholder="Please write your message here"
+              rows="4"
+              :class="[
+                'w-full px-4 py-3 sketchy-border transition-colors resize-none',
+                nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
+              ]"
+              @focus="trackFieldInteraction('message')"
+              required
+            ></textarea>
+          </div>
 
-            <div class="text-center">
+            <div class="flex gap-3">
               <button
                 type="submit"
-                class="btn submit-btn"
-                data-aos="fade"
-                data-aos-once="true"
-                data-aos-duration="1000"
-                data-aos-offset="50"
                 :disabled="isSubmitting"
+                :class="[
+                  'flex-1 sketchy-border px-6 py-3 text-lg font-bold transition-colors flex items-center justify-center gap-2',
+                  isSubmitting
+                    ? 'opacity-50 cursor-not-allowed'
+                    : nightMode
+                      ? 'bg-blue-700 hover:bg-blue-600 text-white'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                ]"
               >
-                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+                <Mail :size="20" />
+                <span v-if="isSubmitting">Sending...</span>
+                <span v-else>Send Message</span>
+              </button>
+              <button
+                type="button"
+                @click="showForm = false"
+                :class="[
+                  'sketchy-border px-6 py-3 text-lg font-bold transition-colors',
+                  nightMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
+                ]"
+              >
+                Cancel
               </button>
             </div>
           </form>
         </div>
-      </div>
+        
+        <!-- Action Buttons (shown when form is hidden) -->
+        <div v-else class="flex flex-col md:flex-row gap-4 w-full">
+          <button 
+            @click="showForm = true"
+            :class="[
+              'flex-1 sketchy-border p-4 text-center text-xl font-bold transition-colors flex items-center justify-center gap-2',
+              nightMode ? 'bg-yellow-600 hover:bg-yellow-500 text-white' : 'bg-yellow-300 hover:bg-yellow-400 text-gray-900'
+            ]"
+          >
+            <Mail :size="20" /> Email Me
+          </button>
+          <a 
+            :href="`tel:${contactInfo.phone}`" 
+            :class="[
+              'flex-1 sketchy-border p-4 text-center text-xl font-bold transition-colors flex items-center justify-center gap-2',
+              nightMode ? 'bg-slate-700 hover:bg-slate-600 text-white' : 'bg-white hover:bg-gray-50 text-black'
+            ]"
+          >
+            <Phone :size="20" /> Call Me
+          </a>
+        </div>
 
-      <Snackbar
-        :showSnackbar="showSnackbar"
-        @close="closeSnackbar"
-        :snackbarMessage="snackbarMessage"
-        :snackbarColor="snackbarColor"
-      />
+        <div class="mt-8 flex gap-6">
+          <a 
+            :href="info.links.linkedin" 
+            :class="[
+              'transition-colors',
+              nightMode ? 'text-slate-500 hover:text-blue-400' : 'text-gray-500 hover:text-blue-700'
+            ]"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Linkedin :size="32" />
+          </a>
+          <a 
+            :href="info.links.github" 
+            :class="[
+              'transition-colors',
+              nightMode ? 'text-slate-500 hover:text-white' : 'text-gray-500 hover:text-black'
+            ]"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github :size="32" />
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
+    
+    <div :class="['text-center mt-12 text-lg transition-colors', nightMode ? 'text-slate-500' : 'text-gray-500']">
+      <p>&copy; {{ new Date().getFullYear() }} {{ info.name }}.</p>
+    </div>
+
+    <Snackbar
+      :showSnackbar="showSnackbar"
+      @close="closeSnackbar"
+      :snackbarMessage="snackbarMessage"
+      :snackbarColor="snackbarColor"
+    />
+  </Section>
 </template>
 
 <script setup>
-import { ref, defineProps, computed, onMounted } from 'vue'
-import Snackbar from "@/components/helpers/Snackbar.vue";
+import { ref, computed, defineProps, onMounted } from 'vue'
+import { Mail, Phone, Linkedin, Github } from 'lucide-vue-next';
+import Section from './helpers/Section.vue';
+import Snackbar from './helpers/Snackbar.vue';
 import info from "../../info";
+
+const props = defineProps({
+  nightMode: Boolean,
+});
 
 let email = ref("");
 let name = ref("");
@@ -172,11 +199,12 @@ let showSnackbar = ref(false);
 let snackbarMessage = ref("");
 let snackbarColor = ref("");
 let isSubmitting = ref(false);
-let { nightMode } = defineProps({
-  nightMode: Boolean,
-});
+let showForm = ref(false);
 
-const formspreeUrl = computed(() => import.meta.env.VITE_FORMSPREE_FORM_URL);
+const formspreeUrl = computed(() => {
+  // Use environment variable if available, otherwise fallback to info.js
+  return import.meta.env.VITE_FORMSPREE_FORM_URL || info.contact?.formspreeEndpoint || 'https://formspree.io/f/YOUR_FORM_ID';
+});
 
 const contactInfo = computed(() => info.contact);
 
@@ -204,11 +232,7 @@ onMounted(() => {
 });
 
 let closeSnackbar = (val) => {
-  if (!val) {
-    setTimeout(() => {
-      showSnackbar.value = val;
-    }, 1000);
-  }
+  showSnackbar.value = val;
 };
 
 let handleSubmit = async (event) => {
@@ -236,9 +260,6 @@ let handleSubmit = async (event) => {
       });
     }
     
-    setTimeout(() => {
-      showSnackbar.value = false;
-    }, 3000);
     return;
   }
 
@@ -272,6 +293,11 @@ let handleSubmit = async (event) => {
       email.value = "";
       text.value = "";
       name.value = "";
+      
+      // Close form after successful submission
+      setTimeout(() => {
+        showForm.value = false;
+      }, 2000);
     } else {
       throw new Error('Network response was not ok');
     }
@@ -295,169 +321,5 @@ let handleSubmit = async (event) => {
 </script>
 
 <style scoped>
-.contact-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-.title {
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  opacity: 0.8;
-  margin-bottom: 2rem;
-}
-
-.form-label {
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  display: block;
-  text-align: left;
-}
-
-.pinput {
-  font-size: 1rem;
-  outline: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 12px 16px;
-  width: 100%;
-  transition: all 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
-.pinput:focus {
-  border-color: #669db3ff;
-  box-shadow: 0 0 0 2px rgba(102, 157, 179, 0.2);
-}
-
-.pgray-dark {
-  background-color: #3c4148 !important;
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.pgray-dark:focus {
-  border-color: #669db3ff;
-  box-shadow: 0 0 0 2px rgba(102, 157, 179, 0.2);
-}
-
-.submit-btn {
-  border-color: #669db3ff;
-  color: #669db3ff;
-  padding: 12px 32px;
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  background-color: transparent;
-  min-width: 200px;
-}
-
-.submit-btn:hover {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 157, 179, 0.2);
-}
-
-.submit-btn:focus {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-  box-shadow: 0 0 0 2px rgba(102, 157, 179, 0.2);
-}
-
-.submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-@media screen and (max-width: 768px) {
-  .title {
-    font-size: 2rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
-  }
-  
-  .pinput {
-    font-size: 0.95rem;
-  }
-  
-  .submit-btn {
-    width: 100%;
-  }
-}
-
-/* Contact Information Styles */
-.contact-info-inline {
-  margin-bottom: 1rem;
-}
-
-.contact-info-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-}
-
-.contact-info-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.contact-info-item i {
-  color: #669db3ff;
-  font-size: 1rem;
-}
-
-.availability-badge {
-  background: #1aa260;
-  color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 0.8rem;
-}
-
-/* Dark mode adjustments */
-.bg-dark2 .contact-info-item {
-  color: #ccc;
-}
-
-.bg-dark2 .availability-badge {
-  background: #1aa260;
-}
-
-/* Ensure single line on all screen sizes */
-@media screen and (max-width: 768px) {
-  .contact-info-row {
-    gap: 1rem;
-    font-size: 0.8rem;
-  }
-  
-  .contact-info-item {
-    font-size: 0.8rem;
-  }
-  
-  .availability-badge {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.6rem;
-  }
-}
+/* Styles are handled by Tailwind classes */
 </style>

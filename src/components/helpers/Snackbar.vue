@@ -11,24 +11,22 @@
 </template>
 
 <script setup>
-import { ref, watch, defineProps, defineEmits } from 'vue';
+import { watch, defineProps, defineEmits } from 'vue';
 
-let { showSnackbar, snackbarMessage, snackbarColor } = defineProps({
+const props = defineProps({
   showSnackbar: Boolean,
   snackbarMessage: String,
   snackbarColor: String
 });
 
-let emit = defineEmits(["close"]);
+const emit = defineEmits(["close"]);
 
-// Wrap showSnackbar in a ref
-let showSnackbarRef = ref(showSnackbar);
-
-watch(showSnackbarRef, (newValue) => {
+// Watch the prop directly
+watch(() => props.showSnackbar, (newValue) => {
   if (newValue) {
     setTimeout(() => {
       emit("close", false);
-    }, 1900);
+    }, 3000);
   }
 });
 </script>

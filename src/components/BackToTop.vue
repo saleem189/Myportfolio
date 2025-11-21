@@ -1,16 +1,24 @@
 <template>
-  <button 
-    class="back-to-top" 
-    :class="{ 'show': showButton, 'dark': nightMode }"
+  <button
     @click="scrollToTop"
-    aria-label="Back to top"
+    :class="[
+      'scroll-to-top',
+      'sketchy-border',
+      'text-white',
+      'p-3',
+      'transition-all',
+      { 'visible': isVisible },
+      nightMode ? 'bg-blue-700 hover:bg-blue-600' : 'bg-blue-600 hover:bg-blue-700'
+    ]"
+    aria-label="Scroll to top"
   >
-    <i class="fa fa-arrow-up"></i>
+    <ArrowUp :size="20" />
   </button>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { ArrowUp } from 'lucide-vue-next'
 
 const props = defineProps({
   nightMode: {
@@ -19,10 +27,14 @@ const props = defineProps({
   }
 })
 
-const showButton = ref(false)
+const isVisible = ref(false)
 
-const checkScroll = () => {
-  showButton.value = window.scrollY > 300
+const toggleVisibility = () => {
+  if (window.pageYOffset > 300) {
+    isVisible.value = true
+  } else {
+    isVisible.value = false
+  }
 }
 
 const scrollToTop = () => {
@@ -33,60 +45,14 @@ const scrollToTop = () => {
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', checkScroll)
+  window.addEventListener('scroll', toggleVisibility)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', checkScroll)
+  window.removeEventListener('scroll', toggleVisibility)
 })
 </script>
 
 <style scoped>
-.back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #669db3ff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.back-to-top.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.back-to-top:hover {
-  background: #5a8a9c;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.back-to-top.dark {
-  background: #4a7a8c;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-
-.back-to-top.dark:hover {
-  background: #3a6a7c;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-}
-
-.back-to-top i {
-  font-size: 16px;
-}
-</style> 
+/* Styles are handled by Tailwind classes and global scroll-to-top styles */
+</style>
