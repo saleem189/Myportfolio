@@ -26,7 +26,7 @@ export default defineConfig({
           // Firebase libraries
           'firebase-vendor': ['firebase/app', 'firebase/firestore', 'firebase/analytics'],
           // UI libraries
-          'ui-vendor': ['lucide-vue-next', 'vue3-cookies', 'v-tooltip', 'vue-scrollto']
+          'ui-vendor': ['lucide-vue-next', 'vue3-cookies']
         }
       }
     },

@@ -19,11 +19,11 @@
       </button>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
       <div 
         v-for="project in filteredProjects" 
         :key="project.id || project.name" 
-        class="transform hover:rotate-1 transition-transform duration-300"
+        class="h-full flex"
       >
         <IndexCard 
           :name="project.name"

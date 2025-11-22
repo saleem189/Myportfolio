@@ -2,8 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import VueCookie from 'vue3-cookies';
 import { createWebHistory, createRouter } from 'vue-router'
-import VTooltip from 'v-tooltip'
-import VueScrollTo from 'vue-scrollto'
 
 // Import color variables
 import './assets/styles/colors.css'
@@ -35,6 +33,4 @@ const router = createRouter({
 const app = createApp(App);
 app.use(VueCookie);
 app.use(router);
-app.use(VTooltip);
-app.use(VueScrollTo);
 app.mount('#app');
