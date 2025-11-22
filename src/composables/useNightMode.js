@@ -11,9 +11,10 @@ export function useNightMode() {
     nightMode.value = cookies.get("nightMode") === "true"
   }
 
-  // Update CSS variables when night mode changes
+  // Update CSS variables and body class when night mode changes
   const updateBodyClass = () => {
     const root = document.documentElement
+    const body = document.body
     
     if (nightMode.value) {
       // Dark mode colors (slate theme)
@@ -22,6 +23,8 @@ export function useNightMode() {
       root.style.setProperty('--line-color', '#2d3748')
       root.style.setProperty('--border-color', '#a0aec0')
       root.style.setProperty('--margin-color', '#ef4444')
+      // Add night-mode class to body
+      body.classList.add('night-mode')
     } else {
       // Light mode colors
       root.style.setProperty('--bg-color', '#fdfbf7')
@@ -29,6 +32,8 @@ export function useNightMode() {
       root.style.setProperty('--line-color', '#e1e1e1')
       root.style.setProperty('--border-color', '#2d3748')
       root.style.setProperty('--margin-color', '#fca5a5')
+      // Remove night-mode class from body
+      body.classList.remove('night-mode')
     }
   }
 

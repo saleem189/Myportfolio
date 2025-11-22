@@ -18,7 +18,7 @@
           loading="lazy"
         />
         <div class="mt-1">
-          <p :class="['font-weight-500 transition-colors', nightMode ? 'text-gray-200' : 'text-gray-800']">
+          <p :class="['font-weight-500 transition-colors', themeClasses.classes.text()]">
             {{ image.title }}
           </p>
         </div>
@@ -60,7 +60,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { useThemeClasses } from '@/composables/useThemeClasses';
+import { useModal } from '@/composables/useModal';
 
 const props = defineProps({
   images: {
@@ -71,12 +73,10 @@ const props = defineProps({
   design: {
     type: Boolean,
     default: false
-  },
-  nightMode: {
-    type: Boolean,
-    default: false
   }
 });
+
+const themeClasses = useThemeClasses();
 
 const isModalOpen = ref(false);
 const currentImageIndex = ref(0);
@@ -91,22 +91,13 @@ const currentImage = computed(() => {
 const openModal = (index) => {
   currentImageIndex.value = index;
   isModalOpen.value = true;
-  // Focus management for accessibility
-  nextTick(() => {
-    if (closeButtonRef.value) {
-      closeButtonRef.value.focus();
-    }
-    // Prevent body scroll when modal is open
-    document.body.style.overflow = 'hidden';
-  });
 };
 
 const closeModal = () => {
   isModalOpen.value = false;
-  document.body.style.overflow = '';
 };
 
-// Keyboard navigation
+// Keyboard navigation for image gallery (extends modal functionality)
 const handleKeyDown = (event) => {
   if (!isModalOpen.value) return;
   
@@ -126,13 +117,20 @@ const navigateImage = (direction) => {
   }
 };
 
+// Use modal composable for common functionality (ESC key, focus, scroll lock)
+useModal({
+  isOpen: isModalOpen,
+  onClose: closeModal,
+  closeButtonRef
+});
+
+// Add arrow key navigation
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown);
 });
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown);
-  document.body.style.overflow = '';
 });
 </script>
 

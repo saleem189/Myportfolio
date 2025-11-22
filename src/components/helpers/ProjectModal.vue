@@ -9,17 +9,17 @@
     <div class="modal-wrapper">
       <div :class="[
         'modal-container sketchy-border transition-colors',
-        props.nightMode ? 'bg-slate-800' : 'bg-white'
+        themeClasses.classes.bg()
       ]">
         <!-- Header -->
         <div :class="[
           'px-6 pt-6 pb-4 border-b-2 transition-colors',
-          props.nightMode ? 'border-slate-600' : 'border-gray-800'
+          themeClasses.classes.border()
         ]">
           <div class="flex justify-between items-start mb-2">
             <h2 :class="[
               'text-3xl font-bold transition-colors',
-              props.nightMode ? 'text-blue-300' : 'text-blue-800'
+              themeClasses.themeClass('text-blue-800', 'text-blue-300')
             ]">
               {{ portfolio.title || portfolio.name }}
             </h2>
@@ -27,8 +27,8 @@
               ref="closeButtonRef"
               @click="closeModal"
               :class="[
-                'text-2xl font-bold transition-colors',
-                props.nightMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-800'
+                'text-2xl font-bold transition-colors hover:opacity-70',
+                themeClasses.classes.textMuted()
               ]"
               aria-label="Close modal"
             >
@@ -37,11 +37,11 @@
           </div>
           <div :class="[
             'flex items-center gap-3 text-sm transition-colors',
-            props.nightMode ? 'text-gray-300' : 'text-gray-600'
+            themeClasses.classes.textMuted()
           ]">
             <span :class="[
               'px-3 py-1 border rounded-full',
-              props.nightMode ? 'border-slate-500' : 'border-gray-600'
+              themeClasses.classes.borderSecondary()
             ]">
               {{ portfolio.category || portfolio.type }}
             </span>
@@ -52,17 +52,17 @@
         <!-- Body -->
         <div :class="[
           'modal-body px-6 py-6 overflow-y-auto flex-shrink',
-          props.nightMode ? 'modal-body-dark' : ''
+          themeClasses.isDark.value ? 'modal-body-dark' : ''
         ]" style="min-height: 0;">
           <!-- Description -->
           <div class="mb-6">
             <h3 :class="[
               'text-xl font-bold mb-3 transition-colors',
-              props.nightMode ? 'text-gray-100' : 'text-gray-800'
+              themeClasses.classes.text()
             ]">About This Project</h3>
             <p :class="[
               'leading-relaxed text-lg transition-colors',
-              props.nightMode ? 'text-gray-300' : 'text-gray-700'
+              themeClasses.classes.textSecondary()
             ]">
               {{ portfolio.description }}
             </p>
@@ -72,7 +72,7 @@
           <div class="mb-6">
             <h3 :class="[
               'text-xl font-bold mb-3 transition-colors',
-              props.nightMode ? 'text-gray-100' : 'text-gray-800'
+              themeClasses.classes.text()
             ]">Technologies Used</h3>
             <div class="flex flex-wrap gap-2">
               <span
@@ -80,7 +80,7 @@
                 :key="idx"
                 :class="[
                   'px-3 py-1 border rounded text-sm font-medium transition-colors',
-                  props.nightMode ? 'bg-slate-700 border-slate-600 text-gray-300' : 'bg-gray-100 border-gray-300 text-gray-700'
+                  themeClasses.themeClass('bg-gray-100 border-gray-300 text-gray-700', 'bg-slate-700 border-slate-600 text-gray-300')
                 ]"
               >
                 {{ tech }}
@@ -92,52 +92,57 @@
           <div v-if="portfolio.pictures && portfolio.pictures.length > 0" class="mb-6">
             <h3 :class="[
               'text-xl font-bold mb-3 transition-colors',
-              props.nightMode ? 'text-gray-100' : 'text-gray-800'
+              themeClasses.classes.text()
             ]">Project Screenshots</h3>
-            <Gallery :images="portfolio.pictures" :nightMode="props.nightMode" />
+            <Gallery :images="portfolio.pictures" />
           </div>
         </div>
 
         <!-- Footer -->
         <div :class="[
           'px-6 py-4 border-t-2 flex gap-3 justify-end transition-colors relative z-10 flex-shrink-0',
-          props.nightMode ? 'border-slate-600' : 'border-gray-800'
+          themeClasses.classes.border()
         ]">
-          <a
+          <Button
             v-if="portfolio.github"
+            tag="a"
             :href="portfolio.github"
             target="_blank"
             rel="noopener noreferrer"
-            :class="[
-              'sketchy-border px-6 py-2 text-sm font-bold transition-colors flex items-center gap-2 relative z-20',
-              props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white text-black hover:bg-gray-50'
-            ]"
+            variant="default"
+            size="sm"
+            class="relative z-20"
             @click.stop
           >
-            <Github :size="16" /> View Code
-          </a>
-          <a
+            <template #icon-left>
+              <Github :size="16" />
+            </template>
+            View Code
+          </Button>
+          <Button
             v-if="portfolio.visit"
+            tag="a"
             :href="portfolio.visit"
             target="_blank"
             rel="noopener noreferrer"
-            :class="[
-              'sketchy-border text-white px-6 py-2 text-sm font-bold transition-colors flex items-center gap-2 relative z-20',
-              props.nightMode ? 'bg-blue-700 hover:bg-blue-600' : 'bg-blue-600 hover:bg-blue-700'
-            ]"
+            variant="primary"
+            size="sm"
+            class="relative z-20"
             @click.stop
           >
-            <ExternalLink :size="16" /> Visit Site
-          </a>
-          <button
+            <template #icon-left>
+              <ExternalLink :size="16" />
+            </template>
+            Visit Site
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            class="relative z-20"
             @click.stop="closeModal"
-            :class="[
-              'sketchy-border px-6 py-2 text-sm font-bold transition-colors relative z-20',
-              props.nightMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-            ]"
           >
             Close
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -145,54 +150,36 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { X, Github, ExternalLink } from 'lucide-vue-next';
 import Gallery from './Gallery.vue';
+import Button from './Button.vue';
+import { useThemeClasses } from '@/composables/useThemeClasses';
+import { useModal } from '@/composables/useModal';
 
 const props = defineProps({
   portfolio: {
     type: Object,
     required: true
-  },
-  nightMode: {
-    type: Boolean,
-    default: false
   }
 });
 
+const themeClasses = useThemeClasses();
 const emit = defineEmits(['close']);
 
 const modalRef = ref(null);
 const closeButtonRef = ref(null);
+const isOpen = computed(() => true); // This modal is always open when rendered
 
 const closeModal = () => {
   emit('close');
 };
 
-// Keyboard navigation
-const handleKeyDown = (event) => {
-  if (event.key === 'Escape') {
-    closeModal();
-  }
-};
-
-// Focus management for accessibility
-onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown);
-  // Prevent body scroll when modal is open
-  document.body.style.overflow = 'hidden';
-  
-  // Focus the close button for accessibility
-  nextTick(() => {
-    if (closeButtonRef.value) {
-      closeButtonRef.value.focus();
-    }
-  });
-});
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown);
-  document.body.style.overflow = '';
+// Use modal composable for common functionality
+useModal({
+  isOpen,
+  onClose: closeModal,
+  closeButtonRef
 });
 </script>
 

@@ -9,12 +9,12 @@
     'transition-all',
     'duration-300',
     'relative',
-    nightMode ? 'dark-shadow' : ''
+    themeClasses.isDark.value ? 'dark-shadow' : ''
   ]">
-    <div :class="['absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6', nightMode ? 'tape-dark' : 'tape']"></div>
+    <div :class="['absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6', themeClasses.isDark.value ? 'tape-dark' : 'tape']"></div>
     <h3 :class="[
       'text-xl font-bold mb-3 border-b-2 pb-1',
-      nightMode ? 'border-gray-700' : 'border-gray-800/10'
+      themeClasses.classes.borderSecondary()
     ]">{{ title }}</h3>
     <div class="text-lg leading-relaxed">
       <slot></slot>
@@ -24,6 +24,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { useThemeClasses } from '@/composables/useThemeClasses';
 
 const props = defineProps({
   title: String,
@@ -34,15 +35,12 @@ const props = defineProps({
   colorDark: {
     type: String,
     default: 'bg-yellow-900/50'
-  },
-  nightMode: {
-    type: Boolean,
-    default: false
   }
 });
 
-const bgColor = computed(() => props.nightMode ? props.colorDark : props.colorLight);
-const textColor = computed(() => props.nightMode ? 'text-gray-200' : 'text-gray-800');
+const themeClasses = useThemeClasses();
+const bgColor = computed(() => themeClasses.isDark.value ? props.colorDark : props.colorLight);
+const textColor = computed(() => themeClasses.classes.text());
 </script>
 
 <style scoped>

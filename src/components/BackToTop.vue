@@ -8,7 +8,7 @@
       'p-3',
       'transition-all',
       { 'visible': isVisible },
-      nightMode ? 'bg-blue-700 hover:bg-blue-600' : 'bg-blue-600 hover:bg-blue-700'
+      themeClasses.classes.buttonPrimary()
     ]"
     aria-label="Scroll to top"
   >
@@ -19,13 +19,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ArrowUp } from 'lucide-vue-next'
+import { useThemeClasses } from '@/composables/useThemeClasses'
+import { useScrollTo } from '@/composables/useScrollTo'
 
-const props = defineProps({
-  nightMode: {
-    type: Boolean,
-    default: false
-  }
-})
+const themeClasses = useThemeClasses()
+const { scrollToTop } = useScrollTo()
 
 const isVisible = ref(false)
 
@@ -35,13 +33,6 @@ const toggleVisibility = () => {
   } else {
     isVisible.value = false
   }
-}
-
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
 }
 
 onMounted(() => {

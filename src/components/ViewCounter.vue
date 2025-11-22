@@ -1,5 +1,5 @@
 <template>
-  <div class="view-counter sketchy-border" :class="{ 'loading': isLoading, 'view-counter-dark': nightMode }">
+  <div class="view-counter sketchy-border" :class="{ 'loading': isLoading, 'view-counter-dark': themeClasses.isDark.value }">
     <Users :size="18" />
     <span v-if="!isLoading">{{ viewCount }}</span>
     <span v-else>...</span>
@@ -11,13 +11,9 @@
 import { ref, onMounted } from 'vue'
 import { Users } from 'lucide-vue-next'
 import { incrementViewCount, getViewCount } from '../firebase'
+import { useThemeClasses } from '@/composables/useThemeClasses'
 
-const props = defineProps({
-  nightMode: {
-    type: Boolean,
-    default: false
-  }
-})
+const themeClasses = useThemeClasses()
 
 const viewCount = ref(0)
 const isLoading = ref(true)

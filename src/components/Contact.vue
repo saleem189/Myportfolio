@@ -1,23 +1,23 @@
 <template>
-  <Section id="contact" title="Reach Out" :nightMode="nightMode">
+  <Section id="contact" title="Reach Out">
     <div :class="[
       'p-8 sketchy-border max-w-2xl mx-auto transform rotate-1 transition-colors',
-      nightMode ? 'bg-slate-800 text-gray-200' : 'bg-white text-gray-800'
+      themeClasses.themeClass('bg-white text-gray-800', 'bg-slate-800 text-gray-200')
     ]">
       <div class="flex flex-col items-center text-center">
         <div :class="[
           'w-16 h-16 rounded-full flex items-center justify-center border-2 border-dashed mb-4 transition-colors',
-          nightMode ? 'bg-slate-700 border-slate-500' : 'bg-gray-100 border-gray-400'
+          themeClasses.themeClass('bg-gray-100 border-gray-400', 'bg-slate-700 border-slate-500')
         ]">
-          <Mail :size="32" :class="nightMode ? 'text-slate-400' : 'text-gray-500'" />
+          <Mail :size="32" :class="themeClasses.classes.textMuted()" />
         </div>
-        <h3 :class="['text-2xl font-bold mb-2 transition-colors', nightMode ? 'text-gray-200' : 'text-gray-800']">Keep in Touch!</h3>
-        <p :class="['text-xl mb-4 transition-colors', nightMode ? 'text-gray-300' : 'text-gray-700']">
+        <h3 :class="['text-2xl font-bold mb-2 transition-colors', themeClasses.classes.text()]">Keep in Touch!</h3>
+        <p :class="['text-xl mb-4 transition-colors', themeClasses.classes.textSecondary()]">
           I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
         </p>
         <p :class="[
           'text-lg mb-8 px-4 py-2 rounded border inline-block transition-colors',
-          nightMode ? 'bg-blue-900/30 border-blue-700 text-blue-300' : 'bg-blue-100 border-blue-300 text-blue-800'
+          themeClasses.themeClass('bg-blue-100 border-blue-300 text-blue-800', 'bg-blue-900/30 border-blue-700 text-blue-300')
         ]">
           ✈️ Available for remote opportunities
         </p>
@@ -32,7 +32,7 @@
             data-formspree-redirect="false"
           >
           <div>
-            <label for="name" :class="['block mb-2 font-bold text-lg', nightMode ? 'text-gray-200' : 'text-gray-800']">
+            <label for="name" :class="['block mb-2 font-bold text-lg', themeClasses.classes.text()]">
               Name
             </label>
             <input
@@ -43,7 +43,7 @@
               placeholder="Please enter your name here"
               :class="[
                 'w-full px-4 py-3 sketchy-border transition-colors',
-                nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
+                themeClasses.themeClass('bg-white border-gray-800 text-gray-800 placeholder-gray-500', 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400')
               ]"
               @focus="trackFormInteraction('contact_form', 'name')"
               required
@@ -51,7 +51,7 @@
           </div>
 
           <div>
-            <label for="email" :class="['block mb-2 font-bold text-lg', nightMode ? 'text-gray-200' : 'text-gray-800']">
+            <label for="email" :class="['block mb-2 font-bold text-lg', themeClasses.classes.text()]">
               Email
             </label>
             <input
@@ -62,7 +62,7 @@
               placeholder="Please write your email here"
               :class="[
                 'w-full px-4 py-3 sketchy-border transition-colors',
-                nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
+                themeClasses.themeClass('bg-white border-gray-800 text-gray-800 placeholder-gray-500', 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400')
               ]"
               @focus="trackFormInteraction('contact_form', 'email')"
               required
@@ -70,7 +70,7 @@
           </div>
 
           <div>
-            <label for="message" :class="['block mb-2 font-bold text-lg', nightMode ? 'text-gray-200' : 'text-gray-800']">
+            <label for="message" :class="['block mb-2 font-bold text-lg', themeClasses.classes.text()]">
               Message
             </label>
             <textarea
@@ -81,7 +81,7 @@
               rows="4"
               :class="[
                 'w-full px-4 py-3 sketchy-border transition-colors resize-none',
-                nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
+                themeClasses.themeClass('bg-white border-gray-800 text-gray-800 placeholder-gray-500', 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400')
               ]"
               @focus="trackFormInteraction('contact_form', 'message')"
               required
@@ -89,65 +89,62 @@
           </div>
 
             <div class="flex gap-3">
-              <button
+              <Button
                 type="submit"
                 :disabled="isSubmitting"
-                :class="[
-                  'flex-1 sketchy-border px-6 py-3 text-lg font-bold transition-colors flex items-center justify-center gap-2',
-                  isSubmitting
-                    ? 'opacity-50 cursor-not-allowed'
-                    : nightMode
-                      ? 'bg-blue-700 hover:bg-blue-600 text-white'
-                      : 'bg-blue-600 hover:bg-blue-700 text-white'
-                ]"
+                variant="primary"
+                size="lg"
+                class="flex-1"
               >
-                <Mail :size="20" />
+                <template #icon-left>
+                  <Mail :size="20" />
+                </template>
                 <span v-if="isSubmitting">Sending...</span>
                 <span v-else>Send Message</span>
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
                 @click="showForm = false"
-                :class="[
-                  'sketchy-border px-6 py-3 text-lg font-bold transition-colors',
-                  nightMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
-                ]"
+                variant="secondary"
+                size="lg"
               >
                 Cancel
-              </button>
+              </Button>
             </div>
           </form>
         </div>
         
         <!-- Action Buttons (shown when form is hidden) -->
         <div v-else class="flex flex-col md:flex-row gap-4 w-full">
-          <button 
+          <Button 
             @click="showForm = true"
-            :class="[
-              'flex-1 sketchy-border p-4 text-center text-xl font-bold transition-colors flex items-center justify-center gap-2',
-              nightMode ? 'bg-yellow-600 hover:bg-yellow-500 text-white' : 'bg-yellow-300 hover:bg-yellow-400 text-gray-900'
-            ]"
+            variant="warning"
+            size="lg"
+            class="flex-1"
           >
-            <Mail :size="20" /> Email Me
-          </button>
-          <a 
-            :href="`tel:${contactInfo.phone}`" 
-            :class="[
-              'flex-1 sketchy-border p-4 text-center text-xl font-bold transition-colors flex items-center justify-center gap-2',
-              nightMode ? 'bg-slate-700 hover:bg-slate-600 text-white' : 'bg-white hover:bg-gray-50 text-black'
-            ]"
+            <template #icon-left>
+              <Mail :size="20" />
+            </template>
+            Email Me
+          </Button>
+          <Button 
+            tag="a"
+            :href="`tel:${contactInfo.phone}`"
+            variant="default"
+            size="lg"
+            class="flex-1"
           >
-            <Phone :size="20" /> Call Me
-          </a>
+            <template #icon-left>
+              <Phone :size="20" />
+            </template>
+            Call Me
+          </Button>
         </div>
 
         <div class="mt-8 flex gap-6">
           <a 
             :href="info.links.linkedin" 
-            :class="[
-              'transition-colors',
-              nightMode ? 'text-slate-500 hover:text-blue-400' : 'text-gray-500 hover:text-blue-700'
-            ]"
+            :class="['transition-colors', themeClasses.classes.link()]"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -155,10 +152,7 @@
           </a>
           <a 
             :href="info.links.github" 
-            :class="[
-              'transition-colors',
-              nightMode ? 'text-slate-500 hover:text-white' : 'text-gray-500 hover:text-black'
-            ]"
+            :class="['transition-colors', themeClasses.classes.link()]"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -168,7 +162,7 @@
       </div>
     </div>
     
-    <div :class="['text-center mt-12 text-lg transition-colors', nightMode ? 'text-slate-500' : 'text-gray-500']">
+    <div :class="['text-center mt-12 text-lg transition-colors', themeClasses.classes.textMuted()]">
       <p>&copy; {{ new Date().getFullYear() }} {{ info.name }}.</p>
     </div>
 
@@ -186,15 +180,12 @@ import { ref, computed, onMounted } from 'vue'
 import { Mail, Phone, Linkedin, Github } from 'lucide-vue-next';
 import Section from './helpers/Section.vue';
 import Snackbar from './helpers/Snackbar.vue';
+import Button from './helpers/Button.vue';
 import info from "../../info";
 import { useAnalytics } from "@/composables/useAnalytics";
+import { useThemeClasses } from "@/composables/useThemeClasses";
 
-const props = defineProps({
-  nightMode: {
-    type: Boolean,
-    default: false
-  }
-});
+const themeClasses = useThemeClasses();
 
 const email = ref("");
 const name = ref("");

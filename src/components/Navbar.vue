@@ -1,12 +1,12 @@
 <template>
   <nav :class="[
     'sticky top-0 z-50 border-b-2 px-6 py-4 flex justify-between items-center shadow-sm transition-colors',
-    props.nightMode ? 'bg-[#1a202c] border-slate-600' : 'bg-[#fdfbf7] border-gray-800'
+    themeClasses.themeClass('bg-[#fdfbf7] border-gray-800', 'bg-[#1a202c] border-slate-600')
   ]">
       <div class="text-2xl font-bold flex items-center gap-2">
-      <PenTool :size="24" :class="props.nightMode ? 'text-blue-400' : 'text-blue-700'" />
-      <span :class="props.nightMode ? 'text-gray-100' : 'text-gray-800'">
-        {{ info.logo_name }}<span :class="props.nightMode ? 'text-blue-300' : 'text-blue-600'">.notes</span>
+      <PenTool :size="24" :class="themeClasses.themeClass('text-blue-700', 'text-blue-400')" />
+      <span :class="themeClasses.classes.textHeading()">
+        {{ info.logo_name }}<span :class="themeClasses.themeClass('text-blue-600', 'text-blue-300')">.notes</span>
       </span>
     </div>
     
@@ -19,7 +19,7 @@
         @click.prevent="handleSmoothScroll($event, item.toLowerCase())"
         :class="[
           'nav-link transition-colors',
-          props.nightMode ? 'text-gray-300 hover:text-blue-300 nav-link-dark' : 'text-gray-700 hover:text-blue-700'
+          themeClasses.classes.linkNav()
         ]"
       >
         {{ item }}
@@ -27,17 +27,17 @@
     </div>
 
     <!-- Mobile Menu Button -->
-    <button 
-      :class="[
-        'md:hidden sketchy-border px-3 py-1 text-lg transition-colors',
-        props.nightMode ? 'bg-slate-800 hover:bg-slate-700 text-white' : 'bg-white hover:bg-gray-50 text-gray-800'
-      ]"
+    <Button
+      :class="'md:hidden'"
+      size="lg"
       @click="toggleMenu"
       aria-label="Toggle menu"
     >
-      <X v-if="isMenuOpen" :size="20" />
-      <Menu v-else :size="20" />
-    </button>
+      <template #icon-left>
+        <X v-if="isMenuOpen" :size="20" />
+        <Menu v-else :size="20" />
+      </template>
+    </Button>
 
     <!-- Desktop Actions -->
     <div class="hidden md:flex items-center gap-4">
@@ -46,30 +46,32 @@
         @click="toggleNightMode"
         :class="[
           'sketchy-border px-3 py-1 transition-all',
-          props.nightMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700 border-yellow-400' : 'bg-white text-gray-800 hover:bg-gray-50 border-gray-800'
+          themeClasses.themeClass(
+            'bg-white text-gray-800 hover:bg-gray-50 border-gray-800',
+            'bg-slate-800 text-yellow-400 hover:bg-slate-700 border-yellow-400'
+          )
         ]"
         aria-label="Toggle Theme"
       >
-        <Sun v-if="props.nightMode" :size="20" />
+        <Sun v-if="theme.nightMode.value" :size="20" />
         <Moon v-else :size="20" />
       </button>
       <!-- Resume Button -->
-      <button
-        type="button"
-        @click.prevent="openResumeModal"
-        :class="[
-          'sketchy-border px-4 py-1 text-lg font-bold flex items-center gap-2 transition-colors',
-          props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white hover:bg-gray-50 text-black'
-        ]"
+      <Button
+        size="lg"
+        @click="openResumeModal"
       >
-        Resume <Download :size="18" />
-      </button>
+        <template #icon-right>
+          <Download :size="18" />
+        </template>
+        Resume
+      </Button>
     </div>
 
     <!-- Mobile Menu -->
     <div v-show="isMenuOpen" :class="[
       'absolute top-full left-0 right-0 border-b-2 shadow-lg md:hidden transition-colors',
-      props.nightMode ? 'bg-[#1a202c] border-slate-600' : 'bg-[#fdfbf7] border-gray-800'
+      themeClasses.themeClass('bg-[#fdfbf7] border-gray-800', 'bg-[#1a202c] border-slate-600')
     ]">
       <div class="flex flex-col p-4 gap-4">
         <a 
@@ -79,32 +81,30 @@
           @click.prevent="handleSmoothScroll($event, item.toLowerCase())"
           :class="[
             'text-xl py-2 nav-link transition-colors',
-            props.nightMode ? 'text-gray-300 hover:text-blue-300 nav-link-dark' : 'text-gray-700 hover:text-blue-700'
+            themeClasses.classes.linkNav()
           ]"
         >
           {{ item }}
         </a>
-        <button
+        <Button
+          size="lg"
           @click="toggleNightMode"
-          :class="[
-            'sketchy-border px-4 py-2 text-lg font-bold flex items-center justify-center gap-2 transition-colors',
-            props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white hover:bg-gray-50 text-black'
-          ]"
         >
-          <Sun v-if="props.nightMode" :size="20" />
-          <Moon v-else :size="20" />
-          {{ props.nightMode ? 'Light Mode' : 'Dark Mode' }}
-        </button>
-        <button
-          type="button"
-          @click.prevent="openResumeModal"
-          :class="[
-            'sketchy-border px-4 py-2 text-lg font-bold flex items-center justify-center gap-2 transition-colors',
-            props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white hover:bg-gray-50 text-black'
-          ]"
+          <template #icon-left>
+            <Sun v-if="theme.nightMode.value" :size="20" />
+            <Moon v-else :size="20" />
+          </template>
+          {{ themeClasses.isDark.value ? 'Light Mode' : 'Dark Mode' }}
+        </Button>
+        <Button
+          size="lg"
+          @click="openResumeModal"
         >
-          Resume <Download :size="18" />
-        </button>
+          <template #icon-right>
+            <Download :size="18" />
+          </template>
+          Resume
+        </Button>
       </div>
     </div>
   </nav>
@@ -112,26 +112,29 @@
   <!-- Resume Modal -->
   <ResumeModal
     :isOpen="isResumeModalOpen"
-    :nightMode="props.nightMode"
     :resumeUrl="info.links.resume"
     @close="closeResumeModal"
   />
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import { PenTool, Moon, Sun, Download, Menu, X } from 'lucide-vue-next';
 import info from "../../info";
 import ResumeModal from "./helpers/ResumeModal.vue";
+import Button from "./helpers/Button.vue";
+import { useThemeClasses } from '@/composables/useThemeClasses';
 
-const props = defineProps({
-  nightMode: {
-    type: Boolean,
-    default: false
-  }
+const emit = defineEmits(['scroll']);
+
+// Inject theme from Provider
+const theme = inject('theme', {
+  nightMode: ref(false),
+  toggleNightMode: () => {}
 });
 
-const emit = defineEmits(['scroll', 'nightMode']);
+// Use theme classes utility
+const themeClasses = useThemeClasses();
 
 const navItems = ['Skills', 'Experience', 'Portfolio', 'Education', 'Contact'];
 const isMenuOpen = ref(false);
@@ -151,7 +154,10 @@ const closeResumeModal = () => {
 };
 
 const toggleNightMode = () => {
-  emit('nightMode', !props.nightMode);
+  if (theme && theme.toggleNightMode) {
+    theme.toggleNightMode();
+  }
+  // Close mobile menu
   isMenuOpen.value = false;
 };
 

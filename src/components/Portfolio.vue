@@ -1,22 +1,16 @@
 <template>
-  <Section id="portfolio" title="My Projects" :nightMode="props.nightMode">
+  <Section id="portfolio" title="My Projects">
     <!-- Filter Buttons -->
     <div class="mb-8 flex flex-wrap gap-3 justify-center">
-      <button
+      <Button
         v-for="category in categories"
         :key="category"
         @click="setFilter(category)"
-        :class="[
-          'sketchy-border px-4 py-2 text-sm font-bold transition-colors',
-          filter === category
-            ? 'bg-blue-600 text-white'
-            : props.nightMode
-              ? 'bg-slate-800 text-gray-300 hover:bg-slate-700'
-              : 'bg-white text-gray-700 hover:bg-gray-50'
-        ]"
+        :variant="filter === category ? 'primary' : 'default'"
+        size="sm"
       >
         {{ category }}
-      </button>
+      </Button>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -35,7 +29,6 @@
           :visit="project.visit"
           :github="project.github"
           :pictures="project.pictures"
-          :nightMode="props.nightMode"
           @show-modal="showModalFn"
         />
       </div>
@@ -47,7 +40,6 @@
         <ProjectModal
           v-if="showModal"
           :portfolio="modalInfo"
-          :nightMode="props.nightMode"
           @close="closeModal"
         />
       </transition>
@@ -60,15 +52,9 @@ import { ref, computed, onMounted } from 'vue';
 import Section from './helpers/Section.vue';
 import IndexCard from './helpers/IndexCard.vue';
 import ProjectModal from './helpers/ProjectModal.vue';
+import Button from './helpers/Button.vue';
 import info from "../../info";
 import { useAnalytics } from "@/composables/useAnalytics";
-
-const props = defineProps({
-  nightMode: {
-    type: Boolean,
-    default: false
-  }
-});
 
 const filter = ref('All');
 const projects = info.portfolio;

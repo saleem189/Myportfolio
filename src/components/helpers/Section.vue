@@ -3,11 +3,11 @@
     <div v-if="title" class="mb-8 inline-block relative">
       <h2 :class="[
         'text-4xl font-bold relative z-10 transition-colors',
-        nightMode ? 'text-blue-300' : 'text-blue-800'
+        themeClasses.themeClass('text-blue-800', 'text-blue-300')
       ]">{{ title }}</h2>
       <div :class="[
         'absolute bottom-1 left-0 w-full h-3 -z-0 opacity-60 transform -rotate-1 transition-colors',
-        nightMode ? 'bg-blue-900' : 'bg-yellow-200'
+        themeClasses.themeClass('bg-yellow-200', 'bg-blue-900')
       ]"></div>
     </div>
     <slot></slot>
@@ -15,18 +15,18 @@
 </template>
 
 <script setup>
+import { useThemeClasses } from '@/composables/useThemeClasses';
+
 defineProps({
   id: String,
   title: String,
   className: {
     type: String,
     default: ''
-  },
-  nightMode: {
-    type: Boolean,
-    default: false
   }
 });
+
+const themeClasses = useThemeClasses();
 </script>
 
 <style scoped>

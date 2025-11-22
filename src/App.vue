@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent, onMounted } from 'vue'
+import { defineAsyncComponent, onMounted, provide } from 'vue'
 import { useRoute } from 'vue-router'
 import Navbar from "@/components/Navbar.vue";
 import Home from "@/components/Home.vue";
@@ -16,9 +16,16 @@ const Portfolio = defineAsyncComponent(() => import("@/components/Portfolio.vue"
 const Education = defineAsyncComponent(() => import("@/components/Education.vue"));
 const Contact = defineAsyncComponent(() => import("@/components/Contact.vue"));
 
-const { nightMode, setNightMode } = useNightMode();
+const { nightMode, setNightMode, toggleNightMode } = useNightMode();
 const { scrollToSection } = useScrollTo();
 const route = useRoute();
+
+// Provide theme to all child components using Provider pattern
+provide('theme', {
+  nightMode,
+  setNightMode,
+  toggleNightMode
+});
 
 onMounted(() => {
   if (route.hash) {
@@ -34,10 +41,6 @@ onMounted(() => {
   }
 });
 
-const switchMode = (mode) => {
-  setNightMode(mode);
-};
-
 const scrollTo = (ele) => {
   scrollToSection(ele);
 };
@@ -48,37 +51,37 @@ const scrollTo = (ele) => {
 <template>
   <div class="notebook-paper min-h-screen overflow-x-hidden w-full max-w-full">
     <SEOHead />
-    <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
+    <Navbar @scroll="scrollTo" />
     <main class="max-w-6xl mx-auto">
       <section class="section home-section">
-        <Home :nightMode="nightMode" />
+        <Home />
       </section>
       
       <section id="skills" class="section skills-section">
-        <Skills :nightMode="nightMode" />
+        <Skills />
       </section>
 
       <section id="experience" class="section experience-section">
-        <About :nightMode="nightMode" />
+        <About />
       </section>
       
       <section id="portfolio" class="section portfolio-section">
-        <Portfolio :nightMode="nightMode" />
+        <Portfolio />
       </section>
 
       <section id="education" class="section education-section">
-        <Education :nightMode="nightMode" />
+        <Education />
       </section>
 
       
       <section id="contact" class="section contact-section">
-        <Contact :nightMode="nightMode" />
+        <Contact />
       </section>
     </main>
 
     <aside class="floating-elements">
-      <ViewCounter class="view-counter-container" :nightMode="nightMode" />
-      <BackToTop :nightMode="nightMode" />
+      <ViewCounter class="view-counter-container" />
+      <BackToTop />
     </aside>
   </div>
 </template>
