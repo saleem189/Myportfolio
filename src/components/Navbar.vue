@@ -54,17 +54,16 @@
         <Moon v-else :size="20" />
       </button>
       <!-- Resume Button -->
-      <a 
-        :href="info.links.resume" 
-        target="_blank" 
-        rel="noopener noreferrer"
+      <button
+        type="button"
+        @click.prevent="openResumeModal"
         :class="[
           'sketchy-border px-4 py-1 text-lg font-bold flex items-center gap-2 transition-colors',
           props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white hover:bg-gray-50 text-black'
         ]"
       >
         Resume <Download :size="18" />
-      </a>
+      </button>
     </div>
 
     <!-- Mobile Menu -->
@@ -96,26 +95,34 @@
           <Moon v-else :size="20" />
           {{ props.nightMode ? 'Light Mode' : 'Dark Mode' }}
         </button>
-        <a 
-          :href="info.links.resume" 
-          target="_blank" 
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          @click.prevent="openResumeModal"
           :class="[
             'sketchy-border px-4 py-2 text-lg font-bold flex items-center justify-center gap-2 transition-colors',
             props.nightMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white hover:bg-gray-50 text-black'
           ]"
         >
           Resume <Download :size="18" />
-        </a>
+        </button>
       </div>
     </div>
   </nav>
+
+  <!-- Resume Modal -->
+  <ResumeModal
+    :isOpen="isResumeModalOpen"
+    :nightMode="props.nightMode"
+    :resumeUrl="info.links.resume"
+    @close="closeResumeModal"
+  />
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { PenTool, Moon, Sun, Download, Menu, X } from 'lucide-vue-next';
 import info from "../../info";
+import ResumeModal from "./helpers/ResumeModal.vue";
 
 const props = defineProps({
   nightMode: {
@@ -128,6 +135,20 @@ const emit = defineEmits(['scroll', 'nightMode']);
 
 const navItems = ['Skills', 'Experience', 'Portfolio', 'Education', 'Contact'];
 const isMenuOpen = ref(false);
+const isResumeModalOpen = ref(false);
+
+const openResumeModal = (event) => {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  isResumeModalOpen.value = true;
+  isMenuOpen.value = false;
+};
+
+const closeResumeModal = () => {
+  isResumeModalOpen.value = false;
+};
 
 const toggleNightMode = () => {
   emit('nightMode', !props.nightMode);
