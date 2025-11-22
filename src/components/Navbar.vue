@@ -68,7 +68,7 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div v-if="isMenuOpen" :class="[
+    <div v-show="isMenuOpen" :class="[
       'absolute top-full left-0 right-0 border-b-2 shadow-lg md:hidden transition-colors',
       props.nightMode ? 'bg-[#1a202c] border-slate-600' : 'bg-[#fdfbf7] border-gray-800'
     ]">
@@ -118,7 +118,10 @@ import { PenTool, Moon, Sun, Download, Menu, X } from 'lucide-vue-next';
 import info from "../../info";
 
 const props = defineProps({
-  nightMode: Boolean
+  nightMode: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const emit = defineEmits(['scroll', 'nightMode']);

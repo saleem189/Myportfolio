@@ -45,7 +45,7 @@
                 'w-full px-4 py-3 sketchy-border transition-colors',
                 nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
               ]"
-              @focus="trackFieldInteraction('name')"
+              @focus="trackFormInteraction('contact_form', 'name')"
               required
             />
           </div>
@@ -64,7 +64,7 @@
                 'w-full px-4 py-3 sketchy-border transition-colors',
                 nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
               ]"
-              @focus="trackFieldInteraction('email')"
+              @focus="trackFormInteraction('contact_form', 'email')"
               required
             />
           </div>
@@ -83,7 +83,7 @@
                 'w-full px-4 py-3 sketchy-border transition-colors resize-none',
                 nightMode ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' : 'bg-white border-gray-800 text-gray-800 placeholder-gray-500'
               ]"
-              @focus="trackFieldInteraction('message')"
+              @focus="trackFormInteraction('contact_form', 'message')"
               required
             ></textarea>
           </div>
@@ -187,19 +187,23 @@ import { Mail, Phone, Linkedin, Github } from 'lucide-vue-next';
 import Section from './helpers/Section.vue';
 import Snackbar from './helpers/Snackbar.vue';
 import info from "../../info";
+import { useAnalytics } from "@/composables/useAnalytics";
 
 const props = defineProps({
-  nightMode: Boolean,
+  nightMode: {
+    type: Boolean,
+    default: false
+  }
 });
 
-let email = ref("");
-let name = ref("");
-let text = ref("");
-let showSnackbar = ref(false);
-let snackbarMessage = ref("");
-let snackbarColor = ref("");
-let isSubmitting = ref(false);
-let showForm = ref(false);
+const email = ref("");
+const name = ref("");
+const text = ref("");
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const snackbarColor = ref("");
+const isSubmitting = ref(false);
+const showForm = ref(false);
 
 const formspreeUrl = computed(() => {
   // Use environment variable if available, otherwise fallback to info.js
@@ -207,59 +211,25 @@ const formspreeUrl = computed(() => {
 });
 
 const contactInfo = computed(() => info.contact);
-
-// Track form field interactions
-const trackFieldInteraction = (fieldName) => {
-  if (window.gtag) {
-    window.gtag('event', 'form_field_interaction', {
-      form_name: 'contact_form',
-      field_name: fieldName,
-      page_location: window.location.href
-    });
-  }
-};
+const { trackSectionView, trackFormInteraction, trackFormSubmit, trackFormError } = useAnalytics();
 
 // Track contact page view
 onMounted(() => {
-  if (window.gtag) {
-    window.gtag('event', 'section_view', {
-      section_name: 'contact',
-      section_title: 'Contact Section',
-      page_location: window.location.href,
-      timestamp: new Date().toISOString()
-    });
-  }
+  trackSectionView('contact', 'Contact Section');
 });
 
-let closeSnackbar = (val) => {
+const closeSnackbar = (val) => {
   showSnackbar.value = val;
 };
 
-let handleSubmit = async (event) => {
+const handleSubmit = async (event) => {
   event.preventDefault();
-  
-  // Track form interaction
-  if (window.gtag) {
-    window.gtag('event', 'form_start', {
-      form_name: 'contact_form',
-      page_location: window.location.href
-    });
-  }
   
   if (!email.value || !name.value || !text.value) {
     showSnackbar.value = true;
     snackbarMessage.value = "Please fill in all the fields";
     snackbarColor.value = "rgb(212, 149, 97)";
-    
-    // Track form validation error
-    if (window.gtag) {
-      window.gtag('event', 'form_error', {
-        form_name: 'contact_form',
-        error_type: 'validation_error',
-        page_location: window.location.href
-      });
-    }
-    
+    trackFormError('contact_form', 'validation_error');
     return;
   }
 
@@ -279,15 +249,7 @@ let handleSubmit = async (event) => {
       showSnackbar.value = true;
       snackbarMessage.value = "Thanks! Message received.";
       snackbarColor.value = "#1aa260";
-      
-      // Track successful form submission
-      if (window.gtag) {
-        window.gtag('event', 'form_submit', {
-          form_name: 'contact_form',
-          page_location: window.location.href,
-          value: 1
-        });
-      }
+      trackFormSubmit('contact_form', 1);
       
       // Reset form
       email.value = "";
@@ -305,15 +267,7 @@ let handleSubmit = async (event) => {
     showSnackbar.value = true;
     snackbarMessage.value = "Oops! Something went wrong.";
     snackbarColor.value = "rgb(212, 149, 97)";
-    
-    // Track form submission error
-    if (window.gtag) {
-      window.gtag('event', 'form_error', {
-        form_name: 'contact_form',
-        error_type: 'submission_error',
-        page_location: window.location.href
-      });
-    }
+    trackFormError('contact_form', 'submission_error');
   } finally {
     isSubmitting.value = false;
   }

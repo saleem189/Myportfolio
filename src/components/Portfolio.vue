@@ -61,9 +61,13 @@ import Section from './helpers/Section.vue';
 import IndexCard from './helpers/IndexCard.vue';
 import ProjectModal from './helpers/ProjectModal.vue';
 import info from "../../info";
+import { useAnalytics } from "@/composables/useAnalytics";
 
 const props = defineProps({
-  nightMode: Boolean
+  nightMode: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const filter = ref('All');
@@ -99,32 +103,18 @@ const filteredProjects = computed(() => {
   });
 });
 
+const { trackPortfolioFilter, trackPortfolioClick, trackSectionView } = useAnalytics();
+
 const setFilter = (category) => {
   filter.value = category;
-  
-  // Track filter usage
-  if (window.gtag) {
-    window.gtag('event', 'portfolio_filter', {
-      filter_category: category,
-      page_location: window.location.href
-    });
-  }
+  trackPortfolioFilter(category);
 };
 
 const showModalFn = (project) => {
   modalInfo.value = project;
   showModal.value = true;
   document.body.classList.add('modal-open');
-  
-  // Track portfolio project click
-  if (window.gtag) {
-    window.gtag('event', 'portfolio_project_click', {
-      project_name: project.name,
-      project_category: 'development',
-      page_location: window.location.href,
-      timestamp: new Date().toISOString()
-    });
-  }
+  trackPortfolioClick(project.name, 'development');
 };
 
 const closeModal = () => {
@@ -134,14 +124,7 @@ const closeModal = () => {
 
 // Track portfolio section view
 onMounted(() => {
-  if (window.gtag) {
-    window.gtag('event', 'section_view', {
-      section_name: 'portfolio',
-      section_title: 'Portfolio Section',
-      page_location: window.location.href,
-      timestamp: new Date().toISOString()
-    });
-  }
+  trackSectionView('portfolio', 'Portfolio Section');
 });
 </script>
 

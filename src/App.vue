@@ -1,28 +1,24 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { defineAsyncComponent, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import Navbar from "@/components/Navbar.vue";
 import Home from "@/components/Home.vue";
-import About from "@/components/About.vue";
-import Skills from "@/components/Skills.vue";
-import Portfolio from "@/components/Portfolio.vue";
-import Education from "@/components/Education.vue";
-import Recommendation from "@/components/Recommendation.vue";
-import Contact from "@/components/Contact.vue";
+import SEOHead from "@/components/SEOHead.vue";
 import ViewCounter from "@/components/ViewCounter.vue";
 import BackToTop from "@/components/BackToTop.vue";
-import SEOHead from "@/components/SEOHead.vue";
-import { useCookies } from "vue3-cookies";
-import info from "../info";
+import { useNightMode } from "@/composables/useNightMode";
+import { useScrollTo } from "@/composables/useScrollTo";
 
-const { cookies } = useCookies();
-const router = useRouter()
-const route = useRoute()
+// Lazy load below-the-fold components for better performance
+const Skills = defineAsyncComponent(() => import("@/components/Skills.vue"));
+const About = defineAsyncComponent(() => import("@/components/About.vue"));
+const Portfolio = defineAsyncComponent(() => import("@/components/Portfolio.vue"));
+const Education = defineAsyncComponent(() => import("@/components/Education.vue"));
+const Contact = defineAsyncComponent(() => import("@/components/Contact.vue"));
 
-const nightMode = ref(false);
-if (info.config.use_cookies) {
-  nightMode.value = cookies.get("nightMode") === "true" ? true : false;
-}
+const { nightMode, setNightMode } = useNightMode();
+const { scrollToSection } = useScrollTo();
+const route = useRoute();
 
 onMounted(() => {
   if (route.hash) {
@@ -36,52 +32,14 @@ onMounted(() => {
       }, 100);
     }
   }
-  // Apply night mode class to body
-  updateBodyClass();
 });
 
 const switchMode = (mode) => {
-  if (info.config.use_cookies) {
-    cookies.set("nightMode", mode);
-  }
-  nightMode.value = mode;
-  updateBodyClass();
-};
-
-const updateBodyClass = () => {
-  const root = document.documentElement;
-  
-  if (nightMode.value) {
-    // Dark mode colors (slate theme like React example)
-    root.style.setProperty('--bg-color', '#1a202c');
-    root.style.setProperty('--text-color', '#e2e8f0');
-    root.style.setProperty('--line-color', '#2d3748');
-    root.style.setProperty('--border-color', '#a0aec0');
-    root.style.setProperty('--margin-color', '#ef4444');
-  } else {
-    // Light mode colors
-    root.style.setProperty('--bg-color', '#fdfbf7');
-    root.style.setProperty('--text-color', '#2d3748');
-    root.style.setProperty('--line-color', '#e1e1e1');
-    root.style.setProperty('--border-color', '#2d3748');
-    root.style.setProperty('--margin-color', '#fca5a5');
-  }
+  setNightMode(mode);
 };
 
 const scrollTo = (ele) => {
-  if (ele === "home") {
-    router.push({ path: '/', hash: '' });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else {
-    router.push({ path: '/', hash: `#${ele}` });
-    const element = document.getElementById(ele);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 35,
-        behavior: 'smooth'
-      });
-    }
-  }
+  scrollToSection(ele);
 };
 
 

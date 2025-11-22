@@ -1,5 +1,11 @@
 <template>
-  <div class="modal-mask" @click.self="closeModal">
+  <div 
+    class="modal-mask" 
+    @click.self="closeModal"
+    @keydown.esc="closeModal"
+    tabindex="-1"
+    ref="modalRef"
+  >
     <div class="modal-wrapper">
       <div :class="[
         'modal-container sketchy-border transition-colors',
@@ -18,6 +24,7 @@
               {{ portfolio.title || portfolio.name }}
             </h2>
             <button
+              ref="closeButtonRef"
               @click="closeModal"
               :class="[
                 'text-2xl font-bold transition-colors',
@@ -138,6 +145,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 import { X, Github, ExternalLink } from 'lucide-vue-next';
 import Gallery from './Gallery.vue';
 
@@ -154,9 +162,38 @@ const props = defineProps({
 
 const emit = defineEmits(['close']);
 
+const modalRef = ref(null);
+const closeButtonRef = ref(null);
+
 const closeModal = () => {
   emit('close');
 };
+
+// Keyboard navigation
+const handleKeyDown = (event) => {
+  if (event.key === 'Escape') {
+    closeModal();
+  }
+};
+
+// Focus management for accessibility
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown);
+  // Prevent body scroll when modal is open
+  document.body.style.overflow = 'hidden';
+  
+  // Focus the close button for accessibility
+  nextTick(() => {
+    if (closeButtonRef.value) {
+      closeButtonRef.value.focus();
+    }
+  });
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+  document.body.style.overflow = '';
+});
 </script>
 
 <style scoped>

@@ -47,23 +47,22 @@
 import Section from './helpers/Section.vue';
 import { onMounted } from 'vue';
 import info from "../../info";
+import { useAnalytics } from "@/composables/useAnalytics";
 
 const props = defineProps({
-  nightMode: Boolean
+  nightMode: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const education = info.education;
 
+const { trackSectionView } = useAnalytics();
+
 // Track education section view
 onMounted(() => {
-  if (window.gtag) {
-    window.gtag('event', 'section_view', {
-      section_name: 'education',
-      section_title: 'Education Section',
-      page_location: window.location.href,
-      timestamp: new Date().toISOString()
-    });
-  }
+  trackSectionView('education', 'Education Section');
 });
 </script>
 

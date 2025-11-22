@@ -25,7 +25,10 @@ import info from "../../info";
 
 
 const props = defineProps({
-  nightMode: Boolean,
+  nightMode: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const skills = info.skills;

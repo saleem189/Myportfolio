@@ -49,6 +49,7 @@ const calculateExperience = (experiences) => {
 let info = {
   name: "Saleem Ayoub",
   logo_name: "Saleem",
+  role: "Software Engineer",
   flat_picture: saleemImage,
   config: {
     use_cookies: true,
@@ -59,7 +60,7 @@ let info = {
   },
   get description() {
     const experience = calculateExperience(this.experience);
-    return `I'm a Senior Laravel Engineer with ${experience.years}.${experience.months}+ years of experience building scalable SaaS platforms and FinTech solutions and E-commerce platforms. I specialize in architecting robust web applications using Laravel, Vue.js, and modern cloud technologies, with a proven track record of delivering high-impact solutions for international markets.<br><br> My expertise spans full-stack development, system architecture, and performance optimization. I've successfully led development teams, implemented enterprise-level design patterns, and delivered solutions that handle millions of transactions. I'm passionate about clean code architecture, scalable system design, and mentoring junior developers.<br><br> Currently open to remote opportunities worldwide, I bring a unique blend of technical expertise and business acumen to help companies build robust, scalable applications that drive business growth.`;
+    return `I'm a Software Engineer with ${experience.years}.${experience.months}+ years of experience building scalable SaaS platforms, FinTech solutions, and E-commerce platforms. My primary expertise lies in Laravel and Vue.js, with strong experience in Node.js and React. I specialize in architecting robust web applications using these technologies along with modern cloud services, with a proven track record of delivering high-impact solutions for international markets.<br><br> My expertise spans full-stack development, system architecture, and performance optimization. I've successfully led development teams, implemented enterprise-level design patterns, and delivered solutions that handle millions of transactions. I'm passionate about clean code architecture, scalable system design, and mentoring junior developers.<br><br> Currently open to remote opportunities worldwide, I bring a unique blend of technical expertise and business acumen to help companies build robust, scalable applications that drive business growth.`;
   },
   get totalExperience() {
     return calculateExperience(this.experience);

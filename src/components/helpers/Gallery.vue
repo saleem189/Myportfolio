@@ -1,45 +1,76 @@
 <template>
-  <div style="overflow: visible; position: relative;">
+  <div class="gallery-container">
     <div class="prow">
       <div
         class="pcolumn"
-        v-for="(i, idx) in images"
-        :key="i.title"
+        v-for="(image, idx) in images"
+        :key="image.title || idx"
         :class="{
-          flex: design ? '100%' : '50%',
-          '-ms-flex': design ? '100%' : '50%',
-          'max-width': design ? '100%' : '50%',
+          'flex-100': design,
+          'flex-50': !design
         }"
       >
         <img
-          :src="i.img"
-          style="width:100%"
-          :id="`gi${idx}`"
-          @click="showImg(idx)"
+          :src="image.img"
+          :alt="image.title || 'Gallery image'"
           class="g-img"
+          @click="openModal(idx)"
+          loading="lazy"
         />
         <div class="mt-1">
-          <p :class="['font-weight-500 transition-colors', nightMode ? 'text-gray-200' : 'text-gray-800']" style="font-weight: 500">{{ i.title }}</p>
+          <p :class="['font-weight-500 transition-colors', nightMode ? 'text-gray-200' : 'text-gray-800']">
+            {{ image.title }}
+          </p>
         </div>
       </div>
     </div>
-    <div id="myModal" class="modal">
-      <span class="close">&times;</span>
-      <img class="modal-content" id="modalImg" />
-      <div id="caption"></div>
-    </div>
+    
+    <!-- Modal using Vue patterns -->
+    <Teleport to="body">
+      <Transition name="modal">
+        <div
+          v-if="isModalOpen"
+          ref="modalRef"
+          class="modal"
+          @click.self="closeModal"
+          @keydown.esc="closeModal"
+          tabindex="-1"
+        >
+          <button
+            ref="closeButtonRef"
+            class="close"
+            @click="closeModal"
+            aria-label="Close image modal"
+          >
+            &times;
+          </button>
+          <img
+            ref="modalImgRef"
+            :src="currentImage?.img"
+            :alt="currentImage?.title || 'Gallery image'"
+            class="modal-content"
+          />
+          <div v-if="currentImage?.title" class="caption">
+            {{ currentImage.title }}
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
 
-let { images, design, nightMode } = defineProps({
+const props = defineProps({
   images: {
     type: Array,
+    required: true,
+    default: () => []
   },
   design: {
     type: Boolean,
+    default: false
   },
   nightMode: {
     type: Boolean,
@@ -47,37 +78,89 @@ let { images, design, nightMode } = defineProps({
   }
 });
 
-let modal = ref(null);
+const isModalOpen = ref(false);
+const currentImageIndex = ref(0);
+const modalRef = ref(null);
+const modalImgRef = ref(null);
+const closeButtonRef = ref(null);
 
-let showImg = (idx) => {
-  let modal = document.getElementById("myModal");
-  let img = document.getElementById(`gi${idx}`);
-  let modalImg = document.getElementById("modalImg");
-  modal.style.display = "block";
-  modalImg.src = img.src;
+const currentImage = computed(() => {
+  return props.images[currentImageIndex.value] || null;
+});
 
-  let span = document.getElementsByClassName("close")[0];
-
-  span.onclick = () => {
-    modalImg.classList.add("closeModal");
-    modal.classList.add("modalClose");
-    setTimeout(() => {
-      modal.style.display = "none";
-      modalImg.classList.remove("closeModal");
-      modal.classList.remove("modalClose");
-    }, 200);
-  };
+const openModal = (index) => {
+  currentImageIndex.value = index;
+  isModalOpen.value = true;
+  // Focus management for accessibility
+  nextTick(() => {
+    if (closeButtonRef.value) {
+      closeButtonRef.value.focus();
+    }
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+  });
 };
+
+const closeModal = () => {
+  isModalOpen.value = false;
+  document.body.style.overflow = '';
+};
+
+// Keyboard navigation
+const handleKeyDown = (event) => {
+  if (!isModalOpen.value) return;
+  
+  if (event.key === 'Escape') {
+    closeModal();
+  } else if (event.key === 'ArrowLeft') {
+    navigateImage(-1);
+  } else if (event.key === 'ArrowRight') {
+    navigateImage(1);
+  }
+};
+
+const navigateImage = (direction) => {
+  const newIndex = currentImageIndex.value + direction;
+  if (newIndex >= 0 && newIndex < props.images.length) {
+    currentImageIndex.value = newIndex;
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+  document.body.style.overflow = '';
+});
 </script>
 
 
 <style scoped>
+.gallery-container {
+  overflow: visible;
+  position: relative;
+}
+
 .prow {
-  display: -ms-flexbox; /* IE10 */
   display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
   flex-wrap: wrap;
   padding: 0 4px;
+}
+
+.pcolumn {
+  padding: 0 4px;
+}
+
+.pcolumn.flex-100 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.pcolumn.flex-50 {
+  flex: 0 0 50%;
+  max-width: 50%;
 }
 
 .pcolumn img {
@@ -85,23 +168,21 @@ let showImg = (idx) => {
   margin-top: 8px;
   vertical-align: middle;
   width: 100%;
+  height: auto;
 }
 
-/* Responsive layout - makes a two column-layout instead of four columns */
+/* Responsive layout */
 @media screen and (max-width: 800px) {
-  .pcolumn {
-    -ms-flex: 50%;
-    flex: 50%;
+  .pcolumn.flex-50 {
+    flex: 0 0 50%;
     max-width: 50%;
   }
 }
 
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .pcolumn {
-    -ms-flex: 100%;
-    flex: 100%;
-    max-width: 100%;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
   }
 }
 
@@ -109,26 +190,35 @@ let showImg = (idx) => {
   cursor: pointer;
   transition: all 0.5s;
 }
+
 .g-img:hover {
   opacity: 0.7;
+  transform: scale(1.02);
 }
 
-/* The Modal (background) */
+/* Modal Styles */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 10000; /* Sit on top of project modal */
-  padding-top: 100px; /* Location of the box */
+  position: fixed;
+  z-index: 10000;
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-  transition: all 0.5s;
-  animation-name: modalOpen;
-  animation-duration: 0.2s;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-enter-active {
+  animation: modalOpen 0.2s ease-out;
+}
+
+.modal-leave-active {
+  animation: modalClose 0.2s ease-in;
 }
 
 @keyframes modalOpen {
@@ -149,45 +239,38 @@ let showImg = (idx) => {
   }
 }
 
-/* Modal Content (image) */
 .modal-content {
   margin: auto;
   display: block;
   width: 100%;
   max-width: 1200px;
+  max-height: 80vh;
+  object-fit: contain;
+  animation: zoom 0.2s ease-out;
 }
 
-/* Caption of Modal Image */
-#caption {
-  margin: auto;
+@keyframes zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.caption {
+  margin: 20px auto 0;
   display: block;
   width: 80%;
   max-width: 700px;
   text-align: center;
   color: #ccc;
   padding: 10px 0;
-  height: 150px;
+  font-size: 1.1rem;
 }
 
-/* Add Animation */
-.modal-content,
-#caption {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.2s;
-  animation-name: zoom;
-  animation-duration: 0.2s;
-}
-
-@keyframes zoom {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* The Close Button */
 .close {
   position: absolute;
   top: 15px;
@@ -195,34 +278,46 @@ let showImg = (idx) => {
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
-  transition: 0.3s;
-}
-
-.closeModal {
-  animation-name: zoomClose;
-  animation-duration: 0.2s;
-}
-
-@keyframes zoomClose {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10001;
 }
 
 .close:hover,
 .close:focus {
   color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
+  transform: scale(1.1);
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
 }
 
-/* 100% Image Width on Smaller Screens */
+/* Responsive modal */
 @media only screen and (max-width: 700px) {
+  .modal {
+    padding-top: 50px;
+  }
+  
   .modal-content {
     width: 95%;
+  }
+  
+  .close {
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+  }
+  
+  .caption {
+    font-size: 0.9rem;
+    padding: 5px 0;
   }
 }
 </style>

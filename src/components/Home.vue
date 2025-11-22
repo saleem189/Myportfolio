@@ -34,7 +34,7 @@
           'px-1 mx-1',
           nightMode ? 'bg-yellow-900 text-yellow-100' : 'bg-yellow-200 text-gray-900'
         ]">optimized code.</span>
-        Specializing in <span :class="['font-semibold', nightMode ? 'text-gray-300' : 'text-gray-600']">Laravel, Vue.js, React</span> and modern cloud technologies. Currently based in <span :class="nightMode ? 'text-gray-300' : 'text-gray-600'">{{ info.contact.location }}</span>.
+        Specializing in <span :class="['font-semibold', nightMode ? 'text-gray-300' : 'text-gray-600']">Laravel, Vue.js, Node.js, React</span> and modern cloud technologies. Currently based in <span :class="nightMode ? 'text-gray-300' : 'text-gray-600'">{{ info.contact.location }}</span>.
       </p>
 
       <div class="flex gap-4 flex-wrap">
@@ -75,21 +75,20 @@
 import { ref, onMounted } from 'vue'
 import { Github, Linkedin, Cpu } from 'lucide-vue-next';
 import info from "../../info";
+import { useAnalytics } from "@/composables/useAnalytics";
 
 const props = defineProps({
-  nightMode: Boolean,
+  nightMode: {
+    type: Boolean,
+    default: false
+  }
 });
+
+const { trackSectionView } = useAnalytics();
 
 // Track home section view
 onMounted(() => {
-  if (window.gtag) {
-    window.gtag('event', 'section_view', {
-      section_name: 'home',
-      section_title: 'Home Section',
-      page_location: window.location.href,
-      timestamp: new Date().toISOString()
-    });
-  }
+  trackSectionView('home', 'Home Section');
 });
 </script>
 
