@@ -16,5 +16,21 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['firebase/app', 'firebase/firestore', 'firebase/analytics']
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separate Vue core and router
+          'vue-vendor': ['vue', 'vue-router'],
+          // Firebase libraries
+          'firebase-vendor': ['firebase/app', 'firebase/firestore', 'firebase/analytics'],
+          // UI libraries
+          'ui-vendor': ['lucide-vue-next', 'vue3-cookies', 'v-tooltip', 'vue-scrollto']
+        }
+      }
+    },
+    // Increase chunk size warning limit to 600kb (optional, but helps reduce warnings)
+    chunkSizeWarningLimit: 600
   }
 })

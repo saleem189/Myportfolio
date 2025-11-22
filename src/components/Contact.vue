@@ -182,7 +182,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { Mail, Phone, Linkedin, Github } from 'lucide-vue-next';
 import Section from './helpers/Section.vue';
 import Snackbar from './helpers/Snackbar.vue';

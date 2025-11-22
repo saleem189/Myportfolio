@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import Section from './helpers/Section.vue';
 import IndexCard from './helpers/IndexCard.vue';
 import ProjectModal from './helpers/ProjectModal.vue';

@@ -113,7 +113,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue';
+import { ref } from 'vue';
 import { PenTool, Moon, Sun, Download, Menu, X } from 'lucide-vue-next';
 import info from "../../info";
 

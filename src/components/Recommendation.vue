@@ -44,7 +44,7 @@
 
 <script setup>
 import info from "../../info";
-import { defineProps, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 const props = defineProps({
   nightMode: {

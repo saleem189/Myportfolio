@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { watch, defineProps, defineEmits } from 'vue';
+import { watch } from 'vue';
 
 const props = defineProps({
   showSnackbar: Boolean,

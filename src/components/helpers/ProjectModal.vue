@@ -138,7 +138,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
 import { X, Github, ExternalLink } from 'lucide-vue-next';
 import Gallery from './Gallery.vue';
 

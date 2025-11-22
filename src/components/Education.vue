@@ -45,7 +45,7 @@
 
 <script setup>
 import Section from './helpers/Section.vue';
-import { defineProps, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import info from "../../info";
 
 const props = defineProps({

@@ -71,7 +71,7 @@ let info = {
   },
   contact: {
     email: "saleemayoub1@gmail.com",
-    phone: "+923001234567",
+    phone: "+923176808418",
     location: "Pakistan",
     availability: "Open to opportunities",
   },
