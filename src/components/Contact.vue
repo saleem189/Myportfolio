@@ -71,11 +71,18 @@
                     'bg-white border-gray-800 text-gray-800 placeholder-gray-500',
                     'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400'
                   ),
-                  nameError ? 'invalid' : ''
+                  nameError ? 'invalid border-red-500' : ''
                 ]"
                 required
-                @focus="trackFormInteraction('contact_form', 'name')"
+                @focus="trackFormInteraction('contact_form', 'name'); nameError = ''"
+                @input="nameError = ''"
               >
+              <p
+                v-if="nameError"
+                :class="['mt-1 text-sm text-red-600', themeClasses.isDark.value ? 'text-red-400' : 'text-red-600']"
+              >
+                {{ nameError }}
+              </p>
             </div>
 
             <div>
@@ -97,11 +104,18 @@
                     'bg-white border-gray-800 text-gray-800 placeholder-gray-500',
                     'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400'
                   ),
-                  emailError ? 'invalid' : ''
+                  emailError ? 'invalid border-red-500' : ''
                 ]"
                 required
-                @focus="trackFormInteraction('contact_form', 'email')"
+                @focus="trackFormInteraction('contact_form', 'email'); emailError = ''"
+                @input="emailError = ''"
               >
+              <p
+                v-if="emailError"
+                :class="['mt-1 text-sm text-red-600', themeClasses.isDark.value ? 'text-red-400' : 'text-red-600']"
+              >
+                {{ emailError }}
+              </p>
             </div>
 
             <div>
@@ -123,11 +137,18 @@
                     'bg-white border-gray-800 text-gray-800 placeholder-gray-500',
                     'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400'
                   ),
-                  messageError ? 'invalid' : ''
+                  messageError ? 'invalid border-red-500' : ''
                 ]"
                 required
-                @focus="trackFormInteraction('contact_form', 'message')"
+                @focus="trackFormInteraction('contact_form', 'message'); messageError = ''"
+                @input="messageError = ''"
               />
+              <p
+                v-if="messageError"
+                :class="['mt-1 text-sm text-red-600', themeClasses.isDark.value ? 'text-red-400' : 'text-red-600']"
+              >
+                {{ messageError }}
+              </p>
             </div>
 
             <div class="flex gap-3">
@@ -294,11 +315,7 @@ const handleSubmit = async (event) => {
   }
 
   if (!nameResult.valid || !emailResult.valid || !messageResult.valid) {
-    // Show first error in snackbar
-    const firstError = nameResult.message || emailResult.message || messageResult.message;
-    showSnackbar.value = true;
-    snackbarMessage.value = firstError;
-    snackbarColor.value = 'rgb(212, 149, 97)';
+    // Errors are shown below fields, no need for snackbar
     trackFormError('contact_form', 'validation_error');
     return;
   }
