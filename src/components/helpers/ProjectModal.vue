@@ -1,16 +1,15 @@
 <template>
-  <div 
-    class="modal-mask" 
+  <dialog 
+    ref="dialogRef"
+    class="project-modal-dialog"
     @click.self="closeModal"
-    @keydown.esc="closeModal"
-    tabindex="-1"
-    ref="modalRef"
+    @close="closeModal"
   >
-    <div class="modal-wrapper">
-      <div :class="[
-        'modal-container sketchy-border transition-colors',
-        themeClasses.classes.bg()
-      ]">
+      <div class="modal-wrapper">
+        <div :class="[
+          'modal-container sketchy-border transition-colors',
+          themeClasses.classes.bg()
+        ]">
         <!-- Header -->
         <div :class="[
           'px-6 pt-6 pb-4 border-b-2 transition-colors',
@@ -146,11 +145,11 @@
         </div>
       </div>
     </div>
-  </div>
+    </dialog>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue';
 import { X, Github, ExternalLink } from 'lucide-vue-next';
 import Gallery from './Gallery.vue';
 import Button from './Button.vue';
@@ -167,13 +166,25 @@ const props = defineProps({
 const themeClasses = useThemeClasses();
 const emit = defineEmits(['close']);
 
-const modalRef = ref(null);
+const dialogRef = ref(null);
 const closeButtonRef = ref(null);
 const isOpen = computed(() => true); // This modal is always open when rendered
 
 const closeModal = () => {
+  if (dialogRef.value) {
+    dialogRef.value.close();
+  }
   emit('close');
 };
+
+// Show dialog when component mounts
+onMounted(() => {
+  nextTick(() => {
+    if (dialogRef.value) {
+      dialogRef.value.showModal();
+    }
+  });
+});
 
 // Use modal composable for common functionality
 useModal({
@@ -184,20 +195,31 @@ useModal({
 </script>
 
 <style scoped>
-.modal-mask {
+.project-modal-dialog {
   position: fixed;
-  z-index: 99999;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 99999;
   pointer-events: auto;
+}
+
+.project-modal-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .modal-wrapper {

@@ -2,6 +2,8 @@
   <div>
     <div
       id="snackbar"
+      role="alert"
+      aria-live="polite"
       :class="{ show: showSnackbar }"
       :style="{ 'background-color': snackbarColor }"
     >

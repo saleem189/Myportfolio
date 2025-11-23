@@ -1,13 +1,12 @@
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div
+      <dialog
         v-if="props.isOpen"
-        ref="modalRef"
-        class="base-modal-overlay"
+        ref="dialogRef"
+        class="base-modal-dialog"
         @click.self="handleClose"
-        @keydown.esc="handleClose"
-        tabindex="-1"
+        @close="handleClose"
       >
         <div
           :class="[
@@ -72,13 +71,13 @@
             <slot name="footer" />
           </div>
         </div>
-      </div>
+      </dialog>
     </Transition>
   </Teleport>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { X } from 'lucide-vue-next'
 import { useModal } from '@/composables/useModal'
 import { useThemeClasses } from '@/composables/useThemeClasses'
@@ -98,10 +97,27 @@ const emit = defineEmits(['close'])
 
 const themeClasses = useThemeClasses()
 const closeButtonRef = ref(null)
+const dialogRef = ref(null)
 
 const handleClose = () => {
+  if (dialogRef.value) {
+    dialogRef.value.close()
+  }
   emit('close')
 }
+
+// Watch for isOpen changes and show/hide dialog
+watch(() => props.isOpen, (isOpen) => {
+  nextTick(() => {
+    if (dialogRef.value) {
+      if (isOpen) {
+        dialogRef.value.showModal()
+      } else {
+        dialogRef.value.close()
+      }
+    }
+  })
+})
 
 // Use modal composable for common functionality
 // Create a computed ref for isOpen
@@ -114,12 +130,17 @@ useModal({
 </script>
 
 <style scoped>
-.base-modal-overlay {
+.base-modal-dialog {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 1rem;
+  border: none;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -127,7 +148,12 @@ useModal({
   align-items: center;
   justify-content: center;
   z-index: 10000;
-  padding: 1rem;
+}
+
+.base-modal-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .base-modal-content {

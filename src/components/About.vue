@@ -4,7 +4,7 @@
       'relative border-l-4 ml-4 space-y-12 transition-colors',
       themeClasses.classes.border()
     ]">
-      <div v-for="job in professionalExperience" :key="job.id || job.name" class="relative pl-8">
+      <article v-for="job in professionalExperience" :key="job.id || job.name" class="relative pl-8">
         <!-- Timeline Dot -->
         <div :class="[
           'absolute -left-[14px] top-2 w-6 h-6 border-4 rounded-full transition-colors',
@@ -21,10 +21,14 @@
             themeClasses.classes.textMuted()
           ]">
             <span :class="['font-bold', themeClasses.themeClass('text-blue-700', 'text-blue-400')]">@ {{ job.company || job.name }}</span>
-            <span :class="[
-              'text-sm border px-2 rounded-full',
-              themeClasses.classes.borderSecondary()
-            ]">{{ job.period || job.date }}</span>
+            <time 
+              v-if="job.period || job.date"
+              :datetime="job.period || job.date"
+              :class="[
+                'text-sm border px-2 rounded-full',
+                themeClasses.classes.borderSecondary()
+              ]"
+            >{{ job.period || job.date }}</time>
             <span v-if="job.location" :class="['text-sm', themeClasses.classes.textMuted()]">📍 {{ job.location }}</span>
           </div>
       </div>
@@ -73,7 +77,7 @@
             </span>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </Section>
 </template>

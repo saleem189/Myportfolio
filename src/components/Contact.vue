@@ -162,9 +162,9 @@
       </div>
     </div>
     
-    <div :class="['text-center mt-12 text-lg transition-colors', themeClasses.classes.textMuted()]">
+    <footer :class="['text-center mt-12 text-lg transition-colors', themeClasses.classes.textMuted()]">
       <p>&copy; {{ new Date().getFullYear() }} {{ info.name }}.</p>
-    </div>
+    </footer>
 
     <Snackbar
       :showSnackbar="showSnackbar"

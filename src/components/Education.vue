@@ -1,7 +1,7 @@
 <template>
   <Section id="education" title="Education">
     <div class="grid md:grid-cols-2 gap-8">
-      <div 
+      <article 
         v-for="edu in education" 
         :key="edu.id" 
         :class="[
@@ -16,7 +16,10 @@
         
         <div :class="['mb-3 transition-colors', themeClasses.classes.textMuted()]">
           <p class="text-sm">📍 {{ edu.place }}</p>
-          <p class="text-sm">📅 {{ edu.date || edu.year }}</p>
+          <p class="text-sm">
+            📅 <time v-if="edu.date || edu.year" :datetime="edu.date || edu.year">{{ edu.date || edu.year }}</time>
+            <span v-else>📅 Date not specified</span>
+          </p>
         </div>
         
         <p v-if="edu.description" :class="['mb-4 leading-relaxed transition-colors', themeClasses.classes.textSecondary()]">
@@ -38,7 +41,7 @@
             </span>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </Section>
 </template>

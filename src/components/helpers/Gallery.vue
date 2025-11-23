@@ -28,13 +28,12 @@
     <!-- Modal using Vue patterns -->
     <Teleport to="body">
       <Transition name="modal">
-        <div
+        <dialog
           v-if="isModalOpen"
-          ref="modalRef"
-          class="modal"
+          ref="dialogRef"
+          class="gallery-modal-dialog"
           @click.self="closeModal"
-          @keydown.esc="closeModal"
-          tabindex="-1"
+          @close="closeModal"
         >
           <button
             ref="closeButtonRef"
@@ -53,14 +52,14 @@
           <div v-if="currentImage?.title" class="caption">
             {{ currentImage.title }}
           </div>
-        </div>
+        </dialog>
       </Transition>
     </Teleport>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import { useThemeClasses } from '@/composables/useThemeClasses';
 import { useModal } from '@/composables/useModal';
 
@@ -80,7 +79,7 @@ const themeClasses = useThemeClasses();
 
 const isModalOpen = ref(false);
 const currentImageIndex = ref(0);
-const modalRef = ref(null);
+const dialogRef = ref(null);
 const modalImgRef = ref(null);
 const closeButtonRef = ref(null);
 
@@ -91,11 +90,32 @@ const currentImage = computed(() => {
 const openModal = (index) => {
   currentImageIndex.value = index;
   isModalOpen.value = true;
+  nextTick(() => {
+    if (dialogRef.value) {
+      dialogRef.value.showModal();
+    }
+  });
 };
 
 const closeModal = () => {
+  if (dialogRef.value) {
+    dialogRef.value.close();
+  }
   isModalOpen.value = false;
 };
+
+// Watch for modal open/close
+watch(isModalOpen, (isOpen) => {
+  nextTick(() => {
+    if (dialogRef.value) {
+      if (isOpen) {
+        dialogRef.value.showModal();
+      } else {
+        dialogRef.value.close();
+      }
+    }
+  });
+});
 
 // Keyboard navigation for image gallery (extends modal functionality)
 const handleKeyDown = (event) => {
@@ -195,20 +215,28 @@ onUnmounted(() => {
 }
 
 /* Modal Styles */
-.modal {
+.gallery-modal-dialog {
   position: fixed;
   z-index: 10000;
-  padding-top: 100px;
+  padding: 0;
+  margin: 0;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border: none;
   background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: auto;
+}
+
+.gallery-modal-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .modal-enter-active {
