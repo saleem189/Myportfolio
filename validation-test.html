@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        .error.show {
+            display: block;
+        }
+        input.invalid, textarea.invalid {
+            border-color: #e74c3c;
+        }
+        input.valid, textarea.valid {
+            border-color: #27ae60;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .success {
+            background: #27ae60;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        .success.show {
+            display: block;
+        }
+        .test-results {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .test-results h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .test-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .test-item.pass {
+            background: #d4edda;
+            color: #155724;
+        }
+        .test-item.fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Validation Test Page</h1>
+        <p class="subtitle">Testing the validators.js utility functions</p>
+
+        <form id="testForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="text" id="email" placeholder="Enter your email">
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+                <div class="error" id="nameError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" placeholder="+1234567890">
+                <div class="error" id="phoneError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Enter your message (min 10 characters)"></textarea>
+                <div class="error" id="messageError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="url">Website URL</label>
+                <input type="text" id="url" placeholder="https://example.com">
+                <div class="error" id="urlError"></div>
+            </div>
+
+            <button type="submit">Validate Form</button>
+        </form>
+
+        <div class="success" id="successMessage">
+            ✅ All validations passed! Form is ready to submit.
+        </div>
+
+        <div class="test-results">
+            <h2>📊 Validation Results</h2>
+            <div id="testResults"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import validators
+        import { 
+            validateEmail, 
+            validateName, 
+            validateMessage, 
+            validatePhone, 
+            validateUrl 
+        } from './src/utils/validators.js';
+
+        const form = document.getElementById('testForm');
+        const successMessage = document.getElementById('successMessage');
+        const testResults = document.getElementById('testResults');
+
+        // Real-time validation
+        const fields = {
+            email: { validator: validateEmail, errorEl: 'emailError' },
+            name: { validator: validateName, errorEl: 'nameError' },
+            phone: { validator: validatePhone, errorEl: 'phoneError' },
+            message: { validator: validateMessage, errorEl: 'messageError' },
+            url: { validator: validateUrl, errorEl: 'urlError' }
+        };
+
+        Object.keys(fields).forEach(fieldName => {
+            const input = document.getElementById(fieldName);
+            const errorEl = document.getElementById(fields[fieldName].errorEl);
+            const validator = fields[fieldName].validator;
+
+            input.addEventListener('blur', () => {
+                const result = validator(input.value);
+                if (!result.valid) {
+                    input.classList.add('invalid');
+                    input.classList.remove('valid');
+                    errorEl.textContent = result.message;
+                    errorEl.classList.add('show');
+                } else {
+                    input.classList.remove('invalid');
+                    input.classList.add('valid');
+                    errorEl.classList.remove('show');
+                }
+            });
+        });
+
+        // Form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const results = [];
+            let allValid = true;
+
+            Object.keys(fields).forEach(fieldName => {
+                const input = document.getElementById(fieldName);
+                const errorEl = document.getElementById(fields[fieldName].errorEl);
+                const validator = fields[fieldName].validator;
+                const result = validator(input.value);
+
+                results.push({
+                    field: fieldName,
+                    value: input.value,
+                    valid: result.valid,
+                    message: result.message
+                });
+
+                if (!result.valid) {
+                    allValid = false;
+                    input.classList.add('invalid');
+                    input.classList.remove('valid');
+                    errorEl.textContent = result.message;
+                    errorEl.classList.add('show');
+                } else {
+                    input.classList.remove('invalid');
+                    input.classList.add('valid');
+                    errorEl.classList.remove('show');
+                }
+            });
+
+            // Display results
+            testResults.innerHTML = results.map(r => `
+                <div class="test-item ${r.valid ? 'pass' : 'fail'}">
+                    <strong>${r.field}:</strong> ${r.valid ? '✅ Valid' : '❌ ' + r.message}
+                </div>
+            `).join('');
+
+            if (allValid) {
+                successMessage.classList.add('show');
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 3000);
+            } else {
+                successMessage.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

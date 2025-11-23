@@ -2,21 +2,21 @@
   <div class="gallery-container">
     <div class="prow">
       <div
-        class="pcolumn"
         v-for="(image, idx) in images"
         :key="image.title || idx"
+        class="pcolumn"
         :class="{
           'flex-100': design,
-          'flex-50': !design
+          'flex-50': !design,
         }"
       >
         <img
           :src="image.img"
           :alt="image.title || 'Gallery image'"
           class="g-img"
-          @click="openModal(idx)"
           loading="lazy"
-        />
+          @click="openModal(idx)"
+        >
         <div class="mt-1">
           <p :class="['font-weight-500 transition-colors', themeClasses.classes.text()]">
             {{ image.title }}
@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Modal using Vue patterns -->
     <Teleport to="body">
       <Transition name="modal">
@@ -38,8 +38,8 @@
           <button
             ref="closeButtonRef"
             class="close"
-            @click="closeModal"
             aria-label="Close image modal"
+            @click="closeModal"
           >
             &times;
           </button>
@@ -48,8 +48,11 @@
             :src="currentImage?.img"
             :alt="currentImage?.title || 'Gallery image'"
             class="modal-content"
-          />
-          <div v-if="currentImage?.title" class="caption">
+          >
+          <div
+            v-if="currentImage?.title"
+            class="caption"
+          >
             {{ currentImage.title }}
           </div>
         </dialog>
@@ -67,12 +70,12 @@ const props = defineProps({
   images: {
     type: Array,
     required: true,
-    default: () => []
+    default: () => [],
   },
   design: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const themeClasses = useThemeClasses();
@@ -119,8 +122,10 @@ watch(isModalOpen, (isOpen) => {
 
 // Keyboard navigation for image gallery (extends modal functionality)
 const handleKeyDown = (event) => {
-  if (!isModalOpen.value) return;
-  
+  if (!isModalOpen.value) {
+    return;
+  }
+
   if (event.key === 'Escape') {
     closeModal();
   } else if (event.key === 'ArrowLeft') {
@@ -141,7 +146,7 @@ const navigateImage = (direction) => {
 useModal({
   isOpen: isModalOpen,
   onClose: closeModal,
-  closeButtonRef
+  closeButtonRef,
 });
 
 // Add arrow key navigation
@@ -153,7 +158,6 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown);
 });
 </script>
-
 
 <style scoped>
 .gallery-container {
@@ -330,17 +334,17 @@ onUnmounted(() => {
   .modal {
     padding-top: 50px;
   }
-  
+
   .modal-content {
     width: 95%;
   }
-  
+
   .close {
     top: 10px;
     right: 20px;
     font-size: 30px;
   }
-  
+
   .caption {
     font-size: 0.9rem;
     padding: 5px 0;

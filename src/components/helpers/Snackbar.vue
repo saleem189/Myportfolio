@@ -18,19 +18,22 @@ import { watch } from 'vue';
 const props = defineProps({
   showSnackbar: Boolean,
   snackbarMessage: String,
-  snackbarColor: String
+  snackbarColor: String,
 });
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(['close']);
 
 // Watch the prop directly
-watch(() => props.showSnackbar, (newValue) => {
-  if (newValue) {
-    setTimeout(() => {
-      emit("close", false);
-    }, 3000);
+watch(
+  () => props.showSnackbar,
+  (newValue) => {
+    if (newValue) {
+      setTimeout(() => {
+        emit('close', false);
+      }, 3000);
+    }
   }
-});
+);
 </script>
 
 <style scoped>
@@ -52,8 +55,12 @@ watch(() => props.showSnackbar, (newValue) => {
 
 #snackbar.show {
   visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  -webkit-animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
+  animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
 }
 
 @-webkit-keyframes fadein {

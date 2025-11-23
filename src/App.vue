@@ -1,20 +1,21 @@
 <script setup>
-import { defineAsyncComponent, onMounted, provide } from 'vue'
-import { useRoute } from 'vue-router'
-import Navbar from "@/components/Navbar.vue";
-import Home from "@/components/Home.vue";
-import SEOHead from "@/components/SEOHead.vue";
-import ViewCounter from "@/components/ViewCounter.vue";
-import BackToTop from "@/components/BackToTop.vue";
-import { useNightMode } from "@/composables/useNightMode";
-import { useScrollTo } from "@/composables/useScrollTo";
+import { defineAsyncComponent, onMounted, provide } from 'vue';
+import { useRoute } from 'vue-router';
+import Navbar from '@/components/Navbar.vue';
+import Home from '@/components/Home.vue';
+import SEOHead from '@/components/SEOHead.vue';
+import ViewCounter from '@/components/ViewCounter.vue';
+import BackToTop from '@/components/BackToTop.vue';
+import ErrorBoundary from '@/components/ErrorBoundary.vue';
+import { useNightMode } from '@/composables/useNightMode';
+import { useScrollTo } from '@/composables/useScrollTo';
 
 // Lazy load below-the-fold components for better performance
-const Skills = defineAsyncComponent(() => import("@/components/Skills.vue"));
-const About = defineAsyncComponent(() => import("@/components/About.vue"));
-const Portfolio = defineAsyncComponent(() => import("@/components/Portfolio.vue"));
-const Education = defineAsyncComponent(() => import("@/components/Education.vue"));
-const Contact = defineAsyncComponent(() => import("@/components/Contact.vue"));
+const Skills = defineAsyncComponent(() => import('@/components/Skills.vue'));
+const About = defineAsyncComponent(() => import('@/components/About.vue'));
+const Portfolio = defineAsyncComponent(() => import('@/components/Portfolio.vue'));
+const Education = defineAsyncComponent(() => import('@/components/Education.vue'));
+const Contact = defineAsyncComponent(() => import('@/components/Contact.vue'));
 
 const { nightMode, setNightMode, toggleNightMode } = useNightMode();
 const { scrollToSection } = useScrollTo();
@@ -24,7 +25,7 @@ const route = useRoute();
 provide('theme', {
   nightMode,
   setNightMode,
-  toggleNightMode
+  toggleNightMode,
 });
 
 onMounted(() => {
@@ -34,7 +35,7 @@ onMounted(() => {
       setTimeout(() => {
         window.scrollTo({
           top: element.offsetTop - 35,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       }, 100);
     }
@@ -44,46 +45,60 @@ onMounted(() => {
 const scrollTo = (ele) => {
   scrollToSection(ele);
 };
-
-
 </script>
 
 <template>
-  <div class="notebook-paper min-h-screen overflow-x-hidden w-full max-w-full">
-    <SEOHead />
-    <Navbar @scroll="scrollTo" />
-    <main class="max-w-6xl mx-auto">
-      <section class="section home-section">
-        <Home />
-      </section>
-      
-      <section id="skills" class="section skills-section">
-        <Skills />
-      </section>
+  <ErrorBoundary>
+    <div class="notebook-paper min-h-screen overflow-x-hidden w-full max-w-full">
+      <SEOHead />
+      <Navbar @scroll="scrollTo" />
+      <main class="max-w-6xl mx-auto">
+        <section class="section home-section">
+          <Home />
+        </section>
 
-      <section id="experience" class="section experience-section">
-        <About />
-      </section>
-      
-      <section id="portfolio" class="section portfolio-section">
-        <Portfolio />
-      </section>
+        <section
+          id="skills"
+          class="section skills-section"
+        >
+          <Skills />
+        </section>
 
-      <section id="education" class="section education-section">
-        <Education />
-      </section>
+        <section
+          id="experience"
+          class="section experience-section"
+        >
+          <About />
+        </section>
 
-      
-      <section id="contact" class="section contact-section">
-        <Contact />
-      </section>
-    </main>
+        <section
+          id="portfolio"
+          class="section portfolio-section"
+        >
+          <Portfolio />
+        </section>
 
-    <aside class="floating-elements">
-      <ViewCounter class="view-counter-container" />
-      <BackToTop />
-    </aside>
-  </div>
+        <section
+          id="education"
+          class="section education-section"
+        >
+          <Education />
+        </section>
+
+        <section
+          id="contact"
+          class="section contact-section"
+        >
+          <Contact />
+        </section>
+      </main>
+
+      <aside class="floating-elements">
+        <ViewCounter class="view-counter-container" />
+        <BackToTop />
+      </aside>
+    </div>
+  </ErrorBoundary>
 </template>
 
 <style>
@@ -101,7 +116,6 @@ const scrollTo = (ele) => {
     max-width: 100%;
   }
 }
-
 
 /* To set scrollbar width */
 ::-webkit-scrollbar {
@@ -141,7 +155,6 @@ body.night-mode ::-webkit-scrollbar-thumb {
 body.night-mode ::-webkit-scrollbar-thumb:hover {
   background: #718096; /* slate-500 */
 }
-
 
 .view-counter-container {
   position: fixed;

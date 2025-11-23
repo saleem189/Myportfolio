@@ -1,5 +1,9 @@
 <template>
-  <BaseModal :isOpen="isOpen" title="Resume Options" @close="close">
+  <BaseModal
+    :is-open="isOpen"
+    title="Resume Options"
+    @close="close"
+  >
     <p class="mb-6 text-lg">
       Choose how you'd like to access my resume:
     </p>
@@ -43,12 +47,12 @@ import Button from './Button.vue';
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    default: false
+    default: false,
   },
   resumeUrl: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const emit = defineEmits(['close']);
@@ -87,4 +91,3 @@ const handleDownload = () => {
 <style scoped>
 /* Styles are handled by BaseModal component */
 </style>
-

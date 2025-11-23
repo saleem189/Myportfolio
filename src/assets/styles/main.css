@@ -16,17 +16,20 @@ body {
   font-family: 'Patrick Hand', cursive;
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Notebook Paper Pattern */
 .notebook-paper {
   background-color: var(--bg-color);
-  background-image: 
-    linear-gradient(var(--line-color) 1px, transparent 1px);
+  background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
   background-size: 100% 2rem;
   position: relative;
-  transition: background-color 0.3s ease, background-image 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    background-image 0.3s ease;
 }
 
 /* The Red Margin Line */
@@ -52,34 +55,39 @@ body {
 .sketchy-border {
   border: 2px solid var(--border-color);
   border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
-  box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.2);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.2);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .dark-shadow {
-  box-shadow: 3px 3px 0px 0px rgba(255,255,255,0.1);
+  box-shadow: 3px 3px 0px 0px rgba(255, 255, 255, 0.1);
 }
 
 .tape {
   background-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(2px);
-  border-left: 1px dashed rgba(255,255,255,0.2);
-  border-right: 1px dashed rgba(255,255,255,0.2);
+  border-left: 1px dashed rgba(255, 255, 255, 0.2);
+  border-right: 1px dashed rgba(255, 255, 255, 0.2);
   transform: rotate(-2deg);
 }
 
 .tape-dark {
   background-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(2px);
-  border-left: 1px dashed rgba(255,255,255,0.2);
-  border-right: 1px dashed rgba(255,255,255,0.2);
+  border-left: 1px dashed rgba(255, 255, 255, 0.2);
+  border-right: 1px dashed rgba(255, 255, 255, 0.2);
   transform: rotate(-2deg);
 }
 
 .highlighter {
-  background: linear-gradient(120deg, rgba(255,255,0,0) 0%, rgba(255,255,0,0.4) 10%, rgba(255,255,0,0) 100%);
+  background: linear-gradient(120deg,
+      rgba(255, 255, 0, 0) 0%,
+      rgba(255, 255, 0, 0.4) 10%,
+      rgba(255, 255, 0, 0) 100%);
   background-position: 0 80%;
   background-repeat: no-repeat;
   background-size: 100% 0.5em;
@@ -137,4 +145,14 @@ body.modal-open {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Validation error styling */
+.error {
+  color: #e53e3e;
+  /* red-600 */
+}
+
+.invalid {
+  border-color: #e53e3e !important;
 }

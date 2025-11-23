@@ -1,5 +1,8 @@
 <template>
-  <div class="view-counter sketchy-border" :class="{ 'loading': isLoading, 'view-counter-dark': themeClasses.isDark.value }">
+  <div
+    class="view-counter sketchy-border"
+    :class="{ loading: isLoading, 'view-counter-dark': themeClasses.isDark.value }"
+  >
     <Users :size="18" />
     <span v-if="!isLoading">{{ viewCount }}</span>
     <span v-else>...</span>
@@ -8,30 +11,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Users } from 'lucide-vue-next'
-import { incrementViewCount, getViewCount } from '../firebase'
-import { useThemeClasses } from '@/composables/useThemeClasses'
+import { ref, onMounted } from 'vue';
+import { Users } from 'lucide-vue-next';
+import { incrementViewCount, getViewCount } from '../firebase';
+import { useThemeClasses } from '@/composables/useThemeClasses';
 
-const themeClasses = useThemeClasses()
+const themeClasses = useThemeClasses();
 
-const viewCount = ref(0)
-const isLoading = ref(true)
-const error = ref(null)
+const viewCount = ref(0);
+const isLoading = ref(true);
+const error = ref(null);
 
 onMounted(async () => {
   try {
     // Increment the view count when component is mounted
-    await incrementViewCount()
+    await incrementViewCount();
     // Get and display the current count
-    viewCount.value = await getViewCount()
+    viewCount.value = await getViewCount();
   } catch (err) {
-    console.error('Error updating view count:', err)
-    error.value = err
+    console.error('Error updating view count:', err);
+    error.value = err;
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
-})
+});
 </script>
 
 <style scoped>
@@ -77,4 +80,4 @@ onMounted(async () => {
 .view-counter-dark:hover {
   transform: translateY(-2px) rotate(1deg);
 }
-</style> 
+</style>

@@ -1,20 +1,20 @@
 :root {
   /* Primary Colors */
-  --deep-blue: #1E3A8A;
-  --light-blue: #3B82F6;
-  --soft-blue: #93C5FD;
-  
+  --deep-blue: #1e3a8a;
+  --light-blue: #3b82f6;
+  --soft-blue: #93c5fd;
+
   /* Grey Scale */
-  --dark-grey: #1F2937;
-  --medium-grey: #4B5563;
-  --light-grey: #9CA3AF;
-  --very-light-grey: #F3F4F6;
-  
+  --dark-grey: #1f2937;
+  --medium-grey: #4b5563;
+  --light-grey: #9ca3af;
+  --very-light-grey: #f3f4f6;
+
   /* Black and White */
   --pure-black: #000000;
-  --off-white: #F9FAFB;
-  --pure-white: #FFFFFF;
-  
+  --off-white: #f9fafb;
+  --pure-white: #ffffff;
+
   /* Legacy Colors (for backward compatibility) */
   --primary-color: var(--deep-blue);
   --primary-light: var(--soft-blue);
@@ -24,14 +24,14 @@
   --bg-dark: var(--dark-grey);
   --bg-dark2: var(--medium-grey);
   --success-color: #1aa260;
-  --error-color: #D49561;
+  --error-color: #d49561;
 }
 
 /* Dark Mode Colors */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --bg-primary: var(--dark-grey);
   --bg-secondary: var(--medium-grey);
   --text-primary: var(--off-white);
   --text-secondary: var(--light-grey);
   --border-color: var(--medium-grey);
-} 
+}

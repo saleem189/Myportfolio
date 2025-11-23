@@ -11,7 +11,7 @@
         <div
           :class="[
             'base-modal-content sketchy-border transition-colors',
-            themeClasses.classes.modalBg()
+            themeClasses.classes.modalBg(),
           ]"
         >
           <!-- Header Slot -->
@@ -19,7 +19,7 @@
             v-if="$slots.header"
             :class="[
               'base-modal-header flex justify-between items-center mb-4 pb-4 border-b-2 transition-colors',
-              themeClasses.classes.modalHeader()
+              themeClasses.classes.modalHeader(),
             ]"
           >
             <slot name="header" />
@@ -30,33 +30,29 @@
             v-else-if="title"
             :class="[
               'base-modal-header flex justify-between items-center mb-4 pb-4 border-b-2 transition-colors',
-              themeClasses.classes.modalHeader()
+              themeClasses.classes.modalHeader(),
             ]"
           >
-            <h3 :class="[
-              'text-2xl font-bold transition-colors',
-              themeClasses.classes.textHeading()
-            ]">
+            <h3
+              :class="['text-2xl font-bold transition-colors', themeClasses.classes.textHeading()]"
+            >
               {{ title }}
             </h3>
             <button
               ref="closeButtonRef"
-              @click="handleClose"
               :class="[
                 'text-2xl font-bold transition-colors hover:opacity-70',
-                themeClasses.classes.textMuted()
+                themeClasses.classes.textMuted(),
               ]"
               aria-label="Close modal"
+              @click="handleClose"
             >
               <X :size="24" />
             </button>
           </div>
 
           <!-- Body Slot -->
-          <div :class="[
-            'base-modal-body',
-            themeClasses.classes.textSecondary()
-          ]">
+          <div :class="['base-modal-body', themeClasses.classes.textSecondary()]">
             <slot />
           </div>
 
@@ -65,7 +61,7 @@
             v-if="$slots.footer"
             :class="[
               'base-modal-footer mt-4 pt-4 border-t-2 transition-colors',
-              themeClasses.classes.modalHeader()
+              themeClasses.classes.modalHeader(),
             ]"
           >
             <slot name="footer" />
@@ -77,56 +73,59 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick } from 'vue'
-import { X } from 'lucide-vue-next'
-import { useModal } from '@/composables/useModal'
-import { useThemeClasses } from '@/composables/useThemeClasses'
+import { ref, computed, watch, nextTick } from 'vue';
+import { X } from 'lucide-vue-next';
+import { useModal } from '@/composables/useModal';
+import { useThemeClasses } from '@/composables/useThemeClasses';
 
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    default: false
+    default: false,
   },
   title: {
     type: String,
-    default: ''
-  }
-})
+    default: '',
+  },
+});
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close']);
 
-const themeClasses = useThemeClasses()
-const closeButtonRef = ref(null)
-const dialogRef = ref(null)
+const themeClasses = useThemeClasses();
+const closeButtonRef = ref(null);
+const dialogRef = ref(null);
 
 const handleClose = () => {
   if (dialogRef.value) {
-    dialogRef.value.close()
+    dialogRef.value.close();
   }
-  emit('close')
-}
+  emit('close');
+};
 
 // Watch for isOpen changes and show/hide dialog
-watch(() => props.isOpen, (isOpen) => {
-  nextTick(() => {
-    if (dialogRef.value) {
-      if (isOpen) {
-        dialogRef.value.showModal()
-      } else {
-        dialogRef.value.close()
+watch(
+  () => props.isOpen,
+  (isOpen) => {
+    nextTick(() => {
+      if (dialogRef.value) {
+        if (isOpen) {
+          dialogRef.value.showModal();
+        } else {
+          dialogRef.value.close();
+        }
       }
-    }
-  })
-})
+    });
+  }
+);
 
 // Use modal composable for common functionality
 // Create a computed ref for isOpen
-const isOpenRef = computed(() => props.isOpen)
+const isOpenRef = computed(() => props.isOpen);
 useModal({
   isOpen: isOpenRef,
   onClose: handleClose,
-  closeButtonRef
-})
+  closeButtonRef,
+});
 </script>
 
 <style scoped>
@@ -216,4 +215,3 @@ useModal({
   }
 }
 </style>
-

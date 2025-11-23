@@ -1,47 +1,46 @@
 <template>
-  <dialog 
+  <dialog
     ref="dialogRef"
     class="project-modal-dialog"
     @click.self="closeModal"
     @close="closeModal"
   >
-      <div class="modal-wrapper">
-        <div :class="[
-          'modal-container sketchy-border transition-colors',
-          themeClasses.classes.bg()
-        ]">
+    <div class="modal-wrapper">
+      <div :class="['modal-container sketchy-border transition-colors', themeClasses.classes.bg()]">
         <!-- Header -->
-        <div :class="[
-          'px-6 pt-6 pb-4 border-b-2 transition-colors',
-          themeClasses.classes.border()
-        ]">
+        <div
+          :class="['px-6 pt-6 pb-4 border-b-2 transition-colors', themeClasses.classes.border()]"
+        >
           <div class="flex justify-between items-start mb-2">
-            <h2 :class="[
-              'text-3xl font-bold transition-colors',
-              themeClasses.themeClass('text-blue-800', 'text-blue-300')
-            ]">
+            <h2
+              :class="[
+                'text-3xl font-bold transition-colors',
+                themeClasses.themeClass('text-blue-800', 'text-blue-300'),
+              ]"
+            >
               {{ portfolio.title || portfolio.name }}
             </h2>
             <button
               ref="closeButtonRef"
-              @click="closeModal"
               :class="[
                 'text-2xl font-bold transition-colors hover:opacity-70',
-                themeClasses.classes.textMuted()
+                themeClasses.classes.textMuted(),
               ]"
               aria-label="Close modal"
+              @click="closeModal"
             >
               <X :size="24" />
             </button>
           </div>
-          <div :class="[
-            'flex items-center gap-3 text-sm transition-colors',
-            themeClasses.classes.textMuted()
-          ]">
-            <span :class="[
-              'px-3 py-1 border rounded-full',
-              themeClasses.classes.borderSecondary()
-            ]">
+          <div
+            :class="[
+              'flex items-center gap-3 text-sm transition-colors',
+              themeClasses.classes.textMuted(),
+            ]"
+          >
+            <span
+              :class="['px-3 py-1 border rounded-full', themeClasses.classes.borderSecondary()]"
+            >
               {{ portfolio.category || portfolio.type }}
             </span>
             <span v-if="portfolio.date">{{ portfolio.date }}</span>
@@ -49,37 +48,43 @@
         </div>
 
         <!-- Body -->
-        <div :class="[
-          'modal-body px-6 py-6 overflow-y-auto flex-shrink',
-          themeClasses.isDark.value ? 'modal-body-dark' : ''
-        ]" style="min-height: 0;">
+        <div
+          :class="[
+            'modal-body px-6 py-6 overflow-y-auto flex-shrink',
+            themeClasses.isDark.value ? 'modal-body-dark' : '',
+          ]"
+          style="min-height: 0"
+        >
           <!-- Description -->
           <div class="mb-6">
-            <h3 :class="[
-              'text-xl font-bold mb-3 transition-colors',
-              themeClasses.classes.text()
-            ]">About This Project</h3>
-            <p :class="[
-              'leading-relaxed text-lg transition-colors',
-              themeClasses.classes.textSecondary()
-            ]">
+            <h3 :class="['text-xl font-bold mb-3 transition-colors', themeClasses.classes.text()]">
+              About This Project
+            </h3>
+            <p
+              :class="[
+                'leading-relaxed text-lg transition-colors',
+                themeClasses.classes.textSecondary(),
+              ]"
+            >
               {{ portfolio.description }}
             </p>
           </div>
 
           <!-- Technologies -->
           <div class="mb-6">
-            <h3 :class="[
-              'text-xl font-bold mb-3 transition-colors',
-              themeClasses.classes.text()
-            ]">Technologies Used</h3>
+            <h3 :class="['text-xl font-bold mb-3 transition-colors', themeClasses.classes.text()]">
+              Technologies Used
+            </h3>
             <div class="flex flex-wrap gap-2">
               <span
                 v-for="(tech, idx) in portfolio.technologies"
                 :key="idx"
                 :class="[
                   'px-3 py-1 border rounded text-sm font-medium transition-colors',
-                  themeClasses.themeClass('bg-gray-100 border-gray-300 text-gray-700', 'bg-slate-700 border-slate-600 text-gray-300')
+                  themeClasses.themeClass(
+                    'bg-gray-100 border-gray-300 text-gray-700',
+                    'bg-slate-700 border-slate-600 text-gray-300'
+                  ),
                 ]"
               >
                 {{ tech }}
@@ -88,20 +93,24 @@
           </div>
 
           <!-- Gallery -->
-          <div v-if="portfolio.pictures && portfolio.pictures.length > 0" class="mb-6">
-            <h3 :class="[
-              'text-xl font-bold mb-3 transition-colors',
-              themeClasses.classes.text()
-            ]">Project Screenshots</h3>
+          <div
+            v-if="portfolio.pictures && portfolio.pictures.length > 0"
+            class="mb-6"
+          >
+            <h3 :class="['text-xl font-bold mb-3 transition-colors', themeClasses.classes.text()]">
+              Project Screenshots
+            </h3>
             <Gallery :images="portfolio.pictures" />
           </div>
         </div>
 
         <!-- Footer -->
-        <div :class="[
-          'px-6 py-4 border-t-2 flex gap-3 justify-end transition-colors relative z-10 flex-shrink-0',
-          themeClasses.classes.border()
-        ]">
+        <div
+          :class="[
+            'px-6 py-4 border-t-2 flex gap-3 justify-end transition-colors relative z-10 flex-shrink-0',
+            themeClasses.classes.border(),
+          ]"
+        >
           <Button
             v-if="portfolio.github"
             tag="a"
@@ -145,22 +154,22 @@
         </div>
       </div>
     </div>
-    </dialog>
+  </dialog>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import { X, Github, ExternalLink } from 'lucide-vue-next';
 import Gallery from './Gallery.vue';
 import Button from './Button.vue';
 import { useThemeClasses } from '@/composables/useThemeClasses';
 import { useModal } from '@/composables/useModal';
 
-const props = defineProps({
+defineProps({
   portfolio: {
     type: Object,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const themeClasses = useThemeClasses();
@@ -190,7 +199,7 @@ onMounted(() => {
 useModal({
   isOpen,
   onClose: closeModal,
-  closeButtonRef
+  closeButtonRef,
 });
 </script>
 
@@ -241,8 +250,10 @@ useModal({
   max-height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
-  box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.8);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
   position: relative;
   z-index: 99999;
   pointer-events: auto;
@@ -252,7 +263,7 @@ useModal({
 
 /* Dark mode box shadow */
 .bg-slate-800 {
-  box-shadow: 4px 4px 0px 0px rgba(255,255,255,0.1);
+  box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 0.1);
 }
 
 /* Dark mode styles are handled by conditional classes */
@@ -303,10 +314,9 @@ useModal({
     width: 95%;
     max-height: calc(100vh - 1rem);
   }
-  
+
   .modal-wrapper {
     padding: 0.5rem;
   }
 }
 </style>
-

@@ -1,25 +1,28 @@
 <template>
-  <Section id="portfolio" title="My Projects">
+  <Section
+    id="portfolio"
+    title="My Projects"
+  >
     <!-- Filter Buttons -->
     <div class="mb-8 flex flex-wrap gap-3 justify-center">
       <Button
         v-for="category in categories"
         :key="category"
-        @click="setFilter(category)"
         :variant="filter === category ? 'primary' : 'default'"
         size="sm"
+        @click="setFilter(category)"
       >
         {{ category }}
       </Button>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-      <article 
-        v-for="project in filteredProjects" 
-        :key="project.id || project.name" 
+      <article
+        v-for="project in filteredProjects"
+        :key="project.id || project.name"
         class="h-full flex"
       >
-        <IndexCard 
+        <IndexCard
           :name="project.name"
           :title="project.title || project.name"
           :type="project.type"
@@ -53,8 +56,8 @@ import Section from './helpers/Section.vue';
 import IndexCard from './helpers/IndexCard.vue';
 import ProjectModal from './helpers/ProjectModal.vue';
 import Button from './helpers/Button.vue';
-import info from "../../info";
-import { useAnalytics } from "@/composables/useAnalytics";
+import info from '../../info';
+import { useAnalytics } from '@/composables/useAnalytics';
 
 const filter = ref('All');
 const projects = info.portfolio;
@@ -63,24 +66,24 @@ const modalInfo = ref({});
 
 const categories = computed(() => {
   const allCategories = new Set();
-  projects.forEach(p => {
+  projects.forEach((p) => {
     // Support both single category and multiple categories
     if (p.categories && Array.isArray(p.categories)) {
-      p.categories.forEach(cat => allCategories.add(cat));
+      p.categories.forEach((cat) => allCategories.add(cat));
     } else if (p.category) {
       allCategories.add(p.category);
     } else if (p.type) {
       allCategories.add(p.type);
     }
   });
-  return ['All', ...Array.from(allCategories)].filter(c => c);
+  return ['All', ...Array.from(allCategories)].filter((c) => c);
 });
 
 const filteredProjects = computed(() => {
   if (filter.value === 'All') {
     return projects;
   }
-  return projects.filter(p => {
+  return projects.filter((p) => {
     // Check if project belongs to the selected category
     if (p.categories && Array.isArray(p.categories)) {
       return p.categories.includes(filter.value);
