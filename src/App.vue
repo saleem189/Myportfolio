@@ -12,6 +12,7 @@ import { useScrollTo } from '@/composables/useScrollTo';
 
 // Lazy load below-the-fold components for better performance
 const Skills = defineAsyncComponent(() => import('@/components/Skills.vue'));
+const CaseStudies = defineAsyncComponent(() => import('@/components/CaseStudies.vue'));
 const About = defineAsyncComponent(() => import('@/components/About.vue'));
 const Training = defineAsyncComponent(() => import('@/components/Training.vue'));
 const Portfolio = defineAsyncComponent(() => import('@/components/Portfolio.vue'));
@@ -59,10 +60,10 @@ const scrollTo = (ele) => {
         </section>
 
         <section
-          id="skills"
-          class="section skills-section"
+          id="case-studies"
+          class="section case-studies-section"
         >
-          <Skills />
+          <CaseStudies />
         </section>
 
         <section
@@ -70,6 +71,13 @@ const scrollTo = (ele) => {
           class="section experience-section"
         >
           <About />
+        </section>
+
+        <section
+          id="skills"
+          class="section skills-section"
+        >
+          <Skills />
         </section>
 
         <section

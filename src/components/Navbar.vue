@@ -21,9 +21,9 @@
       <a
         v-for="item in navItems"
         :key="item"
-        :href="`#${item.toLowerCase()}`"
+        :href="`#${toSectionId(item)}`"
         :class="['nav-link transition-colors', themeClasses.classes.linkNav()]"
-        @click.prevent="handleSmoothScroll($event, item.toLowerCase())"
+        @click.prevent="handleSmoothScroll($event, toSectionId(item))"
       >
         {{ item }}
       </a>
@@ -95,9 +95,9 @@
         <a
           v-for="item in navItems"
           :key="item"
-          :href="`#${item.toLowerCase()}`"
+          :href="`#${toSectionId(item)}`"
           :class="['text-xl py-2 nav-link transition-colors', themeClasses.classes.linkNav()]"
-          @click.prevent="handleSmoothScroll($event, item.toLowerCase())"
+          @click.prevent="handleSmoothScroll($event, toSectionId(item))"
         >
           {{ item }}
         </a>
@@ -157,7 +157,7 @@ const theme = inject('theme', {
 // Use theme classes utility
 const themeClasses = useThemeClasses();
 
-const navItems = ['Skills', 'Experience', 'Portfolio', 'Education', 'Contact'];
+const navItems = ['Case Studies', 'Experience', 'Skills', 'Portfolio', 'Contact'];
 const isMenuOpen = ref(false);
 const isResumeModalOpen = ref(false);
 
@@ -185,6 +185,8 @@ const toggleNightMode = () => {
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
+
+const toSectionId = (item) => item.toLowerCase().replace(/\s+/g, '-');
 
 const handleSmoothScroll = (e, targetId) => {
   e.preventDefault();

@@ -46,7 +46,7 @@ export function validateName(name, minLength = 2) {
  * @param {number} maxLength - Maximum length (default: 5000)
  * @returns {{valid: boolean, message: string}} Validation result
  */
-export function validateMessage(text, minLength = 2, maxLength = 5000) {
+export function validateMessage(text, minLength = 10, maxLength = 5000) {
   if (!text || text.trim() === '') {
     return { valid: false, message: 'Message is required' };
   }

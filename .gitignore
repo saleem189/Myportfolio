@@ -34,6 +34,8 @@ coverage
 .env.local
 .env.*.local
 
-# Info.js for my personal information
+# Keep the sanitized public portfolio content under version control.
+# Never commit private contact details or credentials.
+.info.local.js
 info.js
 .info.js

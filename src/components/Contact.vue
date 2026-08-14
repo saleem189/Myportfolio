@@ -37,7 +37,7 @@
             ),
           ]"
         >
-          ✈️ Available for remote opportunities
+          Available for remote opportunities
         </p>
 
         <!-- Contact Form (shown when showForm is true) -->

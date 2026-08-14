@@ -4,23 +4,23 @@ import info from '../../info';
 
 const updateMetaTags = () => {
   // Update title
-  document.title = `${info.name} - Portfolio | Full Stack Developer`;
+  document.title = `${info.name} | Full-Stack Laravel & Vue.js Engineer`;
 
   // Update meta tags
   const metaTags = {
     description:
-      'Full Stack Developer specializing in Laravel, Vue.js, and modern web technologies. View my portfolio of projects and professional experience.',
-    keywords: 'Full Stack Developer, Laravel, Vue.js, PHP, JavaScript, Web Development, Portfolio',
+      'Full-stack software engineer specializing in Laravel, PHP, Vue.js, backend APIs, and product systems.',
+    keywords: 'Full-Stack Software Engineer, Laravel, PHP, Vue.js, Backend APIs, Product Systems',
     author: info.name,
-    'og:title': `${info.name} - Portfolio | Full Stack Developer`,
+    'og:title': `${info.name} | Full-Stack Laravel & Vue.js Engineer`,
     'og:description':
-      'Full Stack Developer specializing in Laravel, Vue.js, and modern web technologies.',
+      'Full-stack software engineer specializing in Laravel, PHP, Vue.js, backend APIs, and product systems.',
     'og:type': 'website',
     'og:url': window.location.href,
     'twitter:card': 'summary_large_image',
     'twitter:title': `${info.name} - Portfolio | Full Stack Developer`,
     'twitter:description':
-      'Full Stack Developer specializing in Laravel, Vue.js, and modern web technologies.',
+      'Full-stack software engineer specializing in Laravel, PHP, Vue.js, backend APIs, and product systems.',
   };
 
   // Update or create meta tags
@@ -49,7 +49,7 @@ const updateMetaTags = () => {
     '@type': 'Person',
     name: info.name,
     url: window.location.href,
-    jobTitle: 'Full Stack Developer',
+    jobTitle: 'Full-Stack Software Engineer',
     knowsAbout: info.skills.flatMap((skill) => skill.info),
     sameAs: [info.links.linkedin, info.links.github],
   };

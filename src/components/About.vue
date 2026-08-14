@@ -41,7 +41,7 @@
             <span
               v-if="job.location"
               :class="['text-sm', themeClasses.classes.textMuted()]"
-            >📍 {{ job.location }}</span>
+            >Based in {{ job.location }}</span>
           </div>
         </div>
 
@@ -76,7 +76,7 @@
                   'font-bold text-xl leading-none',
                   themeClasses.themeClass('text-blue-500', 'text-blue-400'),
                 ]"
-              >→</span>
+              >•</span>
               <span class="leading-relaxed">{{ item }}</span>
             </li>
           </ul>

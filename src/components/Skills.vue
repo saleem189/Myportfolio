@@ -1,7 +1,7 @@
 <template>
   <Section
     id="skills"
-    title="My Toolbelt"
+    title="Engineering Focus"
   >
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       <StickyNote

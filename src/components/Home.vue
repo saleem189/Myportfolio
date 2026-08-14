@@ -12,7 +12,7 @@
           ),
         ]"
       >
-        Hello World! 👋
+        Open to remote opportunities
       </div>
 
       <h1
@@ -66,8 +66,8 @@
           ]"
         >optimized code.</span>
         Specializing in
-        <span :class="['font-semibold', themeClasses.classes.textMuted()]">Laravel, Vue.js, Node.js, React</span>
-        and modern cloud technologies. Currently based in
+        <span :class="['font-semibold', themeClasses.classes.textMuted()]">Laravel, PHP, Vue.js, APIs, and product systems</span>.
+        Based in
         <span :class="themeClasses.classes.textMuted()">{{ info.contact.location }}</span>.
       </p>
 
