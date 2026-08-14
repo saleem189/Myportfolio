@@ -69,7 +69,7 @@ const info = {
   links: {
     linkedin: "https://www.linkedin.com/in/muhammad-saleem-ayoub-20bb581b8/",
     github: "https://github.com/saleem189",
-    resume: "https://drive.google.com/file/d/1tWPmtZeEQsEclNiraaVezOCnE8SyxlOZ/view"
+    resume: "https://drive.google.com/file/d/1HhsVwisD8Q35YNInZ1zT_O-XVy5pQMge/view?usp=sharing"
   },
   contact: {
     email: "saleemayoub1@gmail.com",
