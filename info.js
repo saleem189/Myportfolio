@@ -10,6 +10,7 @@ import transproImage1 from './src/assets/portfolio/transpro-crm.png';
 import transproImage2 from './src/assets/portfolio/admin-subdomain.png';
 import transproImage3 from './src/assets/portfolio/tenant-subdomain.png';
 import transproImage4 from './src/assets/portfolio/redis-monitor.png';
+import socialDeskImage1 from './src/assets/portfolio/priceoye.png';
 
 const calculateExperience = (experiences) => {
   let totalMonths = 0;
@@ -223,64 +224,6 @@ const info = {
   // Curated featured case studies for the portfolio-first experience
   featuredExperiences: [
     {
-      id: 'fe-priceoye',
-      company: 'Priceoye Technology',
-      role: 'Senior Laravel Developer - Full-Stack Product Engineering',
-      period: 'Feb, 2024 - Present',
-      date: 'Feb, 2024 - Present',
-      summary: 'Full-stack product work across e-commerce workflows, administration systems, legacy modernization, and performance engineering.',
-      problem: 'E-commerce workflows and administration systems need to evolve while keeping the codebase maintainable, reusable, and responsive.',
-      approach: 'Modernize Laravel modules with object-oriented design and reusable abstractions, migrate selected frontend workflows from Blade to Vue.js, and improve data-processing and query efficiency.',
-      contributions: [
-        'Migrated Cart experience from Blade toward Vue.js with reusable components and Pinia state management',
-        'Solely owned the Delivery Charges Module and contributed to the approval and audit system',
-        'Optimized large JSON/object processing, SQL queries, caching, queues, and scheduled workflows',
-        'Contributed to Elasticsearch relevance and performance work, API documentation, and Docker environments'
-      ],
-      outcomes: ['More reusable frontend and backend building blocks for product development', 'Improved administrative traceability through approval and audit records', 'A clearer foundation for ongoing performance and legacy-modernization work'],
-      technologies: ['Laravel', 'PHP', 'Vue.js', 'Pinia', 'MySQL', 'Docker', 'Elasticsearch', 'OpenAPI/Swagger'],
-      images: [priceoyeImage],
-      visit: 'https://priceoye.pk/'
-    },
-  {
-    "id": "fe-sheenpay",
-    "company": "Priceoye Technology",
-    "parentCompany": "Priceoye Technology",
-    "role": "Full-Stack Engineer - BNPL Platform",
-    "period": "2024 - 2025",
-    "date": "2024 - 2025",
-    "summary": "Full-stack development and application planning for a BNPL platform serving web, Android, and external application integrations.",
-    "problem": "The platform needed configurable customer flows, dependable payment and installment operations, integration-ready APIs, and administration-managed communications without hardcoded frontend structures.",
-    "approach": "Participated in research, application planning, architecture, and implementation planning before development. Designed backend-defined form configuration that the frontend renders dynamically; supported integration-ready APIs, idempotent payment workflows, administration systems, and provider abstraction.",
-    "contributions": [
-      "Participated in research, application planning, architecture, and implementation planning before and during development",
-      "Solely owned frontend development, including configuration-driven multi-step forms rendered from backend-managed field names, field types, steps, and ordering",
-      "Solely owned the Email Module: WYSIWYG editing, live HTML preview, template testing, and AWS SES/SendGrid provider switching",
-      "Contributed to APIs for web, Android, and external consumers, plus payment/installment idempotency, payment gateway integrations, architecture, and documentation",
-      "Contributed to administration systems and external API capabilities for integrations with other applications"
-    ],
-    "outcomes": [
-      "Admin-configurable form workflows without hardcoded frontend structures",
-      "A provider-agnostic, administration-managed email capability",
-      "Integration-ready API and payment-workflow foundations for the platform",
-      "Planning and architecture involvement from research through implementation"
-    ],
-    "technologies": [
-      "Laravel",
-      "PHP",
-      "Vue.js",
-      "MySQL",
-      "REST APIs",
-      "Queues",
-      "AWS SES",
-      "SendGrid"
-    ],
-    "images": [
-      sheenpayImage1
-    ],
-    "visit": "https://sheenpay.pk/"
-  },
-    {
       id: 'fe-echo',
       company: 'Priceoye Technology',
       parentCompany: 'Priceoye Technology',
@@ -299,6 +242,81 @@ const info = {
       technologies: ['Laravel', 'PHP', 'Vue.js', 'PostgreSQL', 'Redis', 'Queues', 'REST APIs'],
       images: [],
       visit: ''
+    },
+    {
+      id: 'fe-socialdesk',
+      company: 'Priceoye Technology',
+      parentCompany: 'Priceoye Technology',
+      role: 'Full-Stack Engineer - AI & RAG',
+      period: '2025 - 2026',
+      date: '2025 - 2026',
+      summary: 'AI-powered social engagement platform for automated comment and inbox interactions across social media channels.',
+      problem: 'The platform needed reliable AI-powered responses, relevant knowledge retrieval, scalable social media integrations, and dependable background processing for customer interactions.',
+      approach: 'Improved the AI retrieval and response architecture through RAG pipelines, intent-aware knowledge retrieval, ranking and confidence scoring, optimized embeddings, centralized reply generation, and stronger platform reliability.',
+      contributions: [
+        'Designed and implemented Retrieval-Augmented Generation (RAG) pipeline architecture for AI knowledge retrieval',
+        'Improved Knowledge Base architecture with intent-aware matching, ranking, filtering, confidence scoring, chunk metadata, embeddings, caching, and knowledge-gap management',
+        'Centralized AI reply generation workflows and optimized embedding generation and token consumption',
+        'Improved Facebook and Instagram integrations, including post retrieval, media handling, token expiry management, authorization workflows, and foundations for Direct Message support',
+        'Improved queue reliability with retry/backoff handling, duplicate-comment protection, memory optimization, logging, monitoring, and background job improvements',
+        'Enhanced Inbox workflows and Bot Test Console diagnostics for confidence scoring, token consumption, Knowledge Base selection, prompt debugging, and channel diagnostics',
+        'Contributed to Docker, Nginx, and Supervisor configuration for deployment and environment consistency'
+      ],
+      outcomes: [
+        'Established a scalable foundation for AI-powered customer engagement and automated response workflows',
+        'Improved Knowledge Base retrieval, AI diagnostics, and response-generation architecture',
+        'Strengthened platform reliability, observability, and social media integration workflows'
+      ],
+      technologies: ['Laravel', 'PHP', 'RAG', 'Embeddings', 'Knowledge Base', 'Facebook', 'Instagram', 'REST APIs', 'Queues', 'Docker', 'Nginx', 'Supervisor'],
+      images: [socialDeskImage1],
+      visit: ''
+    },
+    {
+      id: 'fe-sheenpay',
+      company: 'Priceoye Technology',
+      parentCompany: 'Priceoye Technology',
+      role: 'Full-Stack Engineer - BNPL Platform',
+      period: '2024 - 2025',
+      date: '2024 - 2025',
+      summary: 'Full-stack development and application planning for a BNPL platform serving web, Android, and external application integrations.',
+      problem: 'The platform needed configurable customer flows, dependable payment and installment operations, integration-ready APIs, and administration-managed communications without hardcoded frontend structures.',
+      approach: 'Participated in research, application planning, architecture, and implementation planning before development. Designed backend-defined form configuration that the frontend renders dynamically; supported integration-ready APIs, idempotent payment workflows, administration systems, and provider abstraction.',
+      contributions: [
+        'Participated in research, application planning, architecture, and implementation planning before and during development',
+        'Solely owned frontend development, including configuration-driven multi-step forms rendered from backend-managed field names, field types, steps, and ordering',
+        'Solely owned the Email Module: WYSIWYG editing, live HTML preview, template testing, and AWS SES/SendGrid provider switching',
+        'Contributed to APIs for web, Android, and external consumers, plus payment/installment idempotency, payment gateway integrations, architecture, and documentation',
+        'Contributed to administration systems and external API capabilities for integrations with other applications'
+      ],
+      outcomes: [
+        'Admin-configurable form workflows without hardcoded frontend structures',
+        'A provider-agnostic, administration-managed email capability',
+        'Integration-ready API and payment-workflow foundations for the platform',
+        'Planning and architecture involvement from research through implementation'
+      ],
+      technologies: ['Laravel', 'PHP', 'Vue.js', 'MySQL', 'REST APIs', 'Queues', 'AWS SES', 'SendGrid'],
+      images: [sheenpayImage1],
+      visit: 'https://sheenpay.pk/'
+    },
+    {
+      id: 'fe-priceoye',
+      company: 'Priceoye Technology',
+      role: 'Senior Laravel Developer - Full-Stack Product Engineering',
+      period: 'Feb, 2024 - Present',
+      date: 'Feb, 2024 - Present',
+      summary: 'Full-stack product work across e-commerce workflows, administration systems, legacy modernization, and performance engineering.',
+      problem: 'E-commerce workflows and administration systems need to evolve while keeping the codebase maintainable, reusable, and responsive.',
+      approach: 'Modernize Laravel modules with object-oriented design and reusable abstractions, migrate selected frontend workflows from Blade to Vue.js, and improve data-processing and query efficiency.',
+      contributions: [
+        'Migrated Cart experience from Blade toward Vue.js with reusable components and Pinia state management',
+        'Solely owned the Delivery Charges Module and contributed to the approval and audit system',
+        'Optimized large JSON/object processing, SQL queries, caching, queues, and scheduled workflows',
+        'Contributed to Elasticsearch relevance and performance work, API documentation, and Docker environments'
+      ],
+      outcomes: ['More reusable frontend and backend building blocks for product development', 'Improved administrative traceability through approval and audit records', 'A clearer foundation for ongoing performance and legacy-modernization work'],
+      technologies: ['Laravel', 'PHP', 'Vue.js', 'Pinia', 'MySQL', 'Docker', 'Elasticsearch', 'OpenAPI/Swagger'],
+      images: [priceoyeImage],
+      visit: 'https://priceoye.pk/'
     }
   ],
   skills: [
@@ -400,30 +418,36 @@ const info = {
   ],
   portfolio: [
     {
-      id: 1,
-      name: "TransPro Alliance CRM",
-      title: "TransPro Alliance CRM",
-      pictures: [
-        {
-          img: transproImage1
-        },
-        {
-          img: transproImage2
-        },
-        {
-          img: transproImage3
-        },
-        {
-          img: transproImage4
-        }
-        //we can multiple picture here
-      ],
-      technologies: ["PHP", "Laravel", "MySQL", "Redis", "Multi-Tenant Architecture", "Tenant-Aware Middleware", "Database-per-Tenant Architecture", "Database Sharding", "CQRS (Command Query Responsibility Segregation)", "Domain Driven Design (DDD)", "Spatie Multi-tenancy", "Subdomain Routing", "React.js", "Inertia.js", "RESTful APIs", "Design Patterns", "SOLID Principles", "OOP", "Factory Pattern", "Repository Pattern", "Service Pattern", "Dependency Injection", "Task Scheduling", "Queues", "API Documentation (Swagger)", "Application Design", "Application Architecture", "Blade Templates", "Authentication", "Authorization", "Database Optimization", "Performance Optimization", "DevOps", "Server Configuration", "Deployment Pipelines", "Production Monitoring", "Maintenance", "CI/CD"],
-      category: "Multi-tenant CRM & Business Management",
+      id: 7,
+      name: "Echo",
+      title: "Echo — Customer Engagement Platform",
+      parentCompany: 'Priceoye Technology',
+      pictures: [],
+      technologies: ["Laravel", "PHP", "PostgreSQL", "Redis", "Queues", "Event-driven Architecture", "API Design", "Elasticsearch"],
+      category: "Customer Engagement / Internal Platform",
       date: "",
       github: "",
-      visit: "https://crm.transproalliance.com/",
-      description: "Led the complete development lifecycle of a comprehensive multi-tenant CRM system for TransPro Alliance, from initial architecture design to production deployment and ongoing maintenance. Implemented advanced multi-tenant architecture using Spatie Multi-tenancy package with database-per-tenant isolation and database sharding for optimal performance and security. Built the frontend using React.js with Inertia.js for seamless server-side rendering and client-side interactivity. Applied CQRS (Command Query Responsibility Segregation) and Domain Driven Design (DDD) patterns for clean architecture and maintainable codebase. Implemented tenant-aware middleware and subdomain routing to ensure proper tenant isolation and seamless user experience. Developed advanced CRM features including customer management, lead tracking, sales pipeline, reporting dashboards, and automated workflows. Integrated Redis for high-performance cache management and queue processing to handle background tasks and improve application responsiveness. Handled complete DevOps responsibilities including server configuration, deployment pipelines, monitoring, and performance optimization. Utilized Laravel's service container and dependency injection for scalable application architecture. Applied SOLID principles, Repository and Service patterns for maintainable code architecture. Optimized database queries and implemented Redis-based caching strategies for enhanced performance across multiple tenant environments. Managed production environment, implemented monitoring solutions, and provided ongoing maintenance and feature enhancements."
+      visit: "",
+      description:
+        "Echo is an internal customer-engagement platform in ongoing development for PriceOye and SheenPay. I contribute across research, application planning, system architecture, technical documentation, frontend, backend, APIs, and core customer-engagement capabilities. Production outcomes and internal architecture details are not published here."
+    },
+    {
+      id: 8,
+      name: "Social Desk",
+      title: "Social Desk",
+      parentCompany: 'Priceoye Technology',
+      pictures: [
+        {
+          img: socialDeskImage1
+        }
+      ],
+      technologies: ["Laravel", "PHP", "RAG", "Embeddings", "Knowledge Base", "Facebook", "Instagram", "REST APIs", "Queues", "Docker", "Nginx", "Supervisor"],
+      category: "AI / Social Engagement",
+      date: "2024 - 2025",
+      github: "",
+      visit: "",
+      description:
+        "Social Desk is an AI-powered social customer-engagement platform focused on automated comments and inbox workflows across social media channels. I improved the retrieval and reply architecture with RAG, intent-aware knowledge matching, ranking and confidence scoring, optimized embeddings, centralized reply generation, and stronger reliability across integrations and background processing."
     },
     {
       id: 2,
@@ -471,6 +495,53 @@ const info = {
         "PriceOye is an e-commerce platform for mobile phones and electronics. My full-stack work spans Laravel/PHP backend, Vue.js and Blade frontend, administration systems, Cart modernization with Pinia, SQL and payload optimization, queues, caching, APIs, Elasticsearch, and third-party logistics integrations. I solely owned the Delivery Charges Module and contributed to the administration-side approval and audit system."
     },
     {
+      id: 1,
+      name: "TransPro Alliance CRM",
+      title: "TransPro Alliance CRM",
+      pictures: [
+        {
+          img: transproImage1
+        },
+        {
+          img: transproImage2
+        },
+        {
+          img: transproImage3
+        },
+        {
+          img: transproImage4
+        }
+        //we can multiple picture here
+      ],
+      technologies: ["PHP", "Laravel", "MySQL", "Redis", "Multi-Tenant Architecture", "Tenant-Aware Middleware", "Database-per-Tenant Architecture", "Database Sharding", "CQRS (Command Query Responsibility Segregation)", "Domain Driven Design (DDD)", "Spatie Multi-tenancy", "Subdomain Routing", "React.js", "Inertia.js", "RESTful APIs", "Design Patterns", "SOLID Principles", "OOP", "Factory Pattern", "Repository Pattern", "Service Pattern", "Dependency Injection", "Task Scheduling", "Queues", "API Documentation (Swagger)", "Application Design", "Application Architecture", "Blade Templates", "Authentication", "Authorization", "Database Optimization", "Performance Optimization", "DevOps", "Server Configuration", "Deployment Pipelines", "Production Monitoring", "Maintenance", "CI/CD"],
+      category: "Multi-tenant CRM & Business Management",
+      date: "",
+      github: "",
+      visit: "https://crm.transproalliance.com/",
+      description: "Led the complete development lifecycle of a comprehensive multi-tenant CRM system for TransPro Alliance, from initial architecture design to production deployment and ongoing maintenance. Implemented advanced multi-tenant architecture using Spatie Multi-tenancy package with database-per-tenant isolation and database sharding for optimal performance and security. Built the frontend using React.js with Inertia.js for seamless server-side rendering and client-side interactivity. Applied CQRS (Command Query Responsibility Segregation) and Domain Driven Design (DDD) patterns for clean architecture and maintainable codebase. Implemented tenant-aware middleware and subdomain routing to ensure proper tenant isolation and seamless user experience. Developed advanced CRM features including customer management, lead tracking, sales pipeline, reporting dashboards, and automated workflows. Integrated Redis for high-performance cache management and queue processing to handle background tasks and improve application responsiveness. Handled complete DevOps responsibilities including server configuration, deployment pipelines, monitoring, and performance optimization. Utilized Laravel's service container and dependency injection for scalable application architecture. Applied SOLID principles, Repository and Service patterns for maintainable code architecture. Optimized database queries and implemented Redis-based caching strategies for enhanced performance across multiple tenant environments. Managed production environment, implemented monitoring solutions, and provided ongoing maintenance and feature enhancements."
+    },
+    {
+      id: 6,
+      name: "Data Transfer Object",
+      title: "DTO Package",
+      pictures: [
+        {
+          img: libraryImage1
+        },
+        {
+          img: libraryImage2
+        }
+        //we can multiple picture here
+      ],
+      technologies: ["PHP", "Laravel", "SOLID Principles", "OOP", "Factory Pattern"],
+      category: "Package",
+      date: "",
+      github: "https://github.com/saleem189/data-transfer-object",
+      visit: "https://github.com/saleem189/data-transfer-object",
+      description:
+        "This package facilitates handling Data Transfer Objects. It allows easy access to individual properties and conversion to JSON or Arrays."
+    },
+    {
       id: 4,
       name: "IQ Pages",
       title: "IQ Pages",
@@ -509,43 +580,6 @@ const info = {
       visit: "https://www.breaker19.app/",
       description:
         "I was involved in building the Breaked19 Carrier Portal, essentially like an Uber for Oilfield Hotshot & Trucking. My role primarily focused on developing RESTful APIs and backend functionalities. Additionally, I was responsible for crafting the carrier portal website using Vue.js."
-    },
-
-    {
-      id: 7,
-      name: "Echo",
-      title: "Echo — Customer Engagement Platform",
-      parentCompany: 'Priceoye Technology',
-      pictures: [],
-      technologies: ["Laravel", "PHP", "PostgreSQL", "Redis", "Queues", "Event-driven Architecture", "API Design", "Elasticsearch"],
-      category: "Customer Engagement / Internal Platform",
-      date: "",
-      github: "",
-      visit: "",
-      description:
-        "Echo is an internal customer-engagement platform in ongoing development for PriceOye and SheenPay. I contribute across research, application planning, system architecture, technical documentation, frontend, backend, APIs, and core customer-engagement capabilities. Production outcomes and internal architecture details are not published here."
-    },
-
-    {
-      id: 6,
-      name: "Data Transfer Object",
-      title: "DTO Package",
-      pictures: [
-        {
-          img: libraryImage1
-        },
-        {
-          img: libraryImage2
-        }
-        //we can multiple picture here
-      ],
-      technologies: ["PHP", "Laravel", "SOLID Principles", "OOP", "Factory Pattern"],
-      category: "Package",
-      date: "",
-      github: "https://github.com/saleem189/data-transfer-object",
-      visit: "https://github.com/saleem189/data-transfer-object",
-      description:
-        "This package facilitates handling Data Transfer Objects. It allows easy access to individual properties and conversion to JSON or Arrays."
     }
     // can add more Projects here
   ],
