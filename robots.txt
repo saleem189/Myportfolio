@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Sitemap location
-Sitemap: https://saleem189.github.io/Myportfolio/sitemap.xml
